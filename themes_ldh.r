@@ -23,6 +23,11 @@ library(lubridate)
 
 # Plotting / viz functions
 library(ggplot2) # Incredibly powerful plotting library built off of the "Grammer of Graphics"
+library(ggvis)
+library(htmltools)
+library(htmlwidgets)
+library(metricsgraphics)
+library(rCharts)
 
 # Libraries to help import files
 library(haven) # Imports in files from Stata, SAS, and SPSS
