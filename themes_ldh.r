@@ -28,11 +28,13 @@ library(htmltools)
 library(htmlwidgets)
 library(metricsgraphics)
 library(rCharts)
+library(plotly)
 
 # Libraries to help import files
 library(haven) # Imports in files from Stata, SAS, and SPSS
 library(readr) # An advanced form of the base 'read.csv' file with some added functionality.
-library(readxl) # Function to import in multiple sheets from Excel
+library(readxl) # Functions to import in multiple sheets from Excel
+library(googlesheets) # Functions to connect to Google Drive spreadsheets.
 
 library(knitr) # Helper function to produce this RMarkdown document.
 
