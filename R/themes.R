@@ -2,9 +2,13 @@
 #' 
 #' This function can be tacked onto a ggplot object to specify a new theme with the x and y axis labeled.
 #' @export
-#' 
+#' @examples
+#' ggplot(mtcars, aes(x = mpg, y = cyl)) + geom_point() + theme_xylab()
 
 theme_xylab<- function() {
+  grey60K = 'grey'
+  grey90K = 'grey'
+  
   theme_bw() +
     theme(
       text = element_text(family = 'Segoe UI Light', colour = grey60K),
