@@ -32,12 +32,16 @@ library(metricsgraphics)
 library(rCharts)
 library(plotly)
 
+library(ggmap) # geocoding and geospatial library
+
 # Libraries to help import files
 library(haven) # Imports in files from Stata, SAS, and SPSS
 library(readr) # An advanced form of the base 'read.csv' file with some added functionality.
 library(readxl) # Functions to import in multiple sheets from Excel
 library(googlesheets) # Functions to connect to Google Drive spreadsheets.
 library(rvest) # Scrapes websites
+
+
 
 
 library(knitr) # Helper function to produce this RMarkdown document.
