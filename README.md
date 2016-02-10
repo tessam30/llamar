@@ -15,8 +15,14 @@ The primary function of llamar is developing a set of custom, pre-defined clean 
 
 All examples use the inbuilt mtcars dataset:
 
-`p = ggplot(mtcars, aes(x = mpg, y = wt, colour = cyl)) + geom_point()`
+`p = ggplot(mtcars, aes(x = mpg, y = wt, colour = cyl)) + geom_point() + ggtitle('title')`
 
+### themes with gridlines
 #### theme_xylab
 `p + theme_xylab()`
 ![theme_xylab](/img/xylab.png)
+
+### themes without gridlines
+#### theme_blank
+`p + theme_blank()`
+![theme_blank](/img/blank.png)
