@@ -19,4 +19,4 @@ All examples use the inbuilt mtcars dataset:
 
 #### theme_xylab
 `p + theme_xylab()`
-![theme_xylab](\img\xylab.png)
+![theme_xylab](/img/xylab.png)
