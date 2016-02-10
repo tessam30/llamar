@@ -2,10 +2,10 @@
 A set of custom reusable plotting functions in R
 
 ## installation
-install.packages("devtools")
+`install.packages("devtools")`
 
-library(devtools)
+`library(devtools)`
 
-devtools::install_github("flaneuse/llamar")
+`devtools::install_github("flaneuse/llamar")`
 
-library(llamar)
+`library(llamar)`
