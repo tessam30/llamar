@@ -13,46 +13,46 @@
 \alias{themes}
 \title{Customized ggplot themes}
 \usage{
-theme_xylab()
+theme_basic()
+
+theme_xygrid()
+
+theme_xgrid()
+
+theme_ygrid()
+
+theme_blank()
 
 theme_xaxis()
 
 theme_yaxis()
 
-theme_xygrid()
-
-theme_basic()
-
-theme_blank()
+theme_xylab()
 
 theme_labelsOnly()
-
-theme_xgrid()
-
-theme_ygrid()
 }
 \description{
 Customized ggplot themes
 }
 \section{Functions}{
 \itemize{
-\item \code{theme_xylab}: Theme with x and y axis labels
-
-\item \code{theme_xaxis}: Theme with x labels, x title, and x-axis line
-
-\item \code{theme_yaxis}: Theme with y labels, titles, and y-axis line
-
-\item \code{theme_xygrid}: Theme with x and y labels, titles, and gridlines
-
 \item \code{theme_basic}: Theme with axis labels, titles, grid lines, axes, and legend.
 
-\item \code{theme_blank}: completely blank theme; similar to theme_void but without legend or margins.
-
-\item \code{theme_labelsOnly}: Theme with only x and y labels; no axes, axis titles, or legends
+\item \code{theme_xygrid}: Theme with x and y labels, titles, and gridlines
 
 \item \code{theme_xgrid}: Theme with light x-grid lines, x and y axis labels, and x-axis title.
 
 \item \code{theme_ygrid}: Theme with light y-grid lines, x and y axis labels, and y-axis title.
+
+\item \code{theme_blank}: completely blank theme; similar to theme_void but without legend or margins.
+
+\item \code{theme_xaxis}: Theme with x labels, x title, and x-axis line; no gridlines
+
+\item \code{theme_yaxis}: Theme with y labels, titles, and y-axis line; no gridlines
+
+\item \code{theme_xylab}: Theme with x and y axis labels; no gridlines.
+
+\item \code{theme_labelsOnly}: Theme with only x and y labels; no axes, axis titles, gridlines, or legends
 }}
 \examples{
 ggplot(mtcars, aes(x = mpg, y = wt, colour = cyl)) + geom_point() + theme_xylab()

@@ -2,5 +2,5 @@
 
 export(loadPkgs)
 export(multiplot)
+export(theme_basic)
 export(theme_xaxis)
-export(theme_xylab)
