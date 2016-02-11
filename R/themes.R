@@ -9,6 +9,7 @@ NULL
 #' 
 
 #' @describeIn  themes Theme with axis labels, titles, grid lines, axes, and legend.
+#' @export
 theme_basic <- function() {
   theme_bw() +
     theme(
@@ -35,6 +36,7 @@ theme_basic <- function() {
 }
 
 #' @describeIn  themes Theme with x and y labels, titles, and gridlines
+#' @export
 theme_xygrid<- function() {
   theme_bw() +
     theme(
@@ -58,6 +60,7 @@ theme_xygrid<- function() {
 
 
 #' @describeIn  themes Theme with light x-grid lines, x and y axis labels, and x-axis title.
+#' @export
 theme_xgrid<- function() {
   theme(title = element_text(size = 16, color = grey90K, 
                              family = 'Segoe UI'),
@@ -85,6 +88,7 @@ theme_xgrid<- function() {
 
 
 #' @describeIn  themes Theme with light y-grid lines, x and y axis labels, and y-axis title.
+#' @export
 theme_ygrid<- function() {
   theme(title = element_text(size = 16, color = grey90K, 
                              family = 'Segoe UI'),
@@ -114,6 +118,7 @@ theme_ygrid<- function() {
 
 
 #' @describeIn  themes completely blank theme; similar to theme_void but without legend or margins.
+#' @export
 theme_blank <- function() {
   theme(
     title = element_blank(),
@@ -156,6 +161,7 @@ theme_xaxis <- function() {
 }
 
 #' @describeIn  themes Theme with y labels, titles, and y-axis line; no gridlines
+#' @export
 theme_yaxis <- function() {
   theme_bw() +
     theme(
@@ -180,6 +186,7 @@ theme_yaxis <- function() {
 }
 
 #' @describeIn themes Theme with x and y axis labels; no gridlines.
+#' @export
 theme_xylab<- function() {
   theme_bw() +
     theme(
@@ -201,6 +208,7 @@ theme_xylab<- function() {
 }
 
 #' @describeIn  themes Theme with only x and y labels; no axes, axis titles, gridlines, or legends
+#' @export
 theme_labelsOnly <- function() {
   theme(
     title =  element_text(size = 16, hjust = 0, color = grey90K,
