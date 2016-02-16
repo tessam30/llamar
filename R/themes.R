@@ -134,6 +134,23 @@ theme_blank <- function() {
   )
 }
 
+#' @describeIn  themes completely blank theme; similar to theme_void but without legend or margins.
+#' @export
+theme_legend <- function() {
+  theme(
+    title = element_text(size = 15, family = "Segoe UI", hjust = 0, color = grey90K),
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.ticks.length = unit(0, units = 'points'),
+    panel.border = element_blank(),
+    panel.grid = element_blank(),
+    panel.background = element_blank(), 
+    plot.background = element_blank(), 
+    legend.text = element_text(size = 12, family = "Segoe UI Light", hjust = 0, color = grey60K)
+  )
+}
+
 #' @describeIn  themes Theme with x labels, x title, and x-axis line; no gridlines
 #' @export
 theme_xaxis <- function() {

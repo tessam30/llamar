@@ -4,6 +4,7 @@
 \alias{theme_basic}
 \alias{theme_blank}
 \alias{theme_labelsOnly}
+\alias{theme_legend}
 \alias{theme_xaxis}
 \alias{theme_xgrid}
 \alias{theme_xygrid}
@@ -22,6 +23,8 @@ theme_xgrid()
 theme_ygrid()
 
 theme_blank()
+
+theme_legend()
 
 theme_xaxis()
 
@@ -45,6 +48,8 @@ Customized ggplot themes
 \item \code{theme_ygrid}: Theme with light y-grid lines, x and y axis labels, and y-axis title.
 
 \item \code{theme_blank}: completely blank theme; similar to theme_void but without legend or margins.
+
+\item \code{theme_legend}: completely blank theme; similar to theme_void but without legend or margins.
 
 \item \code{theme_xaxis}: Theme with x labels, x title, and x-axis line; no gridlines
 
