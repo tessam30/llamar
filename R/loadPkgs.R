@@ -57,7 +57,7 @@ loadPkgs <- function(pkgGrp = 'all', quiet = FALSE) {
   # Pick which packages to load ---------------------------------------------
   
   if (pkgGrp == 'all'){
-    pkgs =  c(wrangling, plotting, pub, importing, devPkgs, fitting)
+    pkgs =  c(fitting, wrangling, plotting, pub, importing, devPkgs)
   }
   
   
