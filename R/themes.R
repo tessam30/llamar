@@ -105,7 +105,7 @@ theme_ygrid<- function() {
         legend.position="none",
         panel.background = element_blank(),
         panel.grid.minor.y = element_blank(),
-        panel.grid.major.y = element_line(size = 0.2, colour = grey80K),
+        panel.grid.major.y = element_line(size = 0.1, colour = grey80K),
         panel.grid.minor.x = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.border = element_blank(),
