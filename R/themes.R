@@ -44,7 +44,7 @@ theme_xygrid<- function() {
       plot.title = element_text(hjust = 0),
       rect = element_blank(),
       plot.background = element_blank(),
-      axis.text = element_text(size = 12,  color = grey60K),
+      axis.text = element_text(size = 12,  color = grey80K),
       title =  element_text(size = 15, family = "Segoe UI", hjust = 0, color = grey90K),
       axis.title =  element_text(size = 14, family = "Segoe UI Semilight", color = grey80K, hjust = 0.5, vjust = -0.25),
       strip.text = element_text(size=14, face = 'bold', hjust = 0.05, vjust = -2.5, color = grey70K),
