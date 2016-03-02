@@ -40,7 +40,7 @@ theme_basic <- function() {
 theme_xygrid<- function() {
   theme_bw() +
     theme(
-      text = element_text(family = 'Segoe UI Light', colour = grey60K),
+      text = element_text(family = 'Segoe UI Light', colour = grey80K),
       plot.title = element_text(hjust = 0),
       rect = element_blank(),
       plot.background = element_blank(),
