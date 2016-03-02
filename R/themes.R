@@ -41,20 +41,21 @@ theme_xygrid<- function() {
   theme_bw() +
     theme(
       text = element_text(family = 'Segoe UI Light', colour = grey60K),
+      plot.title = element_text(hjust = 0),
       rect = element_blank(),
       plot.background = element_blank(),
       axis.text = element_text(size = 12,  color = grey60K),
       title =  element_text(size = 15, family = "Segoe UI", hjust = 0, color = grey90K),
-      axis.title =  element_text(size = 14, family = "Segoe UI Semilight", color = grey60K, hjust = 0.5, vjust = -0.25),
-      strip.text = element_text(size=14, face = 'bold', hjust = 0.05, vjust = -2.5, color = '#4D525A'),
+      axis.title =  element_text(size = 14, family = "Segoe UI Semilight", color = grey80K, hjust = 0.5, vjust = -0.25),
+      strip.text = element_text(size=14, face = 'bold', hjust = 0.05, vjust = -2.5, color = grey70K),
       legend.position = 'none',
       strip.background = element_blank(),
       axis.ticks = element_blank(),
       panel.margin = unit(3, 'lines'),
-      panel.grid.major.y = element_line(size = 0.2, color = grey30K),
+      panel.grid.major.y = element_line(size = 0.2, color = grey80K),
       panel.grid.minor.y = element_blank(),
       panel.grid.minor.x = element_blank(),
-      panel.grid.major.x = element_line(size = 0.1, color = grey30K))
+      panel.grid.major.x = element_line(size = 0.2, color = grey80K))
 }
 
 
@@ -92,18 +93,19 @@ theme_xgrid<- function() {
 theme_ygrid<- function() {
   theme(title = element_text(size = 16, color = grey90K, 
                              family = 'Segoe UI'),
+        plot.title = element_text(hjust = 0),
         axis.line = element_blank(),
         axis.ticks.x = element_blank(),
-        axis.text.x = element_text(size = 16, color = grey60K, family = 'Segoe UI Light'),
-        axis.title.y = element_text(size = 18, color = grey60K, family = 'Segoe UI Semilight'),
-        axis.text.y = element_text(size = 16, color = grey60K, family = 'Segoe UI Light'),
+        axis.text.x = element_text(size = 16, color = grey80K, family = 'Segoe UI Light'),
+        axis.title.y = element_text(size = 18, color = grey80K, family = 'Segoe UI Semilight'),
+        axis.text.y = element_text(size = 16, color = grey80K, family = 'Segoe UI Light'),
         axis.title.x = element_blank(), 
         axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         legend.position="none",
         panel.background = element_blank(),
         panel.grid.minor.y = element_blank(),
-        panel.grid.major.y = element_line(size = 0.1, colour = grey60K),
+        panel.grid.major.y = element_line(size = 0.2, colour = grey80K),
         panel.grid.minor.x = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.border = element_blank(),

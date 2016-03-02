@@ -31,7 +31,8 @@ loadPkgs <- function(pkgGrp = 'all', quiet = FALSE) {
   # ggmpap: geocoding and geospatial library
   
   # -- publication / appearance / plotting support --
-  pub = c('animation', 'gridExtra', 'grid', 'knitr', 'RColorBrewer', 'extrafont')
+  pub = c('animation', 'gridExtra', 'grid', 'knitr', 
+          'colorspace', 'RColorBrewer', 'extrafont')
   # knitr: Helper function to produce RMarkdown documents.
   
   
