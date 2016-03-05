@@ -37,12 +37,14 @@ loadPkgs <- function(pkgGrp = 'all', quiet = FALSE) {
   
   
   # -- Libraries to help import files --
-  importing = c('haven', 'readr', 'readxl', 'googlesheets', 'rvest', 'foreign')
+  importing = c('haven', 'readr', 'readxl', 'googlesheets', 
+                'rvest', 'foreign', 'pdftools')
   # haven: Imports in files from Stata, SAS, and SPSS
   # readr: An advanced form of the base 'read.csv' file with some added functionality.
   # readxl: Functions to import in multiple sheets from Excel
   # googlesheets: Functions to connect to Google Drive spreadsheets.
   # rvest: Scrapes websites
+  # pdftools: Scrapes pdf files
   
   # -- Developer libraries --
   devPkgs = c('roxygen2', 'testthat', 'jsonlite', 'microbenchmark',
