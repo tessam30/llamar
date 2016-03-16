@@ -10,6 +10,11 @@ A set of custom reusable plotting functions in R
 
 `library(llamar)`
 
+## installing and loading useful R packages
+R has some wonderful packages that extend the functionality of base R. However, I get tired of loading the same libraries every time... so I created a bundler to do the work for me.
+`library(llamar)`
+`loadPkgs()`
+
 ## themes
 The primary function of llamar is developing a set of custom, pre-defined clean themes, building off Hadley Wickham's awesome [ggplot2](ggplot2.org) package.
 
