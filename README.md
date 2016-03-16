@@ -11,7 +11,8 @@ A set of custom reusable plotting functions in R
 `library(llamar)`
 
 ## installing and loading useful R packages
-R has some wonderful packages that extend the functionality of base R. However, I get tired of loading the same libraries every time... so I created a bundler to do the work for me.
+R has some wonderful packages that extend the functionality of base R. However, I get tired of loading the same libraries every time... so I created a bundler to do the work for me. To use, load `llamar` and call `loadPkgs`
+
 `library(llamar)`
 `loadPkgs()`
 
