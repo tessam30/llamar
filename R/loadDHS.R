@@ -1,0 +1,48 @@
+#' Access Demographic & Health Surveys Data
+#' 
+#' Accesses information from the Demographic and Health Surveys, via their API.
+#'
+#' Information is the same as from the DHS StatCompiler
+#' Documentation code for DHS API: \link{http://api.dhsprogram.com/#/index.html}
+#' Filter options: \link{http://api.dhsprogram.com/#/api-data.cfm}
+#' Indicator codes: \link{http://api.dhsprogram.com/rest/dhs/indicators?returnFields=IndicatorId,Label,Definition&f=html}
+#' @param breakdown one of 'national', 'subnational', 'background', or 'all'
+#' @param indicators: list of DHS indicator codes as a string separated by commas *NO SPACES between*, e.g. 'CN_NUTS_C_WH2,CN_NUTS_C_HA2,ED_EDUC_W_SEP'
+#' @param countries: list of DHS country names as a string separated by commas with *NO SPACES between*, e.g. 'SN,SL,TG'
+#' @param years: list of survey years to include as a string separated by commas, e.g. '2010,2012,2014'
+#' @param apiKey: API Key to include, to be able to obtain 5000 records instead of 1000.
+#' @param numResults: number of records to include
+#' @export
+#' @examples
+#' ggplot(mtcars, aes(x = mpg, y = wt, colour = cyl)) + geom_point() + theme_xAxis()
+#' 
+#' 
+
+loadDHS = function(breakdown = 'national',
+                   indicators, 
+                   countries,
+                   years = paste0(seq(1984,2016), collapse = ','),
+                   apiKey,
+                   numResults = 1000
+                   ) {
+  
+  library('dplyr')
+  library('RJSONIO')
+  
+  json_file = fromJSON(paste0('http://api.dhsprogram.com/rest/dhs/data?breakdown=', breakdown,
+                               'national&indicatorIds=',indicators, 
+                               '&countryIds=', countries, 
+                               '&SurveyYear=', years,
+                               '&apiKey=', apiKey,
+                               '&perpage=', numResults))
+  
+  # Unlist the JSON file entries
+  json_data = lapply(json_file$Data, function(x) { unlist(x) })
+  
+  # Convert JSON input to a data frame
+  df = as.data.frame(do.call("rbind", json_data),stringsAsFactors=FALSE)
+  
+  # Convert values to numbers.
+  df = df %>% 
+    mutate(val = as.numeric(Value))
+}
