@@ -42,7 +42,17 @@ loadDHS = function(breakdown = 'national',
   # Convert JSON input to a data frame
   df = as.data.frame(do.call("rbind", json_data),stringsAsFactors=FALSE)
   
+  #If APIKey, numResults == 5000
+  
+  # Check that everything are numbers.
+  # grepl("^[[:digit:]]",y$Indicator)
+  
   # Convert values to numbers.
   df = df %>% 
-    mutate(val = as.numeric(Value))
+    mutate(Value = as.numeric(Value),
+           Precision = as.numeric(Precision),
+           SurveyYear = as.numeric(SurveyYear),
+           IsTotal = as.numeric(IsTotal),
+           CILow = as.numeric(CILow),
+           CIHigh = as.numeric(CIHigh))
 }
