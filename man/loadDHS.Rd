@@ -28,6 +28,7 @@ Accesses information from the Demographic and Health Surveys, via their API.
 Information is the same as from the DHS StatCompiler
 Documentation code for DHS API: \link{http://api.dhsprogram.com/#/index.html}
 Filter options: \link{http://api.dhsprogram.com/#/api-data.cfm}
+Country codes: \link{http://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP_10136}
 Indicator codes: \link{http://api.dhsprogram.com/rest/dhs/indicators?returnFields=IndicatorId,Label,Definition&f=html}
 }
 \examples{

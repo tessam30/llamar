@@ -5,6 +5,7 @@
 #' Information is the same as from the DHS StatCompiler
 #' Documentation code for DHS API: \link{http://api.dhsprogram.com/#/index.html}
 #' Filter options: \link{http://api.dhsprogram.com/#/api-data.cfm}
+#' Country codes: \link{http://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP_10136}
 #' Indicator codes: \link{http://api.dhsprogram.com/rest/dhs/indicators?returnFields=IndicatorId,Label,Definition&f=html}
 #' @param breakdown one of 'national', 'subnational', 'background', or 'all'
 #' @param indicators: list of DHS indicator codes as a string separated by commas *NO SPACES between*, e.g. 'CN_NUTS_C_WH2,CN_NUTS_C_HA2,ED_EDUC_W_SEP'
