@@ -31,7 +31,7 @@ loadDHS = function(breakdown = 'national',
   library('RJSONIO')
   
   json_file = fromJSON(paste0('http://api.dhsprogram.com/rest/dhs/data?breakdown=', breakdown,
-                               'national&indicatorIds=',indicators, 
+                               '&indicatorIds=',indicators, 
                                '&countryIds=', countries, 
                                '&SurveyYear=', years,
                                '&apiKey=', apiKey,
@@ -45,8 +45,12 @@ loadDHS = function(breakdown = 'national',
   
   #If APIKey, numResults == 5000
   
+  # Throw error in numResults > numResults 
+  
   # Check that everything are numbers.
   # grepl("^[[:digit:]]",y$Indicator)
+  
+  # Check that it returns a value.
   
   # Convert values to numbers.
   df = df %>% 
