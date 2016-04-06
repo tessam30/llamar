@@ -58,7 +58,28 @@ theme_xygrid<- function() {
       panel.grid.major.x = element_line(size = 0.2, color = grey80K))
 }
 
-
+#' @describeIn  themes Theme with x and y labels, titles, and gridlines
+#' @export
+theme_xygridlight<- function() {
+  theme_bw() +
+    theme(
+      text = element_text(family = 'Segoe UI Light', colour = grey80K),
+      plot.title = element_text(hjust = 0),
+      rect = element_blank(),
+      plot.background = element_blank(),
+      axis.text = element_text(size = 12,  color = grey80K),
+      title =  element_text(size = 15, family = "Segoe UI", hjust = 0, color = grey90K),
+      axis.title =  element_text(size = 14, family = "Segoe UI Semilight", color = grey80K, hjust = 0.5, vjust = -0.25),
+      strip.text = element_text(size=14, face = 'bold', hjust = 0.05, vjust = -2.5, color = grey70K),
+      legend.position = 'none',
+      strip.background = element_blank(),
+      axis.ticks = element_blank(),
+      panel.margin = unit(1, 'lines'),
+      panel.grid.major.y = element_line(size = 0.1, color = grey70K),
+      panel.grid.minor.y = element_blank(),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.major.x = element_line(size = 0.1, color = grey70K))
+}
 
 #' @describeIn  themes Theme with light x-grid lines, x and y axis labels, and x-axis title.
 #' @export

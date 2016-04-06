@@ -8,6 +8,7 @@
 \alias{theme_xaxis}
 \alias{theme_xgrid}
 \alias{theme_xygrid}
+\alias{theme_xygridlight}
 \alias{theme_xylab}
 \alias{theme_yaxis}
 \alias{theme_ygrid}
@@ -17,6 +18,8 @@
 theme_basic()
 
 theme_xygrid()
+
+theme_xygridlight()
 
 theme_xgrid()
 
@@ -42,6 +45,8 @@ Customized ggplot themes
 \item \code{theme_basic}: Theme with axis labels, titles, grid lines, axes, and legend.
 
 \item \code{theme_xygrid}: Theme with x and y labels, titles, and gridlines
+
+\item \code{theme_xygridlight}: Theme with x and y labels, titles, and gridlines
 
 \item \code{theme_xgrid}: Theme with light x-grid lines, x and y axis labels, and x-axis title.
 

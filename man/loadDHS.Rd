@@ -5,7 +5,7 @@
 \title{Access Demographic & Health Surveys Data}
 \usage{
 loadDHS(breakdown = "national", indicators, countries,
-  years = paste0(seq(1984, 2016), collapse = ","), apiKey,
+  years = paste0(seq(1984, 2016), collapse = ","), apiKey = NA,
   numResults = 1000)
 }
 \arguments{
