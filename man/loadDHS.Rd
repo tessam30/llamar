@@ -32,7 +32,7 @@ Country codes: \link{http://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP
 Indicator codes: \link{http://api.dhsprogram.com/rest/dhs/indicators?returnFields=IndicatorId,Label,Definition&f=html}
 }
 \examples{
-ggplot(mtcars, aes(x = mpg, y = wt, colour = cyl)) + geom_point() + theme_xAxis()
+
 
 
 }

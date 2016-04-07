@@ -15,7 +15,7 @@
 #' @param numResults: number of records to include
 #' @export
 #' @examples
-#' ggplot(mtcars, aes(x = mpg, y = wt, colour = cyl)) + geom_point() + theme_xAxis()
+#' 
 #' 
 #' 
 
