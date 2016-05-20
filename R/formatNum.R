@@ -2,7 +2,7 @@
 #'
 #' @name formatNum
 NULL
-#> NULL
+# > NULL
 #' @export
 #' 
 #' @param x numbers to be converted
@@ -16,18 +16,18 @@ NULL
 #' @describeIn  formatNum Function to calculate the mean and round to two digits.
 #' @export
 roundMean = function(x, ndigits = 2) {
-  round(mean(x, na.rm = TRUE), ndigits)
+    round(mean(x, na.rm = TRUE), ndigits)
 }
 
 #' @describeIn  formatNum Function to calculate the standard deviation and round to two digits.
 #' @export
 roundStd = function(x, ndigits = 2) {
-  round(sd(x, na.rm = TRUE), ndigits)
+    round(sd(x, na.rm = TRUE), ndigits)
 }
 
 #' @describeIn  formatNum Function to convert a decimal to a percent, round to a specific number of digits, and convert to a string with a percent sign.
 #' @export
 
 percent = function(x, ndigits = 1) {
-  paste0(sprintf("%.f", round(x*100, ndigits)), "%")
+    paste0(sprintf("%.f", round(x * 100, ndigits)), "%")
 }

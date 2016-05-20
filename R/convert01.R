@@ -6,7 +6,7 @@
 #' @export
 #' 
 convert01 = function(varName) {
-  # Check if 
-  paste0('ifelse(', varName, ' == 2, 0, 
-         ifelse(', varName, '== 1, 1, NA))')
+    # Check if
+    paste0("ifelse(", varName, " == 2, 0, 
+         ifelse(", varName, "== 1, 1, NA))")
 }

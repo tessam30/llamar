@@ -19,49 +19,39 @@
 #' 
 #' 
 
-loadDHS = function(breakdown = 'national',
-                   indicators, 
-                   countries,
-                   years = paste0(seq(1984,2016), collapse = ','),
-                   apiKey = NA,
-                   numResults = 1000
-) {
-  
-  library('dplyr')
-  library('RJSONIO')
-  
-  
-  json_file = fromJSON(paste0('http://api.dhsprogram.com/rest/dhs/data?breakdown=', breakdown,
-                              '&indicatorIds=',indicators, 
-                              '&countryIds=', countries, 
-                              '&SurveyYear=', years,
-                              '&apiKey=', apiKey,
-                              '&perpage=', numResults))
-  
-  # Unlist the JSON file entries
-  json_data = lapply(json_file$Data, function(x) { unlist(x) })
-  
-  # Convert JSON input to a data frame
-  df = as.data.frame(do.call("rbind", json_data),stringsAsFactors=FALSE)
-  
-  
-  # Throw a warning if number of returned results > numResults 
-  if (json_file$RecordCount > numResults){
-    warning(paste0('query results in ', json_file$RecordCount, ' hits; first ', numResults, ' returned'))
-  }
-  
-  # Check that everything are numbers.
-  # grepl("^[[:digit:]]",y$Indicator)
-  
-  # Check that it returns a value.
-  if (length(df) > 0){
-    # Convert values to numbers.
-    df = df %>% 
-      mutate(Value = as.numeric(Value),
-             Precision = as.numeric(Precision),
-             SurveyYear = as.numeric(SurveyYear),
-             IsTotal = as.numeric(IsTotal),
-             CILow = as.numeric(CILow),
-             CIHigh = as.numeric(CIHigh))
-  }
+loadDHS = function(breakdown = "national", indicators, countries, years = paste0(seq(1984, 
+    2016), collapse = ","), apiKey = NA, numResults = 1000) {
+    
+    library("dplyr")
+    library("RJSONIO")
+    
+    
+    json_file = RJSONIO::fromJSON(paste0("http://api.dhsprogram.com/rest/dhs/data?breakdown=", 
+        breakdown, "&indicatorIds=", indicators, "&countryIds=", countries, "&SurveyYear=", 
+        years, "&apiKey=", apiKey, "&perpage=", numResults))
+    
+    # Unlist the JSON file entries
+    json_data = lapply(json_file$Data, function(x) {
+        unlist(x)
+    })
+    
+    # Convert JSON input to a data frame
+    df = as.data.frame(do.call("rbind", json_data), stringsAsFactors = FALSE)
+    
+    
+    # Throw a warning if number of returned results > numResults
+    if (json_file$RecordCount > numResults) {
+        warning(paste0("query results in ", json_file$RecordCount, " hits; first ", numResults, 
+            " returned"))
+    }
+    
+    # Check that everything are numbers.  grepl('^[[:digit:]]',y$Indicator)
+    
+    # Check that it returns a value.
+    if (length(df) > 0) {
+        # Convert values to numbers.
+        df = df %>% dplyr::mutate(Value = as.numeric(Value), Precision = as.numeric(Precision), 
+            SurveyYear = as.numeric(SurveyYear), IsTotal = as.numeric(IsTotal), CILow = as.numeric(CILow), 
+            CIHigh = as.numeric(CIHigh))
+    }
 }

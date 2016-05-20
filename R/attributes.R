@@ -8,7 +8,7 @@
 #' 
 #' @name attr
 NULL
-#> NULL
+# > NULL
 #' @export
 #' 
 #' @param data imported data frame
@@ -17,25 +17,37 @@ NULL
 
 #' @describeIn  attr Function to pull any attributes from a data frame.  Useful to cleanup imported Stata files.
 #' @export
-pullAttributes <- function (data, type = 'label') {
-  # type should be 'label
-  if (!(type %in% c('label', 'labels'))) {
-    warning('Type should be label or labels')
-  }
-  
-  metadata = lapply(data, function(x) attr(x, type))
-  
-  metadata = data.frame(metadata)
-  
+pullAttributes <- function(data, type = "label") {
+    # type should be 'label
+    if (!(type %in% c("label", "labels"))) {
+        warning("Type should be label or labels")
+    }
+    
+    metadata = lapply(data, function(x) attr(x, type))
+    
+    metadata = data.frame(metadata)
+    
 }
 
 
 #' @describeIn  attr Function to remove any attributes from a data frame.  Useful to cleanup imported Stata files.
 #' @export
-removeAttributes <- function (data) {
-  data <- lapply(data, function(x) {attr(x, 'labels') <- NULL; x})
-  data <- lapply(data, function(x) {attr(x, 'label') <- NULL; x})
-  data <- lapply(data, function(x) {attr(x, 'class') <- NULL; x})
-  data <- lapply(data, function(x) {attr(x, 'levels') <- NULL; x})
-  data = data.frame(data)
+removeAttributes <- function(data) {
+    data <- lapply(data, function(x) {
+        attr(x, "labels") <- NULL
+        x
+    })
+    data <- lapply(data, function(x) {
+        attr(x, "label") <- NULL
+        x
+    })
+    data <- lapply(data, function(x) {
+        attr(x, "class") <- NULL
+        x
+    })
+    data <- lapply(data, function(x) {
+        attr(x, "levels") <- NULL
+        x
+    })
+    data = data.frame(data)
 }
