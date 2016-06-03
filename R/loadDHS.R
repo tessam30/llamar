@@ -15,11 +15,15 @@
 #' @param numResults: number of records to include
 #' @export
 #' @examples
+#' @author Laura Hughes
 #' 
 #' 
 #' 
 
-loadDHS = function(breakdown = "national", indicators, countries, years = paste0(seq(1984, 
+loadDHS = function(breakdown = "national", 
+                   indicators, 
+                   countries, 
+                   years = paste0(seq(1984, 
     2016), collapse = ","), apiKey = NA, numResults = 1000) {
     
     library("dplyr")
