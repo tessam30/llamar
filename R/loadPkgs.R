@@ -34,7 +34,7 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
     
     # -- Mapping --
     mapping = c( "ggmap", "choroplethrAdmin1", "choroplethr", "rmapshaper",
-                 "RgoogleMaps", "")
+                 "RgoogleMaps", "rgeos", "rgdal")
     
     # -- publication / appearance / plotting support --
     pub = c("animation", "gridExtra", "grid", "knitr", "formattable",
@@ -71,10 +71,11 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
     
     # Install anything that isn't already installed.
     if (length(toInstall > 0)) {
-        print(paste0("Installing these packages: ", toInstall))
+        print(paste0("Installing these packages: ", paste0(toInstall, collapse = ", ")))
         
         install.packages(toInstall)
     }
+    
     
     # Load packages
     for (i in seq_along(pkgs)) {
