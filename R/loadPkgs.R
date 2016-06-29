@@ -8,9 +8,16 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
     
     # Package list ------------------------------------------------------------
     
-    
+  # -- Libraries to help import files --
+  importing = c("haven", "readr", "readxl", "googlesheets", "rvest", "foreign", "pdftools")
+  # haven: Imports in files from Stata, SAS, and SPSS readr: An advanced form of the base
+  # 'read.csv' file with some added functionality.  readxl: Functions to import in
+  # multiple sheets from Excel googlesheets: Functions to connect to Google Drive
+  # spreadsheets.  rvest: Scrapes websites pdftools: Scrapes pdf files
+  
     # -- Data manipulation --
-    wrangling = c("dplyr", "tidyr", "data.table", "stringr", "lubridate", "purrr", "zoo")
+    wrangling = c("dplyr", "tidyr", "data.table", "dtplyr",
+                  "stringr", "lubridate", "purrr", "zoo")
     # dplyr: filter, create new variables, summarise, ... Basically, anything you can think
     # to do to a dataset tidyr: Reshape and merge datasets data.table: similar to dplyr but
     # good for large datasets; some extra functionality stringr: String manipulation
@@ -19,27 +26,26 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
     
     # -- Plotting / viz functions --
     plotting = c("ggplot2", "ggvis", "htmltools", "htmlwidgets", "metricsgraphics", "rCharts", 
-        "plotly", "ggmap", "choroplethrAdmin1", "choroplethr", "d3heatmap", "DiagrammeR", 
+        "plotly", "d3heatmap", "DiagrammeR", "GGally", "ggdendro", "highcharter",
         "ggrepel", "hexbin", "lattice", "latticeExtra", "packcircles", "rbokeh", "waffle", 
-        "RgoogleMaps", "shiny", "shinydashboard", "shinythemes")
+         "shiny", "shinydashboard", "shinythemes")
     # ggplot2: Incredibly powerful plotting library built off of the 'Grammer of Graphics'
     # ggmpap: geocoding and geospatial library
     
+    # -- Mapping --
+    mapping = c( "ggmap", "choroplethrAdmin1", "choroplethr", "rmapshaper",
+                 "RgoogleMaps", "")
+    
     # -- publication / appearance / plotting support --
     pub = c("animation", "gridExtra", "grid", "knitr", "formattable",
-            "colorspace", "RColorBrewer", "extrafont")
+            "colorspace", "RColorBrewer", "viridis", "extrafont")
     # knitr: Helper function to produce RMarkdown documents.
     
     
-    # -- Libraries to help import files --
-    importing = c("haven", "readr", "readxl", "googlesheets", "rvest", "foreign", "pdftools")
-    # haven: Imports in files from Stata, SAS, and SPSS readr: An advanced form of the base
-    # 'read.csv' file with some added functionality.  readxl: Functions to import in
-    # multiple sheets from Excel googlesheets: Functions to connect to Google Drive
-    # spreadsheets.  rvest: Scrapes websites pdftools: Scrapes pdf files
+
     
     # -- Developer libraries --
-    devPkgs = c("roxygen2", "testthat", "jsonlite", "microbenchmark", "profvis")
+    devPkgs = c("roxygen2", "testthat", "jsonlite", "microbenchmark", "profvis", "packrat")
     
     # -- Fitting libraries --
     fitting = c("MASS", "sandwich", "lmtest", "plm", "ggalt", "coefplot", "broom", "cluster", 
@@ -51,7 +57,7 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
     # Pick which packages to load ---------------------------------------------
     
     if (pkgGrp == "all") {
-        pkgs = c(fitting, wrangling, plotting, pub, importing, devPkgs)
+        pkgs = c(fitting, wrangling, plotting, mapping, pub, importing, devPkgs)
     }
     
     
