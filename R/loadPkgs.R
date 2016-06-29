@@ -27,7 +27,9 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
     # -- Plotting / viz functions --
     plotting = c("ggplot2", "ggvis", "htmltools", "htmlwidgets", "metricsgraphics",  
         "plotly", "d3heatmap", "DiagrammeR", "GGally", "ggdendro", "highcharter",
-        "ggrepel", "hexbin", "lattice", "latticeExtra", "packcircles", "rbokeh", "waffle", 
+        "ggrepel", "hexbin", "lattice", "latticeExtra", "packcircles", "rbokeh", "waffle")
+    
+    interactivity = c("DT",
          "shiny", "shinydashboard", "shinythemes")
     # ggplot2: Incredibly powerful plotting library built off of the 'Grammer of Graphics'
     # ggmpap: geocoding and geospatial library
@@ -57,7 +59,7 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
     # Pick which packages to load ---------------------------------------------
     
     if (pkgGrp == "all") {
-        pkgs = c(fitting, wrangling, plotting, mapping, pub, importing, devPkgs)
+        pkgs = c(fitting, wrangling, plotting, interactivity, mapping, pub, importing, devPkgs)
     }
     
     
