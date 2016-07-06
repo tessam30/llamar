@@ -17,7 +17,8 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
   
     # -- Data manipulation --
     wrangling = c("dplyr", "tidyr", "data.table", "dtplyr",
-                  "stringr", "lubridate", "purrr", "zoo")
+                  "stringr", "stringdist", "lubridate", "seasonal",
+                  "purrr", "zoo")
     # dplyr: filter, create new variables, summarise, ... Basically, anything you can think
     # to do to a dataset tidyr: Reshape and merge datasets data.table: similar to dplyr but
     # good for large datasets; some extra functionality stringr: String manipulation
