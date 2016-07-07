@@ -37,7 +37,7 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
     
     # -- Mapping --
     mapping = c( "ggmap", "choroplethrAdmin1", "choroplethr", "rmapshaper",
-                 "RgoogleMaps", "rgeos", "rgdal")
+                 "RgoogleMaps", "rgeos", "rgdal", "leaflet")
     
     # -- publication / appearance / plotting support --
     pub = c("animation", "gridExtra", "grid", "knitr", "formattable",
