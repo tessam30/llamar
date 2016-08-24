@@ -29,5 +29,5 @@ roundStd = function(x, ndigits = 2) {
 #' @export
 
 percent = function(x, ndigits = 1) {
-    paste0(sprintf("%.f", round(x * 100, ndigits)), "%")
+    paste0(sprintf(paste0("%.", ndigits, "f"), x * 100), "%")
 }
