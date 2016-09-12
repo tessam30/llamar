@@ -16,7 +16,7 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
   # spreadsheets.  rvest: Scrapes websites pdftools: Scrapes pdf files
   
     # -- Data manipulation --
-    wrangling = c("dplyr", "tidyr", "data.table", "dtplyr",
+    wrangling = c("dplyr", "tidyr", "data.table", "dtplyr", "tabulizer",
                   "stringr", "stringdist", "lubridate", "seasonal",
                   "purrr", "zoo")
     # dplyr: filter, create new variables, summarise, ... Basically, anything you can think
