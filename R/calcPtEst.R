@@ -49,7 +49,10 @@ calcPtEst = function(df, # main data frame containing raw data,
                      na.rm = omit_NA)
     
     # Convert to data frame, if not already
-    pt_est = as.data.frame(pt_est) %>% 
+    pt_est = as.data.frame(pt_est) 
+    
+    print(colnames(pt_est))
+    pt_est = pt_est %>% 
       mutate(se = SE)
     
   } else {
