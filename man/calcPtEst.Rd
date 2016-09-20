@@ -5,7 +5,7 @@
 \title{Calculate point estimates and errors}
 \usage{
 calcPtEst(df, var, by_var = NA, design = NA, psu_var = NA,
-  strata_var = NA, weight_var = NA, omit_NA = TRUE, ci_factor = 2)
+  strata_var = NA, weight_var = NA, na.rm = TRUE, ci_factor = 2)
 }
 \arguments{
 \item{df}{main data frame containing the raw data}
@@ -13,6 +13,18 @@ calcPtEst(df, var, by_var = NA, design = NA, psu_var = NA,
 \item{var}{string containing the variable name you want to average}
 
 \item{by_var}{(optional) string containing the variable name over which you want to calculate the estimates}
+
+\item{design}{(optional) svydesign object containing the sample frame}
+
+\item{psu_var}{(optional) if design isn't specified, string containing the primary sampling unit variable from the survey design (argument `id` in library('survey'))}
+
+\item{strata_var}{(optional) if design isn't specified, string containing the strata variable from the survey design (argument `strata` in library('survey')}
+
+\item{weight_var}{(optional)if design isn't specified, string containing the weights variable from the survey design (argument `weights` in library('survey')}
+
+\item{na.rm}{remove NAs from the mean or not}
+
+\item{ci_factor}{value to calculate confidence interval; in standard deviations. 1.96 standard deviations --> ~ 95% of the area under a normal gaussian distribution}
 }
 \description{
 Calculates point estimates and errors using the package `survey` based 

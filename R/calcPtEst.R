@@ -9,7 +9,16 @@
 #' @param df main data frame containing the raw data
 #' @param var string containing the variable name you want to average
 #' @param by_var (optional) string containing the variable name over which you want to calculate the estimates
-#' @param 
+#' @param design (optional) svydesign object containing the sample frame
+#' @param psu_var (optional) if design isn't specified, string containing the primary sampling unit variable from the survey design (argument `id` in library('survey'))
+#' @param strata_var (optional) if design isn't specified, string containing the strata variable from the survey design (argument `strata` in library('survey')
+#' @param weight_var (optional)if design isn't specified, string containing the weights variable from the survey design (argument `weights` in library('survey')
+#' @param na.rm remove NAs from the mean or not
+#' @param ci_factor value to calculate confidence interval; in standard deviations. 1.96 standard deviations --> ~ 95% of the area under a normal gaussian distribution
+#'
+#' @import dplyr
+#' @import survey
+#' 
 #' @export
 #' 
 
@@ -23,7 +32,7 @@ calcPtEst = function(df, # main data frame containing raw data,
                      psu_var = NA,
                      strata_var = NA,
                      weight_var = NA,
-                     omit_NA = TRUE,
+                     na.rm = TRUE,
                      ci_factor = 2) {
   
   # -- define survey design -- 
@@ -46,7 +55,7 @@ calcPtEst = function(df, # main data frame containing raw data,
     pt_est = svymean(as.formula(paste0('~', var)), 
                      by = as.formula(paste0('~', by_var)),
                      design = design,
-                     na.rm = omit_NA)
+                     na.rm = na.rm)
     
     # Convert to data frame, if not already
     # rename columns
@@ -62,7 +71,7 @@ calcPtEst = function(df, # main data frame containing raw data,
                    by = as.formula(paste0('~', by_var)),
                    design = design,
                    svymean,
-                   na.rm = omit_NA)
+                   na.rm = na.rm)
     # Convert to data frame, if not already
     pt_est = as.data.frame(pt_est)
     
@@ -77,7 +86,7 @@ calcPtEst = function(df, # main data frame containing raw data,
       arrange(desc(avg))
     
     # Calculate sample size and unweighted avg.
-    if(omit_NA == TRUE) {
+    if(na.rm == TRUE) {
       # Exclude missing values
       n = df %>% 
         filter_(paste0('!is.na(', var,')')) %>% 
