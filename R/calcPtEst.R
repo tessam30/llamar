@@ -40,12 +40,18 @@ calcPtEst = function(df, # main data frame containing raw data,
                        data = df)
   }
   
+  # -- Calculate weighted averages --
   if(is.na(by_var)) {
     # -- just calculate the survey mean --
     pt_est = svymean(as.formula(paste0('~', var)), 
                      by = as.formula(paste0('~', by_var)),
                      design = design,
                      na.rm = omit_NA)
+    
+    # Convert to data frame, if not already
+    pt_est = as.data.frame(pt_est) %>% 
+      mutate(se = SE)
+    
   } else {
     # Calculate point estimate and standard error.
     pt_est = svyby(as.formula(paste0('~', var)), 
@@ -53,10 +59,12 @@ calcPtEst = function(df, # main data frame containing raw data,
                    design = design,
                    svymean,
                    na.rm = omit_NA)
-  }
+    # Convert to data frame, if not already
+    pt_est = as.data.frame(pt_est)
+    
+    }
   
-  # Convert to data frame, if not already
-  pt_est = as.data.frame(pt_est)
+
   
   # Calculate CI and upper and lower bounds.
   # Default is to use 95% CI (1.96)
