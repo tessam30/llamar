@@ -6,7 +6,7 @@
 \alias{removeAttributes}
 \title{Remove or pull attributes (e.g. labels)}
 \usage{
-pullAttributes(data, type = "label")
+pullAttributes(data)
 
 removeAttributes(data)
 }
