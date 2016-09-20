@@ -70,13 +70,13 @@ calcPtEst = function(df, # main data frame containing raw data,
   # Calculate sample size and unweighted avg.
   if(omit_NA == TRUE) {
     # Exclude missing values
-    n = hh %>% 
+    n = df %>% 
       filter_(paste0('!is.na(', var,')')) %>% 
       group_by_(by_var) %>% 
       summarise_(.dots = list(N = 'n()', 
                               unweighted_avg = paste0('mean(', var, ')')))
   } else{
-    n = hh %>% 
+    n = df %>% 
       group_by_(by_var) %>% 
       summarise_(.dots = list(N = 'n()', 
                               unweighted_avg = paste0('mean(', var, ')')))
