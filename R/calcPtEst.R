@@ -52,7 +52,7 @@ calcPtEst = function(df, # main data frame containing raw data,
   # -- Calculate weighted averages --
   if(is.na(by_var)) {
     # -- just calculate the survey mean --
-    pt_est = svymean(as.formula(paste0('~', var)), 
+    pt_est = survey::svymean(as.formula(paste0('~', var)), 
                      by = as.formula(paste0('~', by_var)),
                      design = design,
                      na.rm = na.rm)
