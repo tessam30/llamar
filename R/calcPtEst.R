@@ -49,11 +49,12 @@ calcPtEst = function(df, # main data frame containing raw data,
                      na.rm = omit_NA)
     
     # Convert to data frame, if not already
-    pt_est = as.data.frame(pt_est) 
+    # rename columns
+    pt_est = as.data.frame(pt_est) %>% 
+      rename_('se' = var) %>% 
+      rename_(.dots = setNames('mean', var)) %>% 
+      mutate(N = nrow(df %>%  filter_(paste0('!is.na(', var,')'))))
     
-    print(colnames(pt_est))
-    pt_est = pt_est %>% 
-      mutate(se = SE)
     
   } else {
     # Calculate point estimate and standard error.
@@ -65,36 +66,34 @@ calcPtEst = function(df, # main data frame containing raw data,
     # Convert to data frame, if not already
     pt_est = as.data.frame(pt_est)
     
+    
+    # Calculate CI and upper and lower bounds.
+    # Default is to use 95% CI (1.96)
+    pt_est = pt_est %>%
+      mutate_(.dots = setNames(var, 'avg')) %>% # Create a copy of the average value named 'avg'
+      mutate(ci = se * ci_factor,
+             ub = avg + ci,
+             lb = avg - ci) %>% 
+      arrange(desc(avg))
+    
+    # Calculate sample size and unweighted avg.
+    if(omit_NA == TRUE) {
+      # Exclude missing values
+      n = df %>% 
+        filter_(paste0('!is.na(', var,')')) %>% 
+        group_by_(by_var) %>% 
+        summarise_(.dots = list(N = 'n()', 
+                                unweighted_avg = paste0('mean(', var, ')')))
+    } else{
+      n = df %>% 
+        group_by_(by_var) %>% 
+        summarise_(.dots = list(N = 'n()', 
+                                unweighted_avg = paste0('mean(', var, ')')))
     }
-  
-
-  
-  # Calculate CI and upper and lower bounds.
-  # Default is to use 95% CI (1.96)
-  pt_est = pt_est %>%
-    mutate_(.dots = setNames(var, 'avg')) %>% # Create a copy of the average value named 'avg'
-    mutate(ci = se * ci_factor,
-           ub = avg + ci,
-           lb = avg - ci) %>% 
-    arrange(desc(avg))
-  
-  # Calculate sample size and unweighted avg.
-  if(omit_NA == TRUE) {
-    # Exclude missing values
-    n = df %>% 
-      filter_(paste0('!is.na(', var,')')) %>% 
-      group_by_(by_var) %>% 
-      summarise_(.dots = list(N = 'n()', 
-                              unweighted_avg = paste0('mean(', var, ')')))
-  } else{
-    n = df %>% 
-      group_by_(by_var) %>% 
-      summarise_(.dots = list(N = 'n()', 
-                              unweighted_avg = paste0('mean(', var, ')')))
+    
+    # Merge the two together
+    pt_est = full_join(pt_est, n)
   }
-  
-  # Merge the two together
-  pt_est = full_join(pt_est, n)
   
   return(pt_est)
 }
