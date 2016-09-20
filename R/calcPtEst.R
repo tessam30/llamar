@@ -43,7 +43,7 @@ calcPtEst = function(df, # main data frame containing raw data,
       stop('Survey design not specified')
     }
     
-    design = svydesign(id = as.formula(paste0('~', psu_var)), 
+    design = survey::svydesign(id = as.formula(paste0('~', psu_var)), 
                        strata = as.formula(paste0('~', strata_var)), 
                        weights = as.formula(paste0('~', weight_var)), 
                        data = df)
