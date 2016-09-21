@@ -2,6 +2,7 @@
 
 export(calcPtEst)
 export(convert01)
+export(factorize)
 export(loadDHS)
 export(loadPkgs)
 export(multiplot)
