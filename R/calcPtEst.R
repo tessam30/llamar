@@ -3,8 +3,6 @@
 #' Calculates point estimates and errors using the package `survey` based 
 #' on sampling weights from a survey design
 #'
-
-#' @author Laura Hughes, laura.d.hughes@gmail.com
 #' 
 #' @param df main data frame containing the raw data
 #' @param var string containing the variable name you want to average
@@ -16,11 +14,12 @@
 #' @param na.rm remove NAs from the mean or not
 #' @param ci_factor value to calculate confidence interval; in standard deviations. 1.96 standard deviations --> ~ 95% of the area under a normal gaussian distribution
 #'
+#' @author Laura Hughes, laura.d.hughes@gmail.com
+#'
 #' @import dplyr
 #' @import survey
 #' 
 #' @export
-#' 
 
 
 # -- Wrapper to survey::svyby --
@@ -67,7 +66,7 @@ calcPtEst = function(df, # main data frame containing raw data,
     
   } else {
     # Calculate point estimate and standard error.
-    pt_est = svyby(as.formula(paste0('~', var)), 
+    pt_est = survey::svyby(as.formula(paste0('~', var)), 
                    by = as.formula(paste0('~', by_var)),
                    design = design,
                    svymean,
