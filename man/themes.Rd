@@ -15,27 +15,43 @@
 \alias{themes}
 \title{Customized ggplot themes}
 \usage{
-theme_basic()
+theme_basic(font_normal = "Lato", font_semi = "Lato Light",
+  font_light = "Lato Light")
 
-theme_xygrid()
+theme_xygrid(font_normal = "Lato", font_semi = "Lato Light",
+  font_light = "Lato Light")
 
-theme_xygridlight()
+theme_xygridlight(font_normal = "Lato", font_semi = "Lato Light",
+  font_light = "Lato Light")
 
-theme_xgrid()
+theme_xgrid(font_normal = "Lato", font_semi = "Lato Light",
+  font_light = "Lato Light")
 
-theme_ygrid()
+theme_ygrid(font_normal = "Lato", font_semi = "Lato Light",
+  font_light = "Lato Light")
 
 theme_blank()
 
-theme_legend()
+theme_legend(font_normal = "Lato", font_semi = "Lato Light",
+  font_light = "Lato Light")
 
-theme_xaxis()
+theme_xaxis(font_normal = "Lato", font_semi = "Lato Light",
+  font_light = "Lato Light")
 
-theme_yaxis()
+theme_yaxis(font_normal = "Lato", font_semi = "Lato Light",
+  font_light = "Lato Light")
 
 theme_xylab()
 
-theme_labelsOnly()
+theme_labelsOnly(font_normal = "Lato", font_semi = "Lato Light",
+  font_light = "Lato Light")
+}
+\arguments{
+\item{font_normal}{string containing font name for normal text}
+
+\item{font_semi}{string containing font name for semilight text}
+
+\item{font_light}{string containing font name for light text}
 }
 \description{
 Customized ggplot themes
