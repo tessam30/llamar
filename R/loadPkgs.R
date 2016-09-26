@@ -9,15 +9,19 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
     # Package list ------------------------------------------------------------
     
   # -- Libraries to help import files --
-  importing = c("haven", "readr", "readxl", "googlesheets", "rvest", "foreign", "pdftools")
+  importing = c("haven", "readr", "readxl", "googlesheets", 
+                "rvest", "foreign", "pdftools", "httr")
   # haven: Imports in files from Stata, SAS, and SPSS readr: An advanced form of the base
   # 'read.csv' file with some added functionality.  readxl: Functions to import in
   # multiple sheets from Excel googlesheets: Functions to connect to Google Drive
   # spreadsheets.  rvest: Scrapes websites pdftools: Scrapes pdf files
+  # httr: OAuth, API connections
   
     # -- Data manipulation --
-    wrangling = c("dplyr", "tidyr", "data.table", "dtplyr", "tabulizer",
-                  "stringr", "stringdist", "lubridate", "seasonal",
+
+    wrangling = c("dplyr", "tidyr", "data.table", "dtplyr",
+                  "stringr", "stringdist", "RecordLinkage",
+                  "lubridate", "seasonal", "forcats",
                   "purrr", "zoo")
     # dplyr: filter, create new variables, summarise, ... Basically, anything you can think
     # to do to a dataset tidyr: Reshape and merge datasets data.table: similar to dplyr but
@@ -52,9 +56,12 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
     
     # -- Fitting libraries --
     fitting = c("MASS", "sandwich", "lmtest", "plm", "ggalt", "coefplot", "broom", "cluster", 
-        "GWmodel")
+        "GWmodel", "mosaic", "modelr")
     
+    # development versions ----------------------------------------------------
     
+    devtools::install_github("rstudio/crosstalk")
+    devtools::install_github("jcheng5/d3scatter")
     
     
     # Pick which packages to load ---------------------------------------------
@@ -88,5 +95,7 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
     loadfonts(quiet = TRUE)
     
 }
+
+
 
 
