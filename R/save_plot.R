@@ -8,6 +8,7 @@
 
 
 save_plot <- function(filename,
+                      plot,
                       width = NA, 
                       height = NA, 
                       units = 'in', 
@@ -17,6 +18,7 @@ save_plot <- function(filename,
   
   # -- save the file --
   ggsave(filename = filename, 
+         plot = last_plot(),
          width = width, height = height, 
          units = units,
          bg = "transparent", 
