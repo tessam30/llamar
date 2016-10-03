@@ -162,15 +162,23 @@ theme_yaxis <- function(font_normal = 'Lato',
 theme_xylab <- function(font_normal = 'Lato',
                         font_semi = 'Lato Light',
                         font_light = 'Lato Light') {
-    theme_bw() + theme(text = element_text(family = font_light, colour = grey60K), 
-        rect = element_blank(), plot.background = element_blank(), axis.text = element_text(size = 12, 
-            color = grey60K), title = element_text(size = 15, family = font_normal, hjust = 0, 
-            color = grey90K), axis.title = element_text(size = 14, family = font_semi, 
-            color = grey60K, hjust = 0.5, vjust = -0.25), strip.text = element_text(size = 14, 
-            family = font_semi, hjust = 0.05, vjust = -2.5, color = grey90K), 
-        legend.position = "none", strip.background = element_blank(), axis.ticks = element_blank(), 
-        panel.margin = unit(1, "lines"), panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank(), 
-        panel.grid.minor.x = element_blank(), panel.grid.major.x = element_blank())
+    theme_bw() + 
+    theme(text = element_text(family = font_light, colour = grey60K), 
+        rect = element_blank(), 
+        plot.background = element_blank(), 
+        axis.text = element_text(size = 10, color = grey60K), 
+        title = element_text(size = 15, family = font_normal, 
+                             hjust = 0, color = grey90K), 
+        axis.title = element_text(size = 10, family = font_semi, color = grey60K, hjust = 0.5, vjust = -0.25), 
+        strip.text = element_text(size = 14, family = font_semi, hjust = 0.05, vjust = -2.5, color = grey90K), 
+        legend.position = "none", 
+        strip.background = element_blank(), 
+        axis.ticks = element_blank(), 
+        panel.spacing =  unit(0, "lines"), 
+        panel.grid.major.y = element_blank(), 
+        panel.grid.minor.y = element_blank(), 
+        panel.grid.minor.x = element_blank(), 
+        panel.grid.major.x = element_blank())
 }
 
 #' @describeIn themes Theme with  y axis labels; no gridlines.

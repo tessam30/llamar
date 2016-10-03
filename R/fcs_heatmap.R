@@ -1,18 +1,35 @@
-#' Simple wrapper to ggsave
+#' Plot food consumption scores by region
 #' 
-#' Wrapper to ggsave to auto-save the annoying fiddly arguments I always forget
+#' In its full version, a plot with four parts: (1) a heatmap breaking down the consumption of food
+#' groups by region; (2) a kernel density estimate surface of the food consumption scores (FCS) of
+#' individual households in the region; (3) a 1 x n heatmap of the average FCS score by region;
+#' and (4) individual mini-maps highlighting the region for context.
 #' 
-#' @import ggplot2 extrafont
+#' @import ggplot2 extrafont survey gridExtra
 #' 
 #' @export
 
-# Requires ggplot2 > 
+# Requires ggplot2 >
 
-fcs_heatmap <- function(filename = NA,
+fcs_heatmap <- function(df,
+                        
+                        # -- map options --
+                        map_base = grey15K,
+                        map_accent = '#d53e4f',
+                        
+                        # -- file saving options --
+                        filename = NA,
                         width = NA, 
                         height = NA, 
                         units = 'in', 
                         scale = 1) {
+  
+  # -- SETUP: 
+  
+  # -- PART 0: calculate weighted averages for values --
+  
+  
+  # -- PART 1: individual maps --
   
   
   ggplot(rel_fcs_heat) +
@@ -40,7 +57,4 @@ fcs_heatmap <- function(filename = NA,
   
   
   
-  if (!is.na(filename)){
-    save_plot(filename, width, height, units, scale)
-  }
 }
