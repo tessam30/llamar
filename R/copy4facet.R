@@ -1,3 +1,9 @@
+#' copy for facetting
+#' 
+#' @export
+#' 
+#' 
+
 copy4facet = function(df2copy, by_var){
   num_copies = length(by_var)
   num_rows = nrow(df2copy)
