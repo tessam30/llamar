@@ -159,7 +159,9 @@ theme_yaxis <- function(font_normal = 'Lato',
 
 #' @describeIn themes Theme with x and y axis labels; no gridlines.
 #' @export
-theme_xylab <- function() {
+theme_xylab <- function(font_normal = 'Lato',
+                        font_semi = 'Lato Light',
+                        font_light = 'Lato Light') {
     theme_bw() + theme(text = element_text(family = font_light, colour = grey60K), 
         rect = element_blank(), plot.background = element_blank(), axis.text = element_text(size = 12, 
             color = grey60K), title = element_text(size = 15, family = font_normal, hjust = 0, 
@@ -169,6 +171,22 @@ theme_xylab <- function() {
         legend.position = "none", strip.background = element_blank(), axis.ticks = element_blank(), 
         panel.margin = unit(1, "lines"), panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank(), 
         panel.grid.minor.x = element_blank(), panel.grid.major.x = element_blank())
+}
+
+#' @describeIn themes Theme with  y axis labels; no gridlines.
+#' @export
+theme_ylab <- function(font_normal = 'Lato',
+                        font_semi = 'Lato Light',
+                        font_light = 'Lato Light') {
+  theme_bw() + theme(text = element_text(family = font_light, colour = grey60K), 
+                     rect = element_blank(), plot.background = element_blank(), 
+                     axis.text = element_text(size = 12, color = grey60K), 
+                     axis.text.x = element_blank(), 
+                     title = element_text(size = 15, family = font_normal, hjust = 0, color = grey90K), 
+                     axis.title = element_blank(), 
+                     legend.position = "none", strip.background = element_blank(), axis.ticks = element_blank(), 
+                     panel.margin = unit(1, "lines"), panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank(), 
+                     panel.grid.minor.x = element_blank(), panel.grid.major.x = element_blank())
 }
 
 #' @describeIn  themes Theme with only x and y labels; no axes, axis titles, gridlines, or legends

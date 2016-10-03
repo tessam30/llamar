@@ -12,6 +12,7 @@
 \alias{theme_xylab}
 \alias{theme_yaxis}
 \alias{theme_ygrid}
+\alias{theme_ylab}
 \alias{themes}
 \title{Customized ggplot themes}
 \usage{
@@ -41,7 +42,11 @@ theme_xaxis(font_normal = "Lato", font_semi = "Lato Light",
 theme_yaxis(font_normal = "Lato", font_semi = "Lato Light",
   font_light = "Lato Light")
 
-theme_xylab()
+theme_xylab(font_normal = "Lato", font_semi = "Lato Light",
+  font_light = "Lato Light")
+
+theme_ylab(font_normal = "Lato", font_semi = "Lato Light",
+  font_light = "Lato Light")
 
 theme_labelsOnly(font_normal = "Lato", font_semi = "Lato Light",
   font_light = "Lato Light")
@@ -77,6 +82,8 @@ Customized ggplot themes
 \item \code{theme_yaxis}: Theme with y labels, titles, and y-axis line; no gridlines
 
 \item \code{theme_xylab}: Theme with x and y axis labels; no gridlines.
+
+\item \code{theme_ylab}: Theme with  y axis labels; no gridlines.
 
 \item \code{theme_labelsOnly}: Theme with only x and y labels; no axes, axis titles, gridlines, or legends
 }}
