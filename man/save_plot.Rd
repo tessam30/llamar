@@ -4,8 +4,8 @@
 \alias{save_plot}
 \title{Simple wrapper to ggsave}
 \usage{
-save_plot(filename, plot, width = NA, height = NA, units = "in",
-  scale = 1)
+save_plot(filename, plot = last_plot(), width = NA, height = NA,
+  units = "in", scale = 1)
 }
 \description{
 Wrapper to ggsave to auto-save the annoying fiddly arguments I always forget
