@@ -333,7 +333,7 @@ fcs_heatmap <- function(df,
     # -- gradient shading of color -- 
     geom_histogram(aes(x = x, y = 4 *..density.., fill = ..x..),
                    binwidth = 1,
-                   data = data.frame(x = 1:112),
+                   data = data.frame(x = seq(from = FCS_range[1], to = FCS_range[2])),
                    alpha = alpha_hist) +
     
     # -- reference lines of poor and borderline FCS scores --

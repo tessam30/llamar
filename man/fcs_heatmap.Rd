@@ -4,20 +4,20 @@
 \alias{fcs_heatmap}
 \title{Plot food consumption scores by region}
 \usage{
-fcs_heatmap(df, region_var, FCS_var = "FCS", staples_var = "staples_days",
-  pulse_var = "pulse_days", meat_var = "meat_days",
-  milk_var = "milk_days", veg_var = "veg_days", oil_var = "oil_days",
-  fruit_var = "fruit_days", sugar_var = "sugar_days", na.rm = FALSE,
-  use_sampleWts = FALSE, psu_var = NA, strata_var = NA, weight_var = NA,
-  use_FCSWts = TRUE, plot_relativeAvg = TRUE, poor_FCS = 21,
-  borderline_FCS = 35, avg_colour = PlBl, FCS_colour = c(brewer.pal(9,
-  "YlGnBu"), "#081d58", "#081d58", "#081d58", "#081d58"), FCS_range = c(0,
-  112), alpha_hist = 1, font_light = "Lato Light", font_normal = "Lato",
-  label_size = 3, heat_stroke_size = 0.15, incl_refHist = FALSE,
-  bw = "nrd0", plot_map = TRUE, admin0 = NA, region_coords = NA,
-  map_base = grey15K, map_accent = "#d53e4f", width_indivPlots = c(0.1,
-  0.6, 0.2, 0.1), filename = NA, width = NA, height = NA, units = "in",
-  scale = 1)
+fcs_heatmap(df, region_var, map_region_var = region_var, FCS_var = "FCS",
+  staples_var = "staples_days", pulse_var = "pulse_days",
+  meat_var = "meat_days", milk_var = "milk_days", veg_var = "veg_days",
+  oil_var = "oil_days", fruit_var = "fruit_days",
+  sugar_var = "sugar_days", na.rm = FALSE, use_sampleWts = FALSE,
+  psu_var = NA, strata_var = NA, weight_var = NA, use_FCSWts = TRUE,
+  plot_relativeAvg = TRUE, poor_FCS = 21, borderline_FCS = 35,
+  avg_colour = PlBl, FCS_colour = c(brewer.pal(9, "YlGnBu"), "#081d58",
+  "#081d58", "#081d58", "#081d58"), FCS_range = c(0, 112), alpha_hist = 1,
+  font_light = "Lato Light", font_normal = "Lato", label_size = 3,
+  heat_stroke_size = 0.15, incl_refHist = FALSE, bw = "nrd0",
+  plot_map = TRUE, admin0 = NA, region_coords = NA, map_base = grey15K,
+  map_accent = "#d53e4f", width_indivPlots = c(0.1, 0.6, 0.2, 0.1),
+  filename = NA, width = NA, height = NA, units = "in", scale = 1)
 }
 \arguments{
 \item{df}{data frame containing the raw, household-level food consumption data. Assumes the individual food group consumption data will be located in separate columns (e.g. legumes, vegetables, etc.)}
@@ -73,6 +73,9 @@ fcs_heatmap(df, region_var, FCS_var = "FCS", staples_var = "staples_days",
 \item{scale}{(optional) scaling factor for the exported plot}
 
 \item{food_vars}{list containing the column names containing individual food group consumption}
+}
+\value{
+p plot grobs for the 3-4 plots together. Can be rendered by calling `gridExtra::grid.arrange(p)`
 }
 \description{
 In its full version, a plot with four parts: (1) a heatmap breaking down the consumption of food
