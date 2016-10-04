@@ -43,12 +43,13 @@
 #' @param units (optional) units for the width/height of exported plot
 #' @param scale (optional) scaling factor for the exported plot
 #' 
-#' 
+#' @return p plot grobs for the 3-4 plots together. Can be rendered by calling `gridExtra::grid.arrange(p)`
 #' 
 
 
 fcs_heatmap <- function(df,
                         region_var,
+                        map_region_var = region_var,
                         FCS_var = 'FCS',
                         staples_var = 'staples_days', 
                         pulse_var = 'pulse_days', 
@@ -107,7 +108,10 @@ fcs_heatmap <- function(df,
     # if(is.na(admin0) | is.na(region_coords)) {
     #   stop('admin0 or region_coords not specified')
     # }
+    
   }
+
+  # check that the columns exist
   
   if(use_sampleWts == TRUE) {
     # check that sample weighting params are specified
@@ -220,12 +224,13 @@ fcs_heatmap <- function(df,
   # PART 1: individual maps ----------------------------------------------
   
   if(plot_map == TRUE){
+    
     # relevel and remove extraneous levels
-    region_coords[[region_var]] = forcats::fct_relevel(region_coords[[region_var]], 
+    region_coords[[map_region_var]] = forcats::fct_relevel(region_coords[[map_region_var]], 
                                                        rev(levels(fcs_heat$regionName)))
     
     region_coords = region_coords %>% 
-      filter_(paste0('!is.na(', region_var, ')'))
+      filter_(paste0('!is.na(', map_region_var, ')'))
     
     
     # create copy for facetting
@@ -240,7 +245,7 @@ fcs_heatmap <- function(df,
       
       
       # -- facet --
-      facet_wrap(as.formula(paste0('~', region_var)), ncol = 1) +
+      facet_wrap(as.formula(paste0('~', map_region_var)), ncol = 1) +
       
       # -- choropleth over regions --
       geom_polygon(fill = map_accent) +
@@ -380,6 +385,8 @@ fcs_heatmap <- function(df,
   
   
   # MERGE, PLOT, and SAVE --------------------------------------------------
+  # check widths make sense
+  
   if(plot_map == TRUE){
     # note: use arrangeGrob, not arrange.grid, to produce ggsave-able object
     p = gridExtra::arrangeGrob(maps, FCS_heat, FCS_hist, FCS_avg, ncol = 4, widths = width_indivPlots,
