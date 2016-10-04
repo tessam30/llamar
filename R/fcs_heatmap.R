@@ -105,9 +105,25 @@ fcs_heatmap <- function(df,
   # SETUP: checks and initialize vars --------------------------------------------
   if(plot_map == TRUE) {
     # check that the shapefiles for the maps exist
-    # if(is.na(admin0) | is.na(region_coords)) {
-    #   stop('admin0 or region_coords not specified')
-    # }
+    if(any(is.na(admin0)) | any(is.na(region_coords))) {
+      stop('admin0 or region_coords not specified')
+    }
+    
+    # check that the objects are data frames
+    if(is.data.frame(admin0)){
+      stop('admin0 is not a dataframe (is it a list?)')
+    }
+    if(is.data.frame(region_coords)){
+      stop('admin0 is not a dataframe (is it a list?)')
+    }
+    
+    # check the mapping data have the right info
+    if(!all(c('lat', 'long', 'group', 'order') %in% colnames(admin0))) {
+      stop('admin0 is missing geographic columns: lat, long, group, and/or order')
+    }
+    if(!all(c('lat', 'long', 'group', 'order') %in% colnames(region_coords))) {
+      stop('region_coords is missing geographic columns: lat, long, group, and/or order')
+    }
     
   }
 
