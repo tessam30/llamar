@@ -333,7 +333,7 @@ fcs_heatmap <- function(df,
     
     # -- density distribution (for clipping) --
     # **! keep as the outer most element for ease of clipping in AI.
-    geom_density(fill = 'dodgerblue') +
+    geom_density(fill = 'dodgerblue', size = 0) +
     
     # -- facet --
     facet_wrap(as.formula(paste0('~', region_var)), ncol = 1) +
