@@ -16,6 +16,7 @@
 
 coefplot = function(model,
                     level = 0.95,
+                    exclude_intercept = TRUE,
                     size_point = 3){
   
   # pull out coefficients in a nice data frame
@@ -26,7 +27,15 @@ coefplot = function(model,
   
   df = dplyr::bind_cols(coefs, CIs)
   
-  max_estimate = max(max(df$estimate), abs(min(df$estimate)))
+  if(exclude_intercept == TRUE){
+    max_estimate = df %>% filter(term != '(intercept)') %>% summarise(min = min(estimate),
+                                                                      max = max(estimate))
+    
+    max_estimate = max(max_estimate$max, abs(max_estimate$min))
+  
+    } else {
+    max_estimate = max(max(df$estimate), abs(min(df$estimate)))
+  }
   
   ggplot(df, aes(x = estimate, y = forcats::fct_reorder(term, estimate),
                  fill = estimate)) +

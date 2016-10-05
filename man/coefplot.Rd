@@ -4,7 +4,7 @@
 \alias{coefplot}
 \title{Plot coefficients of a model with errors}
 \usage{
-coefplot(model, level = 0.95, size_point = 3)
+coefplot(model, level = 0.95, exclude_intercept = TRUE, size_point = 3)
 }
 \arguments{
 \item{model}{Fitted model}
