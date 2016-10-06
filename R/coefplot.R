@@ -43,6 +43,10 @@ coefplot = function(model,
     
   } else {
     # recalculate the CIs based on the clustering variable
+    if(length(cluster_col) != nrow(model$model)) {
+      stop('length of cluter column is not equal to that in the model.  Were missing observations removed in the model?')
+    }
+    
    coefs = lmtest::coeftest(model, vcov = multiwayvcov::cluster.vcov(model, cluster_col))
    
    df = data.frame(term = row.names(coefs),
