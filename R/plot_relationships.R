@@ -48,67 +48,69 @@ plot_relationships = function(model,
   dpndt_var = vars %>% slice(1)
   
   indpndt_vars = vars %>% slice(-1)
-  print(dpndt_var$type)
+  
   if(dpndt_var$type == 'binary'){
-    print('binary')
     binary_y = TRUE 
   } else {
-    binary_y == FALSE
+    binary_y = FALSE
   }
-  print(binary_y)
   
   # loop over the variables and plot the average value
   
   for (i in seq_along(indpndt_vars$variable)) {
+    current_type = indpndt_vars$type[i]
+    
+    current_var = indpndt_vars$variable[i]
+    
     
     if(binary_y == TRUE){
-      if(indpndt_vars$type[i] == 'factor' | indpndt_vars$type[i] == 'binary') {
-        print(1)
-        p = ggplot(df, aes_string(x = indpndt_vars$variable[i], y = dpndt_var$variable)) +
-          stat_summary(geom = 'point', size = 5, fun.y = 'mean_cl_boot', colour = binary_colour) +
+      if(current_type == 'factor' | current_type == 'binary') {
+        p = ggplot(df, aes_string(x = current_var, y = dpndt_var$variable)) +
+          stat_summary(geom = 'pointrange', size = 1, fun.data = 'mean_cl_boot', colour = binary_colour) +
           scale_y_continuous(limits = binary_range, labels = scales::percent) +
-          ggtitle(indpndt_vars$variable[i]) +
-          theme_ygrid()
-
+          ggtitle(current_var) +
+          theme_xygridlight() +
+          theme(panel.grid.major.x = element_blank())
+        
         print(p)
         readline()
         
-      } else if (indpndt_vars$type[i] == 'numeric') {
-        print(2)
-        p = ggplot(df, aes_string(x = indpndt_vars$variable[i], y = dpndt_var$variable)) +
+      } else {
+        p = ggplot(df, aes_string(x = current_var, y = dpndt_var$variable)) +
           geom_smooth(colour = binary_colour) +
           scale_y_continuous(limits = binary_range, labels = scales::percent) +
-          ggtitle(indpndt_vars$variable[i]) +
+          ggtitle(current_var) +
           theme_xygridlight()
         
         print(p)
         readline()
       }
-    } else if(indpndt_vars$type[i] == 'factor' | indpndt_vars$type[i] == 'binary') {
-      print(3)
-      p = ggplot(df, aes_string(x = indpndt_vars$variable[i],
-                                y = dpndt_var$variable,
-                                fill = indpndt_vars$variable[i])) +
-        geom_boxplot(alpha = 0.5) +
-        scale_y_continuous(limits = cont_range) +
-        scale_fill_brewer(palette = 'Spectral') +
-        ggtitle(indpndt_vars$variable[i]) +
-        theme_ygrid()
-
-      print(p)
-      readline()
-      
-    } else if(indpndt_vars$type[i] == 'numeric')
-      print(4)
-      p = ggplot(df, aes_string(x = indpndt_vars$variable[i], y = dpndt_var$variable)) +
-        geom_smooth(colour = cont_colour) +
-        scale_y_continuous(limits = cont_range) +
-        ggtitle(indpndt_vars$variable[i]) +
-        theme_xygridlight()
-    
-    print(p)
-    readline()
-    
+    } else {
+      if(current_type == 'factor' | current_type == 'binary') {
+        p = ggplot(df, aes_string(x = paste0('factor(', current_var, ')'),
+                                           y = dpndt_var$variable,
+                                           fill = paste0('factor(', current_var, ')'))) +
+          geom_boxplot(alpha = 0.5) +
+          scale_y_continuous(limits = cont_range) +
+          scale_fill_brewer(palette = 'Spectral') +
+          ggtitle(current_var) +
+          theme_xygridlight() +
+          theme(panel.grid.major.x = element_blank())
+        
+        print(p)
+        readline()
+        
+      } else { #if(current_type == 'numeric')
+        p = ggplot(df, aes_string(x = current_var, y = dpndt_var$variable)) +
+          geom_smooth(colour = cont_colour) +
+          scale_y_continuous(limits = cont_range) +
+          ggtitle(current_var) +
+          theme_xygridlight()
+        
+        print(p)
+        readline()
+        
+      }
+    }
   }
-  
 }
