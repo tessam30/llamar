@@ -19,10 +19,11 @@ coefplot = function(model,
                     level = 0.95,
                     exclude_intercept = TRUE,
                     plot_left_labels = TRUE,
-                    plot_right_labels = TRUE,
+                    plot_right_labels = FALSE,
                     alpha_insignificant = 0.3,
                     size_point = 3,
                     x_buffer = 0.1,
+                    label_margin = 0.4,
                     font_normal = 'Lato',
                     font_semi = 'Lato Light',
                     font_light = 'Lato Light'){
@@ -106,7 +107,7 @@ coefplot = function(model,
                 size = 3.5, hjust = 'outward',
                 colour = grey90K, family = font_light) +
       
-      scale_x_continuous(limits = c(xmin - abs(xmax - xmin) * x_buffer * 3, xmax + abs(xmax - xmin) * x_buffer * 3),
+      scale_x_continuous(limits = c(xmin - abs(xmax - xmin) * label_margin, xmax + abs(xmax - xmin) * x_buffer * 3),
                          breaks = x_breaks)
     
     
@@ -116,7 +117,7 @@ coefplot = function(model,
                       size = 3.5, hjust = 'outward',
                       colour = grey90K, family = font_light) +
       
-      scale_x_continuous(limits = c(xmin - abs(xmax - xmin) * x_buffer * 3, xmax),
+      scale_x_continuous(limits = c(xmin - abs(xmax - xmin) * label_margin, xmax),
                          breaks = x_breaks)
   
     
@@ -126,7 +127,7 @@ coefplot = function(model,
                       size = 3.5, hjust = 'outward',
                       colour = grey90K, family = font_light) +
       
-      scale_x_continuous(limits = c(xmin, xmax + abs(xmax - xmin) * x_buffer * 3),
+      scale_x_continuous(limits = c(xmin, xmax + abs(xmax - xmin) * label_margin),
                          breaks = x_breaks)
   } else {
     p

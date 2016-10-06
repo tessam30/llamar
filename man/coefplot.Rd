@@ -4,7 +4,11 @@
 \alias{coefplot}
 \title{Plot coefficients of a model with errors}
 \usage{
-coefplot(model, level = 0.95, exclude_intercept = TRUE, size_point = 3)
+coefplot(model, negative_good = FALSE, level = 0.95,
+  exclude_intercept = TRUE, plot_left_labels = TRUE,
+  plot_right_labels = FALSE, alpha_insignificant = 0.3, size_point = 3,
+  x_buffer = 0.1, label_margin = 0.4, font_normal = "Lato",
+  font_semi = "Lato Light", font_light = "Lato Light")
 }
 \arguments{
 \item{model}{Fitted model}
