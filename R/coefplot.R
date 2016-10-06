@@ -116,6 +116,9 @@ coefplot = function(model,
                          limits = c(-1 * max_estimate, max_estimate)) + 
     scale_alpha_identity() +
     
+    # -- model params --
+    ggtitle(paste0('adj. r^2: ', round(summary(model)$adj.r.squared, 3)), subtitle = paste0('# NAs: ', length(model$na.action))) +
+    
     # -- themes --
     theme_xgrid(font_normal = font_normal, font_semi = font_semi, font_light = font_light) +
     theme(axis.text.x = element_text(size = 12),
