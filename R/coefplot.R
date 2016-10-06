@@ -93,25 +93,33 @@ coefplot = function(model,
                           label = forcats::fct_reorder(term, estimate)),
                       size = 3.5, hjust = 'outward',
                       colour = grey90K, family = font_light) +
+      
       geom_text(aes(x = xmax + xmax * x_buffer, y = forcats::fct_reorder(term, estimate),
                     label = forcats::fct_reorder(term, estimate)),
                 size = 3.5, hjust = 'outward',
                 colour = grey90K, family = font_light) +
-      scale_x_continuous(expand = c(x_buffer * 3.5, x_buffer * 3.5),
+      
+      scale_x_continuous(limits = c(xmin - abs(xmax - xmin) * x_buffer * 3, xmax + abs(xmax - xmin) * x_buffer * 3),
                          breaks = x_breaks)
+    
+    
   } else if(plot_left_labels) {
     p = p + geom_text(aes(x = xmin - abs(xmin) * x_buffer, y = forcats::fct_reorder(term, estimate),
                           label = forcats::fct_reorder(term, estimate)),
                       size = 3.5, hjust = 'outward',
                       colour = grey90K, family = font_light) +
-      scale_x_continuous(expand = c(x_buffer * 3.5, 0),
+      
+      scale_x_continuous(limits = c(xmin - abs(xmax - xmin) * x_buffer * 3, xmax),
                          breaks = x_breaks)
-  } else if(plot_right_labels) {
+  
+    
+    } else if(plot_right_labels) {
     p = p + geom_text(aes(x = xmax + xmax * x_buffer, y = forcats::fct_reorder(term, estimate),
                           label = forcats::fct_reorder(term, estimate)),
                       size = 3.5, hjust = 'outward',
                       colour = grey90K, family = font_light) +
-      scale_x_continuous(expand = c(x_buffer * 3.5, 0),
+      
+      scale_x_continuous(limits = c(xmin, xmax + abs(xmax - xmin) * x_buffer * 3),
                          breaks = x_breaks)
   } else {
     p
