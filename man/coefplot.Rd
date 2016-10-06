@@ -4,8 +4,8 @@
 \alias{coefplot}
 \title{Plot coefficients of a model with errors}
 \usage{
-coefplot(model, negative_good = FALSE, level = 0.95,
-  exclude_intercept = TRUE, plot_left_labels = TRUE,
+coefplot(model, negative_good = FALSE, cluster_col = NA, level = 0.95,
+  CI_factor = 1.96, exclude_intercept = TRUE, plot_left_labels = TRUE,
   plot_right_labels = FALSE, alpha_insignificant = 0.3, size_point = 3,
   x_buffer = 0.1, label_margin = 0.4, font_normal = "Lato",
   font_semi = "Lato Light", font_light = "Lato Light")

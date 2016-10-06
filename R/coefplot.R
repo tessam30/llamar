@@ -3,7 +3,7 @@
   #' Inspired by https://github.com/jaredlander/coefplot/blob/master/R/coefplot.r
   #' but works w/ ggplot2 version > 2.2
   #' 
-  #' @import ggplot2 broom dplyr forcats RColorBrewer
+  #' @import ggplot2 broom dplyr forcats RColorBrewer multiwayvcov lmtest
   #' 
   #' @param model Fitted model
   
@@ -16,7 +16,9 @@
 
 coefplot = function(model,
                     negative_good = FALSE,
+                    cluster_col = NA,
                     level = 0.95,
+                    CI_factor = 1.96, # assuming normal distribution, 95% CI level
                     exclude_intercept = TRUE,
                     plot_left_labels = TRUE,
                     plot_right_labels = FALSE,
@@ -29,12 +31,32 @@ coefplot = function(model,
                     font_light = 'Lato Light'){
   
   # pull out coefficients in a nice data frame
-  coefs = broom::tidy(model)
+
   
   # ditto for confidence intervals; assumes 95% level
-  CIs = broom::confint_tidy(model, 0.95)
-  
-  df = dplyr::bind_cols(coefs, CIs)
+  if(is.na(cluster_col)){
+    coefs = broom::tidy(model)
+    
+    CIs = broom::confint_tidy(model, level)
+    
+    df = dplyr::bind_cols(coefs, CIs)
+    
+  } else {
+    # recalculate the CIs based on the clustering variable
+   coefs = lmtest::coeftest(model, vcov = multiwayvcov::cluster.vcov(model, cluster_col))
+   
+   df = data.frame(term = row.names(coefs),
+                   estimate = coefs[, 'Estimate'],
+                   std.error = coefs[, 'Std. Error'],
+                   statistic = coefs[, 't value'],
+                   p.value = coefs[,'Pr(>|t|)'])
+   
+   df = df %>% 
+     mutate(conf.low = estimate - CI_factor * std.error,
+            conf.high = estimate + CI_factor * std.error)
+  }
+
+
   
   # determine if statistically significant difference
   df = df %>% 
