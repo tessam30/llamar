@@ -15,6 +15,7 @@
 #' @export
 
 coefplot = function(model,
+                    negative_good = FALSE,
                     level = 0.95,
                     exclude_intercept = TRUE,
                     plot_left_labels = TRUE,
@@ -55,6 +56,12 @@ coefplot = function(model,
     
   } else {
     max_estimate = max(max(df$estimate), abs(min(df$estimate)))
+  }
+  
+  if(negative_good == TRUE) {
+    # flip the color scheme
+    
+    max_estimate = max_estimate * -1
   }
   
   # plot --------------------------------------------------------------------
