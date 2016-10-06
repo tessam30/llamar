@@ -1,18 +1,18 @@
-#' Plot coefficients of a model with errors 
-#' 
-#' Inspired by https://github.com/jaredlander/coefplot/blob/master/R/coefplot.r
-#' but works w/ ggplot2 version > 2.2
-#' 
-#' @import ggplot2 broom dplyr forcats RColorBrewer
-#' 
-#' @param model Fitted model
-
-#' @examples
-#' data(diamonds)
-#' model1 <- lm(price ~ carat + cut*color, data=diamonds)
-#' coefplot(model1)
-#' 
-#' @export
+  #' Plot coefficients of a model with errors 
+  #' 
+  #' Inspired by https://github.com/jaredlander/coefplot/blob/master/R/coefplot.r
+  #' but works w/ ggplot2 version > 2.2
+  #' 
+  #' @import ggplot2 broom dplyr forcats RColorBrewer
+  #' 
+  #' @param model Fitted model
+  
+  #' @examples
+  #' data(diamonds)
+  #' model1 <- lm(price ~ carat + cut*color, data=diamonds)
+  #' coefplot(model1)
+  #' 
+  #' @export
 
 coefplot = function(model,
                     negative_good = FALSE,
