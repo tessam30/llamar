@@ -12,7 +12,7 @@
 #' model1 <- lm(price ~ carat + cut*color, data=diamonds)
 #' coefplot(model1)
 #' 
-#' #' @export
+#' @export
 
 coefplot = function(model,
                     level = 0.95,
