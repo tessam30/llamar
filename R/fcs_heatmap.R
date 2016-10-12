@@ -59,6 +59,7 @@ fcs_heatmap <- function(df,
                         oil_var = 'oil_days', 
                         fruit_var = 'fruit_days', 
                         sugar_var = 'sugar_days',
+                        low_FCS_top = TRUE,
                         
                         # -- averaging options --
                         na.rm = FALSE,
@@ -229,7 +230,12 @@ fcs_heatmap <- function(df,
     
     # (e) -- reorder levels --
     # regions
-    fcs_heat$regionName = forcats::fct_reorder(fcs_heat$regionName, fcs_heat$fcs)
+    if(low_FCS_top == TRUE){
+      fcs_heat$regionName = forcats::fct_reorder(fcs_heat$regionName, fcs_heat$fcs, .desc = TRUE)
+    }else {
+      fcs_heat$regionName = forcats::fct_reorder(fcs_heat$regionName, fcs_heat$fcs)
+    }
+    
     df[[region_var]] = forcats::fct_relevel(df[[region_var]], rev(levels(fcs_heat$regionName)))
     FCS_region[[region_var]] = forcats::fct_relevel(FCS_region[[region_var]], levels(fcs_heat$regionName))
     
