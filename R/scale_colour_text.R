@@ -45,7 +45,8 @@ scale_colour_text = function(data_col,
     scale_colour_continuous(high = light_colour, 
                             na.value = light_colour,
                             low = dark_colour, 
-                            limits = mapping_range)
+                            limits = mapping_range,
+                            guide = 'none')
   } else {
     # Reverse the color scale
     
@@ -58,7 +59,8 @@ scale_colour_text = function(data_col,
     scale_colour_continuous(low = light_colour, 
                             na.value = light_colour,
                             high = dark_colour, 
-                            limits = mapping_range)
+                            limits = mapping_range,
+                            guide = 'none')
   }
 }
 
