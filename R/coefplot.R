@@ -3,7 +3,7 @@
   #' Inspired by https://github.com/jaredlander/coefplot/blob/master/R/coefplot.r
   #' but works w/ ggplot2 version > 2.2
   #' 
-  #' @import ggplot2 broom dplyr forcats RColorBrewer multiwayvcov lmtest
+  #' @import ggplot2 broom dplyr forcats RColorBrewer multiwayvcov lmtest extrafont
   #' 
   #' @param model Fitted model
   
@@ -29,6 +29,12 @@ coefplot = function(model,
                     font_normal = 'Lato',
                     font_semi = 'Lato Light',
                     font_light = 'Lato Light'){
+  
+  # check if the fonts are installed.  If not, default to 'sans'.
+  font_normal = replace_font(font_normal)
+  font_semi = replace_font(font_semi)
+  font_light = replace_font(font_light)
+  
   
   # pull out coefficients in a nice data frame
 

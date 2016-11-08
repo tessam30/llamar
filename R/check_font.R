@@ -1,14 +1,15 @@
-#' Map text annotation color to underlying value
+#' @title Checks font is installed in the system
+#' 
+#' @name check_font
 #' 
 #' @description
-#' Find a corresponding grey color to overlay on top of a colored object within ggplot.
-#' Should be used in conjuction with ggplot2 objects; geom_text object should specify colour/color aes argument 
-#' By default, color values are linearly interpolated from the low value of the range to 50% of the highest value in the data; 
-#' data larger than that are all given the same color (`light_color`) 
+#' Checks if a given font is installed in the system.
 #'
-#' @param data_col data containing the data frame to map the colors to
+#' @param font_name string containing the font name
 #' 
-#' @import extrafont   
+#' 
+#' @import extrafont  
+#' @export 
 
 
 check_font = function(font_name){
@@ -18,5 +19,19 @@ check_font = function(font_name){
     return(TRUE) 
   } else {
     return(FALSE)
+  }
+}
+
+#' @name  replace_font
+#' @title replace font
+#' @param font_name string containing the font name
+#' @param default_font string containng a font to use as a substituted if not found
+#' @export
+replace_font = function(font_name, default_font = 'sans') {
+  if(check_font(font_name) == FALSE) {
+    # font isn't installed
+    return(default_font)
+  } else{
+    return(font_name)
   }
 }
