@@ -7,6 +7,8 @@ Description: Creates a series of plotting themes for ggplot2 and plotting
 Depends:
     R (>= 3.2.2),
     ggplot2
+Imports:
+    broom
 License: MIT
 LazyData: true
 RoxygenNote: 5.0.1
