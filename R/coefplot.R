@@ -119,14 +119,18 @@ coefplot = function(model,
                          limits = c(-1 * max_estimate, max_estimate)) + 
     scale_alpha_identity() +
     
-    # -- model params --
-    ggtitle(paste0('adj. r^2: ', round(summary(model)$adj.r.squared, 3)), 
-            subtitle = paste0(model$df.residual, ' observations; # NAs: ', length(model$na.action))) +
-    
     # -- themes --
     theme_xgrid(font_normal = font_normal, font_semi = font_semi, font_light = font_light) +
     theme(axis.text.x = element_text(size = 12),
           axis.text.y = element_blank())
+  
+  # -- model params --
+  if(packageVersion('ggplot2') > '2.1.0') {
+    p = p + ggtitle(paste0('adj. r^2: ', round(summary(model)$adj.r.squared, 3)), 
+          subtitle = paste0(model$df.residual, ' observations; # NAs: ', length(model$na.action)))
+  } else {
+    p = p + ggtitle(paste0('adj. r^2: ', round(summary(model)$adj.r.squared, 3)))
+  }
   
   # -- variable labels --
   if(plot_left_labels & plot_right_labels){
