@@ -15,6 +15,7 @@
 #' @export
 
 plot_relationships = function(model, 
+                              orig_df,
                               cont_range = c(-4, 4),
                               binary_range = c(0, 1),
                               binary_colour = '#66c2a5',
@@ -68,7 +69,7 @@ plot_relationships = function(model,
         p = ggplot(df, aes_string(x = current_var, y = dpndt_var$variable)) +
           stat_summary(geom = 'pointrange', size = 1, fun.data = 'mean_cl_boot', colour = binary_colour) +
           scale_y_continuous(limits = binary_range, labels = scales::percent) +
-          ggtitle(current_var) +
+          ggtitle(current_var, subtitle = paste0('Number of NAs: ', sum(is.na(orig_df[[current_var]])))) +
           theme_xygridlight() +
           theme(panel.grid.major.x = element_blank())
         
@@ -79,7 +80,7 @@ plot_relationships = function(model,
         p = ggplot(df, aes_string(x = current_var, y = dpndt_var$variable)) +
           geom_smooth(colour = binary_colour) +
           scale_y_continuous(limits = binary_range, labels = scales::percent) +
-          ggtitle(current_var) +
+          ggtitle(current_var, subtitle = paste0('Number of NAs: ', sum(is.na(orig_df[[current_var]])))) +
           theme_xygridlight()
         
         print(p)
@@ -93,7 +94,7 @@ plot_relationships = function(model,
           geom_boxplot(alpha = 0.5) +
           scale_y_continuous(limits = cont_range) +
           scale_fill_brewer(palette = 'Spectral') +
-          ggtitle(current_var) +
+          ggtitle(current_var, subtitle = paste0('Number of NAs: ', sum(is.na(orig_df[[current_var]])))) +
           theme_xygridlight() +
           theme(panel.grid.major.x = element_blank())
         
@@ -104,9 +105,9 @@ plot_relationships = function(model,
         p = ggplot(df, aes_string(x = current_var, y = dpndt_var$variable)) +
           geom_smooth(colour = cont_colour) +
           scale_y_continuous(limits = cont_range) +
-          ggtitle(current_var) +
-          theme_xygridlight()
-        
+          theme_xygridlight() +           
+          ggtitle(current_var, subtitle = paste0('Number of NAs: ', sum(is.na(orig_df[[current_var]]))))
+          
         print(p)
         readline()
         
