@@ -61,7 +61,7 @@ coefplot = function(model,
 
   
   # ditto for confidence intervals; assumes 95% level
-  if(is.na(cluster_col)){
+  if(is.na(all(cluster_col))){
     coefs = broom::tidy(model)
     
     CIs = broom::confint_tidy(model, level)
@@ -72,6 +72,12 @@ coefplot = function(model,
     df = dplyr::bind_cols(coefs, CIs)
     
   } else {
+    # check that cluster_col has the right number of observations
+    if(length(cluster_col) != (length(model$fitted.values) + length(model$na.action))) {
+      stop('check cluster_col; incorrect number of observations inputted.')
+    }
+    
+    
     # recalculate the CIs based on the clustering variable
     
    coefs = lmtest::coeftest(model, vcov = multiwayvcov::cluster.vcov(model, cluster_col))
