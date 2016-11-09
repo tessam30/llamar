@@ -66,6 +66,9 @@ coefplot = function(model,
     
     CIs = broom::confint_tidy(model, level)
     
+    # Remove any NAs from CIs (factors which have been dropped from model)
+    CIs = CIs %>% filter(!is.na(conf.low))
+    
     df = dplyr::bind_cols(coefs, CIs)
     
   } else {
