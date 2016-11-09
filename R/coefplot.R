@@ -35,6 +35,7 @@
   #' @export
 
 coefplot = function(model,
+                    negative_ontop = TRUE,
                     negative_good = FALSE,
                     cluster_col = NA,
                     level = 0.95,
@@ -116,7 +117,7 @@ coefplot = function(model,
   
   # plot --------------------------------------------------------------------
   
-  p = ggplot(df, aes(x = estimate, y = forcats::fct_reorder(term, estimate),
+  p = ggplot(df, aes(x = estimate, y = forcats::fct_reorder(term, estimate, .desc = negative_ontop),
                      fill = estimate, alpha = stat_signif)) +
     
     # -- zero point --
@@ -125,7 +126,7 @@ coefplot = function(model,
     
     # -- error bars --
     geom_segment(aes(x = conf.low, xend = conf.high,
-                     yend = forcats::fct_reorder(term, estimate)),
+                     yend = forcats::fct_reorder(term, estimate, .desc = negative_ontop)),
                  colour = grey15K, size = 1.5) +
     
     # -- estimate --
@@ -154,13 +155,13 @@ coefplot = function(model,
   
   # -- variable labels --
   if(plot_left_labels & plot_right_labels){
-    p = p + geom_text(aes(x = xmin - abs(xmin) * x_buffer, y = forcats::fct_reorder(term, estimate),
-                          label = forcats::fct_reorder(term, estimate)),
+    p = p + geom_text(aes(x = xmin - abs(xmin) * x_buffer, y = forcats::fct_reorder(term, estimate, .desc = negative_ontop),
+                          label = forcats::fct_reorder(term, estimate, .desc = negative_ontop)),
                       size = 3.5, hjust = 'outward',
                       colour = grey90K, family = font_light) +
       
-      geom_text(aes(x = xmax + xmax * x_buffer, y = forcats::fct_reorder(term, estimate),
-                    label = forcats::fct_reorder(term, estimate)),
+      geom_text(aes(x = xmax + xmax * x_buffer, y = forcats::fct_reorder(term, estimate, .desc = negative_ontop),
+                    label = forcats::fct_reorder(term, estimate, .desc = negative_ontop)),
                 size = 3.5, hjust = 'outward',
                 colour = grey90K, family = font_light) +
       
@@ -169,8 +170,8 @@ coefplot = function(model,
     
     
   } else if(plot_left_labels) {
-    p = p + geom_text(aes(x = xmin - abs(xmin) * x_buffer, y = forcats::fct_reorder(term, estimate),
-                          label = forcats::fct_reorder(term, estimate)),
+    p = p + geom_text(aes(x = xmin - abs(xmin) * x_buffer, y = forcats::fct_reorder(term, estimate, .desc = negative_ontop),
+                          label = forcats::fct_reorder(term, estimate, .desc = negative_ontop)),
                       size = 3.5, hjust = 'outward',
                       colour = grey90K, family = font_light) +
       
@@ -179,8 +180,8 @@ coefplot = function(model,
   
     
     } else if(plot_right_labels) {
-    p = p + geom_text(aes(x = xmax + xmax * x_buffer, y = forcats::fct_reorder(term, estimate),
-                          label = forcats::fct_reorder(term, estimate)),
+    p = p + geom_text(aes(x = xmax + xmax * x_buffer, y = forcats::fct_reorder(term, estimate, .desc = negative_ontop),
+                          label = forcats::fct_reorder(term, estimate, .desc = negative_ontop)),
                       size = 3.5, hjust = 'outward',
                       colour = grey90K, family = font_light) +
       
