@@ -1,16 +1,36 @@
   #' Plot coefficients of a model with errors 
   #' 
-  #' Inspired by https://github.com/jaredlander/coefplot/blob/master/R/coefplot.r
-  #' but works w/ ggplot2 version > 2.2
+  #' @description Plots coefficients from a model, along with standard errors.  Coefficients that are statistically significant at agiven level are highlighted in darker text. Inspired by https://github.com/jaredlander/coefplot/blob/master/R/coefplot.r but works w/ ggplot2 version > 2.2
   #' 
   #' @import ggplot2 broom dplyr forcats RColorBrewer multiwayvcov lmtest extrafont
   #' 
-  #' @param model Fitted model
-  
+  #' @param model Fitted model object from a lm or glm
+  #' @param negative_good Should negative coefficients be displayed in red (default) or blue (negative_good = TRUE)?
+  #' @param cluster_col Column in the *original* data frame used to build the model to be used to calculate clustered standards errors using the `multiwayvcov` package. By default, no clustering correction is used, and the standard erorrs are those calculated in the model.  If using clustered errors, should be specified as: 'orginal_data$clustering_column'
+  #' @param level confidence level for error bars / significance indicator
+  #' @param CI_factor Factor to adjust the standard errors by. By default, 1.96, assuming a normal distribution with sufficient sample size (95 percent of distribution lies within 1.96 standard deviations)
+  #' @param exclude_intercept whether to include the intercept from the model in the color-coding of coefficients.
+  #' @param plot_left_labels include names of variables on the left side of the y-axis
+  #' @param plot_right_labels include names of variables on the right side of the y-axis
+  #' @param alpha_insignificant alpha (opacity) level for variables that are insignificant
+  #' @param size_point size to plot the coefficients, in mm
+  #' @param x_buffer percentage offset for the y-axis labels
+  #' @param label_margin offset for the y-axis labels
+  #' @param font_normal string containing the name of the font to use in darkest text
+  #' @param font_semi string containing the name of the font to use in medium dark text
+  #' @param font_light string containing the name of the font to use in lightest text
+  #'  
   #' @examples
-  #' data(diamonds)
+  #' data(diamonds, package = 'ggplot2')
   #' model1 <- lm(price ~ carat + cut*color, data=diamonds)
   #' coefplot(model1)
+  #' 
+  #' # Sort of a contrived example to show the effect of clustering standard errors.
+  #' model2 <- lm(price ~ carat + color, data=diamonds)
+  #' # No clustered errors
+  #' coefplot(model2)
+  #' # Errors clustered by cut
+  #' coefplot(model2, cluster_col = diamonds$cut)
   #' 
   #' @export
 
@@ -31,9 +51,9 @@ coefplot = function(model,
                     font_light = 'Lato Light'){
   
   # check if the fonts are installed.  If not, default to 'sans'.
-  font_normal = replace_font(font_normal)
-  font_semi = replace_font(font_semi)
-  font_light = replace_font(font_light)
+  font_normal = llamar::replace_font(font_normal)
+  font_semi = llamar::replace_font(font_semi)
+  font_light = llamar::replace_font(font_light)
   
   
   # pull out coefficients in a nice data frame
