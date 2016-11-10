@@ -24,7 +24,7 @@
 - [ ] "loadDHS.R"            
 - [ ] "loadPkgs.R"          
 - [ ] "multiplot.R"                  
-- [ ] "plot_corr.R"
+- [x] "plot_corr.R"
 - [ ] "plot_heatmap.R"
 - [ ] "plot_relationships.R"      
 - [ ] "save_plot.R"          
