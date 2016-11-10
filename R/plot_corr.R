@@ -91,8 +91,8 @@ plot_corr = function(df,
   # -- axes --
   if(remove_half == TRUE) {
     p = p + 
-      geom_text(aes(x = row_id - 1, y = row_id, label = x), 
-                hjust = 'inner', data = diag_labels, 
+      geom_text(aes(x = row_id - 0.75, y = row_id, label = x), 
+                hjust = 1, data = diag_labels, 
                 colour = grey60K, family = font_light,
                 size = 3.52778) +
       theme(axis.text.y = element_blank()) 
@@ -107,7 +107,8 @@ plot_corr = function(df,
   
   # -- equal, square tiles --
   if(square_tiles == TRUE & remove_half == TRUE) {
-    p = p + coord_equal(xlim = c(-1, nrow(diag_labels) + 1))
+    p = p + coord_equal(xlim = c(-1, nrow(diag_labels) + 1), 
+                        ylim = c(1, nrow(diag_labels)))
   } else if(square_tiles == TRUE) {
     p =  p + coord_equal()
   } else if (remove_half == TRUE) {
