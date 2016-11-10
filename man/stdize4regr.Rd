@@ -18,7 +18,8 @@ Standardizes regression input columns to have comparable regression coefficients
 Rules are as follows:
 * categoricals: ignore (leave as dummy vars with 0/1) 
 * binaries: ignore (leave as 0/1)
-* continuous: divide by 2 std dev.
+* continuous: divide by 2 std dev. if scale = F; or reset so sd = 1, mean = 0 if center = T, scale = T; divided by root mean squared if scale = T, center = F
+Based off of Andrew Gelman's suggestions: http://andrewgelman.com/2009/07/11/when_to_standar/
 }
 \examples{
 scaledcenter_mtcars = stdize4regr(mtcars)
