@@ -50,7 +50,7 @@ plot_corr = function(df,
   cor_matrix$row_id = 1:nrow(cor_matrix)
   cor_matrix = cor_matrix %>% gather(y, corr, -x, -row_id)
   
- 
+  
   
   # find indices to label diagonals
   if(remove_half == TRUE) {
@@ -106,9 +106,13 @@ plot_corr = function(df,
   }
   
   # -- equal, square tiles --
-  if(square_tiles == TRUE) {
-    p = p + coord_equal(expand = c(0.1))
-  }
+  if(square_tiles == TRUE & remove_half == TRUE) {
+    p = p + coord_equal(xlim = c(-1, nrow(diag_labels) + 1))
+  } else if(square_tiles == TRUE) {
+    p =  p + coord_equal()
+  } else if (remove_half == TRUE) {
+    p = p + scale_x_discrete(expand = c(0.1, 0))
+  } 
   
   return(p)
 }
