@@ -4,8 +4,9 @@
 \alias{plot_relationships}
 \title{Plot relationships between variables in a model}
 \usage{
-plot_relationships(model, cont_range = c(-4, 4), binary_range = c(0, 1),
-  binary_colour = "#66c2a5", cont_colour = "#3288bd")
+plot_relationships(model, orig_df, cont_range = c(-4, 4),
+  binary_range = c(0, 1), binary_colour = "#66c2a5",
+  cont_colour = "#3288bd")
 }
 \arguments{
 \item{model}{Fitted model}
