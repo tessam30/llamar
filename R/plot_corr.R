@@ -8,6 +8,7 @@
 #' 
 #' @examples 
 #' plot_corr(mtcars)
+#' @export
 
 plot_corr = function(df,
                      use_arg = 'pairwise.complete.obs',
