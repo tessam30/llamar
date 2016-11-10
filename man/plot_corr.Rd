@@ -5,10 +5,10 @@
 \title{Calculate and plot a correlation matrix.}
 \usage{
 plot_corr(df, use_arg = "pairwise.complete.obs", remove_same = TRUE,
-  remove_half = TRUE, stroke_colour = "white", stroke_size = 0.5,
-  square_tiles = TRUE, fill_palette = brewer.pal(11, "RdYlBu"),
-  fill_limits = c(-1, 1), font_normal = "Lato", font_semi = "Lato Light",
-  font_light = "Lato Light")
+  remove_half = TRUE, label_pct = TRUE, stroke_colour = "white",
+  stroke_size = 0.5, square_tiles = TRUE, fill_palette = brewer.pal(11,
+  "RdYlBu"), fill_limits = c(-1, 1), font_normal = "Lato",
+  font_semi = "Lato Light", font_light = "Lato Light")
 }
 \arguments{
 \item{df}{data frame containing only numeric values}
