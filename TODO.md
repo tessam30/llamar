@@ -16,7 +16,7 @@
 - [ ] attributes.R
 - [ ] "calcPtEst.R"         
 - [ ] "check_font.R"         
-- [ ] "coefplot.R"           
+- [x] "coefplot.R"           
 - [ ] "copy4facet.R"
 - [ ] "factorize.R"
 - [ ] "fcs_heatmap.R"       
@@ -24,7 +24,7 @@
 - [ ] "loadDHS.R"            
 - [ ] "loadPkgs.R"          
 - [ ] "multiplot.R"                  
-- [x] "plot_corr.R"
+- [ ] "plot_corr.R"
 - [ ] "plot_heatmap.R"
 - [ ] "plot_relationships.R"      
 - [ ] "save_plot.R"          
