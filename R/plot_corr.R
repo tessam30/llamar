@@ -81,7 +81,7 @@ plot_corr = function(df,
     
     # -- scales --
     scale_fill_gradientn(colours = fill_palette, 
-                         values = fill_limits) +
+                         limits = fill_limits) +
     
     # -- themes --
     theme_xylab(font_normal = font_normal, 
