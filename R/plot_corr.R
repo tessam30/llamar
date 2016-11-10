@@ -101,8 +101,8 @@ plot_corr = function(df,
   # -- labels --
   if(label_pct == TRUE) {
     p = p +
-      geom_text(aes(colour = corr, label = percent(corr, 0))) +
-      scale_colour_text(data_col = cor_matrix$corr) 
+      geom_text(aes(colour = abs(corr), label = percent(corr, 0))) +
+      scale_colour_text(data_col = cor_matrix$corr, diverging = FALSE) 
   }
   
   # -- equal, square tiles --

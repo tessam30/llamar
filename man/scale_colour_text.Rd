@@ -5,12 +5,15 @@
 \title{Map text annotation color to underlying value}
 \usage{
 scale_colour_text(data_col, light_colour = "#f1f2f2",
-  dark_colour = "#414042", darkOnLowVals = TRUE, mapping_range = NA)
+  dark_colour = "#414042", darkOnLowVals = TRUE, diverging = FALSE,
+  mapping_range = NA)
 }
 \arguments{
 \item{data_col}{data containing the data frame to map the colors to}
 
 \item{darkOnLowVals}{binary whether to have the dark_color text on low values of data_col}
+
+\item{diverging}{binary values to scale the palette by the absolute value of the values. For use with an underlying diverging color palette}
 
 \item{mapping_range}{(optional) manually specify the breakpoint for the linear interpolation of color}
 

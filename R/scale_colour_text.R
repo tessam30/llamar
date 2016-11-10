@@ -10,6 +10,7 @@
 #' @param light_color,light_colour hexadecimal or R color name for the text on top of dark objects (usually a light color)
 #' @param dark_color,dark_colour hexadecimal or R color name for the text on top of light objects (usually a dark color)
 #' @param darkOnLowVals binary whether to have the dark_color text on low values of data_col
+#' @param diverging binary values to scale the palette by the absolute value of the values. For use with an underlying diverging color palette
 #' @param mapping_range (optional) manually specify the breakpoint for the linear interpolation of color
 #'   
 
@@ -31,6 +32,7 @@ scale_colour_text = function(data_col,
                              light_colour = '#f1f2f2',
                              dark_colour = '#414042',
                              darkOnLowVals = TRUE,
+                             diverging = FALSE,
                              mapping_range = NA
 ){
   
@@ -39,7 +41,11 @@ scale_colour_text = function(data_col,
     if(is.na(mapping_range)) {
       # no custom range specified
       # have the white values go from the lower limit to 50% of the upper limit
-      mapping_range = range(data_col) * c(1, 0.5)
+      if(diverging == TRUE) {
+        mapping_range = range(abs(data_col)) * c(1, 0.5)
+      } else {
+        mapping_range = range(data_col) * c(1, 0.5)
+      }
     }
     
     scale_colour_continuous(high = light_colour, 
@@ -53,7 +59,11 @@ scale_colour_text = function(data_col,
     if(is.na(mapping_range)) {
       # no custom range specified
       # have the white values go from 50% of the upper limit to the upper limit
-      mapping_range = range(data_col)[2] * c(0.5, 1)
+      if(diverging == TRUE){
+        mapping_range = range(abs(data_col))[2] * c(0.5, 1)
+      } else { 
+        mapping_range = range(data_col)[2] * c(0.5, 1)
+      }
     }
     
     scale_colour_continuous(low = light_colour, 
