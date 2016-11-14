@@ -25,5 +25,6 @@ Based off of Andrew Gelman's suggestions: http://andrewgelman.com/2009/07/11/whe
 scaledcenter_mtcars = stdize4regr(mtcars)
 scaled_mtcars = stdize4regr(mtcars, center = FALSE)
 adj_mtcars = stdize4regr(mtcars, center = FALSE, scale = FALSE)
+
 }
 

@@ -15,6 +15,8 @@
 #' scaledcenter_mtcars = stdize4regr(mtcars)
 #' scaled_mtcars = stdize4regr(mtcars, center = FALSE)
 #' adj_mtcars = stdize4regr(mtcars, center = FALSE, scale = FALSE)
+#' 
+#' @export
 
 stdize4regr = function(df,
                        center = TRUE,
