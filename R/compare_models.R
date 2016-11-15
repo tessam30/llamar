@@ -1,4 +1,7 @@
+! delete CI_factor-- not necesary for est.
+
 plot_comparison = function(df,
+                           level = 0.95,
                            # negative_ontop = TRUE,
                            # negative_good = FALSE,
                            exclude_intercept = TRUE,
@@ -43,7 +46,10 @@ plot_comparison = function(df,
     theme_xylab()
 }
 
-get_coefs = function(models, model_num, cluster_col = NA) {
+get_coefs = function(models, model_num, 
+                     cluster_col = NA, 
+                     level = 0.95, 
+                     CI_factor = 1.96) {
   model_name = names(models)[model_num]
   
   model = models[[model_name]]
@@ -102,6 +108,7 @@ compare_models = function(all_models,
                           # plot_left_labels = TRUE,
                           # plot_right_labels = FALSE,
                           alpha_insignificant = 0,
+                          filter_insignificant = FALSE,
                           # size_point = 3,
                           # x_buffer = 0.1,
                           # label_margin = 1,
@@ -111,13 +118,19 @@ compare_models = function(all_models,
   
   
   # pull out coefficients in a nice data frame
-  df = lapply(seq_along(all_models), function(x) get_coefs(all_models, x, cluster_col = NA))
+  df = lapply(seq_along(all_models), function(x) 
+    get_coefs(all_models, x, cluster_col = cluster_col, level = level, CI_factor = CI_factor))
   
   # merge together
   df = bind_rows(df)
+  
+  if(filter_insignificant == TRUE) {
+    df = filter(p.value < (1 - level))
+  }
 
 
 plot_comparison(df, 
+                level = level,
                 exclude_intercept = exclude_intercept,
                 alpha_insignificant = alpha_insignificant,
                 font_normal = font_normal,
