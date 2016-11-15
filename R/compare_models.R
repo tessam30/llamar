@@ -1,50 +1,44 @@
-! delete CI_factor-- not necesary for est.
-
-plot_comparison = function(df,
-                           level = 0.95,
-                           # negative_ontop = TRUE,
-                           # negative_good = FALSE,
-                           exclude_intercept = TRUE,
-                           alpha_insignificant = 0,
-                           font_normal = 'Lato',
-                           font_semi = 'Lato Light',
-                           font_light = 'Lato Light'){
+compare_models = function(all_models,
+                          cluster_col = NA,
+                          level = 0.95,
+                          CI_factor = 1.96, # assuming normal distribution, 95% CI level
+                          exclude_intercept = TRUE,
+                          alpha_insignificant = 0,
+                          filter_insignificant = FALSE,
+                          negative_ontop = TRUE,
+                          negative_good = FALSE,
+                          sort_by_est = TRUE,
+                          font_normal = 'Lato',
+                          font_semi = 'Lato Light',
+                          font_light = 'Lato Light'){
   
-  if(exclude_intercept == TRUE){
-    max_estimate = df %>% filter(term != '(Intercept)') %>% summarise(min = min(estimate),
-                                                                      max = max(estimate))
-    
-    max_estimate = max(max_estimate$max, abs(max_estimate$min))
-    
-  } else {
-    max_estimate = max(max(df$estimate), abs(min(df$estimate)))
+  
+  # pull out coefficients in a nice data frame
+  df = lapply(seq_along(all_models), function(x) 
+    get_coefs(all_models, x, cluster_col = cluster_col, level = level, CI_factor = CI_factor))
+  
+  # merge together
+  df = bind_rows(df)
+  
+  
+  if(filter_insignificant == TRUE) {
+    df = df %>% filter(p.value < (1 - level))
   }
   
-  # check if the fonts are installed.  If not, default to 'sans'.
-  font_normal = llamar::replace_font(font_normal)
-  font_semi = llamar::replace_font(font_semi)
-  font_light = llamar::replace_font(font_light)
   
-  
-  # Find alpha levels 
-  df = df %>% 
-    mutate(stat_signif = ifelse(p.value < (1 - level), 
-                                1, 0))
-  
-  
-  ggplot(df, aes(x = model, y = fct_reorder(term, estimate, .desc = TRUE),
-                 fill = estimate,
-                 alpha = stat_signif,
-                 label = sprintf("%0.1f", estimate))) +
-    geom_label(colour = grey75K, size = 3,
-               family = 'Lato Light') +
-    
-    scale_x_discrete(position = 'top') +
-    scale_fill_gradientn(colours = RColorBrewer::brewer.pal(11, 'RdYlBu'),
-                         limits = c(-1 * max_estimate, max_estimate)) +
-    scale_alpha_identity() +
-    theme_xylab()
+  plot_comparison(df, 
+                  level = level,
+                  sort_by_est = sort_by_est,
+                  negative_ontop = negative_ontop,
+                  negative_good = negative_good,
+                  exclude_intercept = exclude_intercept,
+                  alpha_insignificant = alpha_insignificant,
+                  font_normal = font_normal,
+                  font_semi = font_semi,
+                  font_light = font_light)
 }
+
+
 
 get_coefs = function(models, model_num, 
                      cluster_col = NA, 
@@ -97,43 +91,61 @@ get_coefs = function(models, model_num,
 }
 
 
-
-compare_models = function(all_models,
-                          # negative_ontop = TRUE,
-                          # negative_good = FALSE,
-                          cluster_col = NA,
-                          level = 0.95,
-                          CI_factor = 1.96, # assuming normal distribution, 95% CI level
-                          exclude_intercept = TRUE,
-                          # plot_left_labels = TRUE,
-                          # plot_right_labels = FALSE,
-                          alpha_insignificant = 0,
-                          filter_insignificant = FALSE,
-                          # size_point = 3,
-                          # x_buffer = 0.1,
-                          # label_margin = 1,
-                          font_normal = 'Lato',
-                          font_semi = 'Lato Light',
-                          font_light = 'Lato Light'){
+#' @export
+plot_comparison = function(df,
+                           level = 0.95,
+                           negative_ontop = TRUE,
+                           negative_good = FALSE,
+                           sort_by_est = TRUE,
+                           exclude_intercept = TRUE,
+                           alpha_insignificant = 0,
+                           font_normal = 'Lato',
+                           font_semi = 'Lato Light',
+                           font_light = 'Lato Light'){
   
-  
-  # pull out coefficients in a nice data frame
-  df = lapply(seq_along(all_models), function(x) 
-    get_coefs(all_models, x, cluster_col = cluster_col, level = level, CI_factor = CI_factor))
-  
-  # merge together
-  df = bind_rows(df)
-  
-  if(filter_insignificant == TRUE) {
-    df = filter(p.value < (1 - level))
+  if(exclude_intercept == TRUE){
+    max_estimate = df %>% filter(term != '(Intercept)') %>% summarise(min = min(estimate),
+                                                                      max = max(estimate))
+    
+    max_estimate = max(max_estimate$max, abs(max_estimate$min))
+    
+  } else {
+    max_estimate = max(max(df$estimate), abs(min(df$estimate)))
   }
-
-
-plot_comparison(df, 
-                level = level,
-                exclude_intercept = exclude_intercept,
-                alpha_insignificant = alpha_insignificant,
-                font_normal = font_normal,
-                font_semi = font_semi,
-                font_light = font_light)
+  
+  # check if the fonts are installed.  If not, default to 'sans'.
+  font_normal = llamar::replace_font(font_normal)
+  font_semi = llamar::replace_font(font_semi)
+  font_light = llamar::replace_font(font_light)
+  
+  
+  # Find alpha levels 
+  df = df %>% 
+    mutate(stat_signif = ifelse(p.value < (1 - level), 
+                                1, 0))
+  
+  # Resort the values, if desired.
+  if(sort_by_est == TRUE) {
+    df$term = fct_reorder(df$term, df$estimate, .desc = negative_ontop)
+  }
+  
+  # Change the color scale if needed.
+  if(negative_good == TRUE) {
+    colour_palette = rev(RColorBrewer::brewer.pal(11, 'RdYlBu'))
+  } else {
+    colour_palette = RColorBrewer::brewer.pal(11, 'RdYlBu')
+  }
+  
+  ggplot(df, aes(x = model, y = term,
+                 fill = estimate,
+                 alpha = stat_signif,
+                 label = sprintf("%0.1f", estimate))) +
+    geom_label(colour = grey75K, size = 3,
+               family = 'Lato Light') +
+    
+    scale_x_discrete(position = 'top') +
+    scale_fill_gradientn(colours = colour_palette,
+                         limits = c(-1 * max_estimate, max_estimate)) +
+    scale_alpha_identity() +
+    theme_xylab()
 }
