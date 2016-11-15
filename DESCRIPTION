@@ -15,7 +15,8 @@ Imports:
     gridExtra,
     lmtest,
     multiwayvcov,
-    survey,   
+    survey, 
+    data.table,
     tidyr,
     dplyr
 License: MIT

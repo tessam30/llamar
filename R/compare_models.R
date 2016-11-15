@@ -127,6 +127,10 @@ plot_comparison = function(df,
   # Resort the values, if desired.
   if(sort_by_est == TRUE) {
     df$term = fct_reorder(df$term, df$estimate, .desc = negative_ontop)
+  } else {
+    df$row_num = 1:nrow(df)
+    
+    df$term = fct_reorder(df$term, df$row_num)
   }
   
   # Change the color scale if needed.
@@ -141,6 +145,7 @@ plot_comparison = function(df,
                  alpha = stat_signif,
                  label = sprintf("%0.1f", estimate))) +
     geom_label(colour = grey75K, size = 3,
+               label.size = 0,
                family = 'Lato Light') +
     
     scale_x_discrete(position = 'top') +
