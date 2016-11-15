@@ -5,7 +5,7 @@
 \title{Plot coefficients of a model with errors}
 \usage{
 coefplot(model, negative_ontop = TRUE, negative_good = FALSE,
-  cluster_col = NA, level = 0.95, CI_factor = 1.96,
+  cluster_col = NA, level = 0.95, CI_factor = 1.96, exclude_terms = NA,
   exclude_intercept = TRUE, plot_left_labels = TRUE,
   plot_right_labels = FALSE, alpha_insignificant = 0.3, size_point = 3,
   x_buffer = 0.1, label_margin = 1, font_normal = "Lato",
@@ -21,6 +21,8 @@ coefplot(model, negative_ontop = TRUE, negative_good = FALSE,
 \item{level}{confidence level for error bars / significance indicator}
 
 \item{CI_factor}{Factor to adjust the standard errors by. By default, 1.96, assuming a normal distribution with sufficient sample size (95 percent of distribution lies within 1.96 standard deviations)}
+
+\item{exclude_terms}{(optional) string of terms to exclude}
 
 \item{exclude_intercept}{whether to include the intercept from the model in the color-coding of coefficients.}
 

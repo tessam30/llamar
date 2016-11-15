@@ -2,7 +2,7 @@
   #' 
   #' @description Plots coefficients from a model, along with standard errors.  Coefficients that are statistically significant at agiven level are highlighted in darker text. Inspired by https://github.com/jaredlander/coefplot/blob/master/R/coefplot.r but works w/ ggplot2 version > 2.2
   #' 
-  #' @import ggplot2 broom dplyr forcats RColorBrewer multiwayvcov lmtest extrafont
+  #' @import ggplot2 broom dplyr forcats RColorBrewer multiwayvcov lmtest extrafont data.table
   #' 
   #' @param model Fitted model object from a lm or glm
   #' @param negative_good Should negative coefficients be displayed in red (default) or blue (negative_good = TRUE)?
@@ -10,6 +10,7 @@
   #' @param level confidence level for error bars / significance indicator
   #' @param CI_factor Factor to adjust the standard errors by. By default, 1.96, assuming a normal distribution with sufficient sample size (95 percent of distribution lies within 1.96 standard deviations)
   #' @param exclude_intercept whether to include the intercept from the model in the color-coding of coefficients.
+  #' @param exclude_terms (optional) string of terms to exclude
   #' @param plot_left_labels include names of variables on the left side of the y-axis
   #' @param plot_right_labels include names of variables on the right side of the y-axis
   #' @param alpha_insignificant alpha (opacity) level for variables that are insignificant
@@ -40,6 +41,7 @@ coefplot = function(model,
                     cluster_col = NA,
                     level = 0.95,
                     CI_factor = 1.96, # assuming normal distribution, 95% CI level
+                    exclude_terms = NA,
                     exclude_intercept = TRUE,
                     plot_left_labels = TRUE,
                     plot_right_labels = FALSE,
@@ -99,6 +101,12 @@ coefplot = function(model,
   df = df %>% 
     mutate(stat_signif = ifelse(p.value < (1 - level), 
                                 1, alpha_insignificant))
+  
+  # Exclude terms, as needed
+  if(!is.na(exclude_terms)) {
+    df = df %>% 
+      filter(! term %like% exclude_terms)
+  }
   
   # find limits for colors
   if(exclude_intercept == TRUE){
