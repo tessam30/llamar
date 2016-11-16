@@ -24,18 +24,18 @@
   #' @examples
   #' data(diamonds, package = 'ggplot2')
   #' model1 <- lm(price ~ carat + cut*color, data=diamonds)
-  #' coefplot(model1)
+  #' plot_coef(model1)
   #' 
   #' # Sort of a contrived example to show the effect of clustering standard errors.
   #' model2 <- lm(price ~ carat + color, data=diamonds)
   #' # No clustered errors
-  #' coefplot(model2)
+  #' plot_coef(model2)
   #' # Errors clustered by cut
-  #' coefplot(model2, cluster_col = diamonds$cut)
+  #' plot_coef(model2, cluster_col = diamonds$cut)
   #' 
   #' @export
 
-coefplot = function(model,
+plot_coef = function(model,
                     negative_ontop = TRUE,
                     negative_good = FALSE,
                     cluster_col = NA,
