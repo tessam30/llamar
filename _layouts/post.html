@@ -23,10 +23,8 @@ layout: default
 
 
   <article>
-    <div class="post-content">
-      {{ content }}
-    </div>
 
+<!-- immages -->
     {% if page.img %}
     {% for image in site.static_files %}
     {% if image.path contains page.img %}
@@ -44,6 +42,11 @@ layout: default
     {% endif %}
     {% endfor %}
     {% endif %}
+
+<!-- content -->
+    <div class="post-content">
+      {{ content }}
+    </div>
 
   </article>
 
