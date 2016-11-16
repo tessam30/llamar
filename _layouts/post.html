@@ -1,0 +1,50 @@
+---
+layout: default
+---
+<div class="post">
+
+  <header class="post-header">
+    <h2 class="post-title">{{ page.title }}</h2>
+
+    <!-- co-authors -->
+    {% if page.co-authors %}
+    <span class="username">with {{ page.co-authors }}</span>
+    {% endif %}
+
+    {% if page.updated %}
+    <div class="post-date">updated {{ page.updated }}</div>
+    {% endif %}
+
+    {% if page.summary %}
+    <div class="post-descrip">{{ page.summary }}</div>
+    {% endif %}
+
+  </header>
+
+
+  <article>
+    <div class="post-content">
+      {{ content }}
+    </div>
+
+    {% if page.img %}
+    {% for image in site.static_files %}
+    {% if image.path contains page.img %}
+    <div class="post-img">
+      {% if page.link %}
+      <a href="{{ page.link  | prepend: site.baseurl }}"
+      target = "_blank"
+      onclick="trackOutboundLink('{{ image.path }}'">
+      {% else %}
+      <a href="{{ image.path | prepend: site.baseurl }}"
+      onclick="trackOutboundLink('{{ image.path }}'">
+      {% endif %}
+      <img src="{{ site.baseurl }}{{ image.path }}" alt="image" />
+    </a></div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+  </article>
+
+</div>

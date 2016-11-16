@@ -1,0 +1,71 @@
+---
+layout: default
+---
+
+<div class="home">
+  <span class="body">
+A customized R package to create reproducible plots, primarily with the
+<a href = "http://ggplot2.org" target="_blank">ggplot2</a> package. Designed for analysis of international
+development data, some functions are highly specialized for the analysis and visualization
+of household-level surveys. Others are more broadly extendable.
+  </span>
+
+  <br>
+  <br>
+  <h2 class="page-heading">Installation</h2>
+  <span class="post-descrip">Installation requires the
+    <a href = "https://www.rstudio.com/products/rpackages/devtools/" target = "_blank">devtools</a> package.
+    <br>
+
+    Install devtools by running <code>install.packages('devtools')</code> at the console.</span>
+    <br>
+    <br>
+
+    Then install the llamar library:
+    <br>
+
+    <code>library('devtools')</code>
+    <br>
+    <code>install_github('flaneuse/llamar')</code>
+    <br>
+    <code>library('llamar')</code>
+
+    <br>
+    <br>
+    Then you're all set to use the library. Functions with example outputs are provided below.
+    Full documentation is available within the package; type <code>?llamar</code> at the console.</span>
+
+    <br>
+    <br>
+  <!-- All functions -->
+  <h2 class="page-heading">Functions</h2>
+
+  <ul class="post-list">
+    {% for post in site.functions %}
+    <li class="gallery">
+
+
+
+      <!-- image -->
+      <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
+        <img class="post-icon" src="{{ post.icon }}"></img> </a>
+        <!-- title/link -->
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+
+
+      </li>
+
+
+
+      {% endfor %}
+    </ul>
+
+
+
+
+    <!-- RSS feed
+    <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>-->
+
+  </div>

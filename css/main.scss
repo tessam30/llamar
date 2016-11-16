@@ -1,0 +1,65 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+@charset "utf-8";
+
+// Link variables
+$tim-link: "https://www.linkedin.com/in/timessam";
+
+// Color variables
+$base-font-family: 'Lato', Helvetica, Arial, sans-serif;
+$base-font-weight: 300;
+$bold-font-weight: 400;
+
+$base-font-size:   18px;
+$smaller-font-size:  $base-font-size * 0.75;
+$small-font-size:  $base-font-size * 0.875;
+$large-font-size: $base-font-size * 1.25;
+$largest-font-size: $base-font-size * 1.75;
+
+$base-line-height: 1.5;
+$base-header-height: 1.0;
+
+$spacing-unit:     30px;
+$base-img-height: 300px;
+
+$text-color:       #353839;
+$background-color: #fdfdfd;
+$brand-color:      #5882D1;
+$accent-color:     #3F817C;
+$accent-color-light:  #A6D3D1;
+
+$grey-color:       #5D6061;
+$grey-color-medium: lighten($grey-color, 10%);
+$grey-color-light: lighten($grey-color, 40%);
+$grey-color-dark:  darken($grey-color, 25%);
+
+// Width of the content area
+$content-width:    1000px;
+
+$on-palm:          600px;
+$on-laptop:        1000px;
+
+
+
+// Using media queries with like this:
+// @include media-query($on-palm) {
+//     .wrapper {
+//         padding-right: $spacing-unit / 2;
+//         padding-left: $spacing-unit / 2;
+//     }
+// }
+@mixin media-query($device) {
+    @media screen and (max-width: $device) {
+        @content;
+    }
+}
+
+
+
+// Import partials from `sass_dir` (defaults to `_sass`)
+@import
+        "base",
+        "layout",
+        "syntax-highlighting"
+;

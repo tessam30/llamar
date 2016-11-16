@@ -1,0 +1,22 @@
+# Site settings
+title: llamar
+email: "laura.d.hughes at gmail.com"
+description: reproducible R code for customized visualizations
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://lauradhughes.com" # the base hostname & protocol for your site
+twitter_username: flaneuseks
+github_username:  flaneuse
+linkedin_username:  lauradhughes
+
+# Build settings
+markdown: kramdown
+
+safe: false
+include: "_funcs"
+
+
+
+collections:
+  functions:
+    output: true
+    permalink: /functions/:path/
