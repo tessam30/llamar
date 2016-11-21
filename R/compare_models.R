@@ -1,3 +1,4 @@
+#' @export
 compare_models = function(all_models,
                           cluster_col = NA,
                           level = 0.95,
@@ -122,7 +123,7 @@ plot_comparison = function(df,
   # Find alpha levels 
   df = df %>% 
     mutate(stat_signif = ifelse(p.value < (1 - level), 
-                                1, 0))
+                                1, alpha_insignificant))
   
   # Resort the values, if desired.
   if(sort_by_est == TRUE) {

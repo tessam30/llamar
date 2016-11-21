@@ -1,3 +1,4 @@
+#' @export
 compare_models = function(all_models,
                           cluster_col = NA,
                           level = 0.95,

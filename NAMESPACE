@@ -2,6 +2,7 @@
 
 export(calcPtEst)
 export(check_font)
+export(compare_models)
 export(convert01)
 export(copy4facet)
 export(factorize)
