@@ -15,6 +15,7 @@
 #' @param numResults: number of records to include
 #' @export
 #' @examples
+#' rw_stunting = loadDHS(breakdown = 'national', indicators = 'CN_NUTS_C_HA2', countries = 'RW')
 #' @author Laura Hughes
 #' 
 #' 

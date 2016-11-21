@@ -31,6 +31,9 @@ Filter options: \link{http://api.dhsprogram.com/#/api-data.cfm}
 Country codes: \link{http://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP_10136}
 Indicator codes: \link{http://api.dhsprogram.com/rest/dhs/indicators?returnFields=IndicatorId,Label,Definition&f=html}
 }
+\examples{
+rw_stunting = loadDHS(breakdown = 'national', indicators = 'CN_NUTS_C_HA2', countries = 'RW')
+}
 \author{
 Laura Hughes
 }
