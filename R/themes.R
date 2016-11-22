@@ -173,6 +173,14 @@ theme_xgrid <- function(font_normal = 'Lato',
 }
 
 
+#' @describeIn  themes Theme with light x-grid lines, x and y axis labels, and x-axis title.
+#' @export
+#' 
+theme_stroke = function(stroke_size = 0.25,
+                        stroke_colour = grey90K) {
+  theme(plot.background = element_rect(colour = stroke_colour, size = stroke_size, linetype = 1))
+}
+
 #' @describeIn  themes Theme with light y-grid lines, x and y axis labels, and y-axis title.
 #' @export
 theme_ygrid <- function(font_normal = 'Lato',
