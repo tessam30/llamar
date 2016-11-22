@@ -17,6 +17,9 @@ collections:
   visualization:
     output: true
     permalink: /visualization/:path/
+  themes:
+    output: true
+    permalink: /themes/:path/    
   functions:
     output: true
     permalink: /functions/:path/

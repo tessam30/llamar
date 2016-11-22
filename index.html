@@ -36,8 +36,8 @@ layout: default
     Full documentation is available within the package; type <code>?llamar::plot_coef</code> at the console.</span>
 
 
+    <!-- All plots -->
     <div class = "post-group">
-      <!-- All functions -->
       <h2 class="page-heading">Visualization Functions</h2>
 
       <ul class="post-list">
@@ -50,34 +50,56 @@ layout: default
             <!-- title/link -->
             <span h2>
               <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-            : {{ post.summary }} </h2>
+              : {{ post.summary }} </h2>
 
-          </li>
+            </li>
 
-          {% endfor %}
-        </ul>
-      </div>
+            {% endfor %}
+          </ul>
+        </div>
 
-      <!-- All functions -->
-      <div class = "post-group">
-        <h2 class="page-heading">Analysis / Helper Functions</h2>
+        <!-- All plots -->
+        <div class = "post-group">
+          <h2 class="page-heading">Visualization Themes</h2>
 
-        <ul class="post-list">
+          <ul class="post-list">
+            {% for post in site.themes %}
+            <li class="gallery">
 
-          {% for post in site.functions %}
-          <li class="list">
+              <!-- image -->
+              <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
+                <img class="post-icon" src="{{ post.icon  | prepend: site.baseurl }}"></img> </a>
+                <!-- title/link -->
+                <span h2>
+                  <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                  : {{ post.summary }} </h2>
 
-            <!-- title/link -->
-            <span h2>
-              <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-            : {{ post.summary }} </h2>
-          </li>
+                </li>
 
-          {% endfor %}
-        </ul>
-      </div>
+                {% endfor %}
+              </ul>
+            </div>
 
-    </div>
+            <!-- All functions -->
+            <div class = "post-group">
+              <h2 class="page-heading">Analysis / Helper Functions</h2>
 
-    <!-- RSS feed
-    <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>-->
+              <ul class="post-list">
+
+                {% for post in site.functions %}
+                <li class="list">
+
+                  <!-- title/link -->
+                  <span h2>
+                    <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                    : {{ post.summary }} </h2>
+                  </li>
+
+                  {% endfor %}
+                </ul>
+              </div>
+
+            </div>
+
+            <!-- RSS feed
+            <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>-->
