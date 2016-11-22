@@ -121,21 +121,21 @@ theme_stroke = function(stroke_size = 0.25,
 #' @describeIn  themes Theme with x labels, x title, and x-axis line; no gridlines
 #' @export
 theme_xaxis <- function(font_normal = 'Lato',
-                                       font_semi = 'Lato',
-                                       font_light = 'Lato Light',
-                                       legend.position = 'none',
-                                       legend.direction = 'horizontal',
-                                       panel_spacing = 3, # panel spacing, in lines
-                                       font_axis_label = 12,
-                                       font_axis_title = font_axis_label * 1.15,
-                                       font_facet = font_axis_label * 1.15,
-                                       font_legend_title = font_axis_label, 
-                                       font_legend_label = font_axis_label * 0.8,
-                                       font_subtitle = font_axis_label * 1.2,
-                                       font_title = font_axis_label * 1.3,
-                                       grey_background = FALSE,
-                                       background_colour = grey10K,
-                                       projector = FALSE
+                        font_semi = 'Lato',
+                        font_light = 'Lato Light',
+                        legend.position = 'none',
+                        legend.direction = 'horizontal',
+                        panel_spacing = 3, # panel spacing, in lines
+                        font_axis_label = 12,
+                        font_axis_title = font_axis_label * 1.15,
+                        font_facet = font_axis_label * 1.15,
+                        font_legend_title = font_axis_label, 
+                        font_legend_label = font_axis_label * 0.8,
+                        font_subtitle = font_axis_label * 1.2,
+                        font_title = font_axis_label * 1.3,
+                        grey_background = FALSE,
+                        background_colour = grey10K,
+                        projector = FALSE
 ) {
   
   # -- Set the aesthetics (common to all the themes) --
@@ -196,21 +196,21 @@ theme_xaxis <- function(font_normal = 'Lato',
 #' @describeIn  themes Theme with y labels, titles, and y-axis line; no gridlines
 #' @export
 theme_yaxis <- function(font_normal = 'Lato',
-                    font_semi = 'Lato',
-                    font_light = 'Lato Light',
-                    legend.position = 'none',
-                    legend.direction = 'horizontal',
-                    panel_spacing = 3, # panel spacing, in lines
-                    font_axis_label = 12,
-                    font_axis_title = font_axis_label * 1.15,
-                    font_facet = font_axis_label * 1.15,
-                    font_legend_title = font_axis_label, 
-                    font_legend_label = font_axis_label * 0.8,
-                    font_subtitle = font_axis_label * 1.2,
-                    font_title = font_axis_label * 1.3,
-                    grey_background = FALSE,
-                    background_colour = grey10K,
-                    projector = FALSE
+                        font_semi = 'Lato',
+                        font_light = 'Lato Light',
+                        legend.position = 'none',
+                        legend.direction = 'horizontal',
+                        panel_spacing = 3, # panel spacing, in lines
+                        font_axis_label = 12,
+                        font_axis_title = font_axis_label * 1.15,
+                        font_facet = font_axis_label * 1.15,
+                        font_legend_title = font_axis_label, 
+                        font_legend_label = font_axis_label * 0.8,
+                        font_subtitle = font_axis_label * 1.2,
+                        font_title = font_axis_label * 1.3,
+                        grey_background = FALSE,
+                        background_colour = grey10K,
+                        projector = FALSE
 ) {
   
   # -- Set the aesthetics (common to all the themes) --
@@ -267,6 +267,233 @@ theme_yaxis <- function(font_normal = 'Lato',
     strip.background = element_blank())
 }
 
+#' @describeIn themes Theme with x-axis labels; no gridlines.
+#' @export
+theme_xlab <- function(font_normal = 'Lato',
+                       font_semi = 'Lato',
+                       font_light = 'Lato Light',
+                       legend.position = 'none',
+                       legend.direction = 'horizontal',
+                       panel_spacing = 3, # panel spacing, in lines
+                       font_axis_label = 12,
+                       font_axis_title = font_axis_label * 1.15,
+                       font_facet = font_axis_label * 1.15,
+                       font_legend_title = font_axis_label, 
+                       font_legend_label = font_axis_label * 0.8,
+                       font_subtitle = font_axis_label * 1.2,
+                       font_title = font_axis_label * 1.3,
+                       grey_background = FALSE,
+                       background_colour = grey10K,
+                       projector = FALSE
+) {
+  
+  # -- Set the aesthetics (common to all the themes) --
+  aesthetics = set_aesthetics(font_normal = font_normal, font_semi = font_semi, font_light = font_light,
+                              projector = projector)
+  
+  # -- Unpack aesthetics --
+  list2env(aesthetics, environment())
+  
+  
+  # -- Choose background colour --
+  background_colour = ifelse(grey_background == TRUE, background_colour, NA)
+  
+  if(grey_background == TRUE) {
+    plot_margin = margin(t = 5, r = 15, b = 5, l = 5, unit = "pt")
+  } else{
+    plot_margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
+  }
+  
+  
+  # -- theme --  
+  theme(
+    title = element_text(size = font_title, colour = title_colour, family = font_normal),
+    plot.subtitle = element_text(size = font_subtitle, colour = subtitle_colour, family = font_semi),
+    text = element_text(family = font_light, colour = text_colour, hjust = 0.5),
+    
+    axis.line = element_blank(), 
+    axis.ticks.x = element_blank(), 
+    axis.line.x = element_blank(),
+    axis.line.y = element_blank(), 
+    axis.ticks.y = element_blank(), 
+    
+    axis.text.x = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
+    axis.title.x = element_blank(), 
+    axis.text.y = element_blank(), 
+    axis.title.y = element_blank(), 
+    
+    
+    legend.position = legend.position, 
+    legend.title = element_text(size = font_legend_title, colour = text_colour, family = font_semi),
+    legend.text = element_text(size = font_legend_label, colour = text_colour, family = font_semi),
+    legend.direction = legend.direction,
+    
+    panel.background = element_rect(fill = 'white', colour = NA, size = NA), 
+    plot.background = element_rect(fill = background_colour, colour = NA, size = NA, linetype = 1), 
+    panel.grid.minor.x = element_blank(), 
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor.y = element_blank(), 
+    panel.grid.major.y = element_blank(), 
+    panel.spacing = unit(panel_spacing, "lines"), 
+    panel.border = element_blank(), 
+    plot.margin = plot_margin, 
+    
+    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0.025), 
+    strip.background = element_blank())
+}
+
+
+#' @describeIn themes Theme with y-axis labels; no gridlines.
+#' @export
+theme_ylab <- function(font_normal = 'Lato',
+                       font_semi = 'Lato',
+                       font_light = 'Lato Light',
+                       legend.position = 'none',
+                       legend.direction = 'horizontal',
+                       panel_spacing = 3, # panel spacing, in lines
+                       font_axis_label = 12,
+                       font_axis_title = font_axis_label * 1.15,
+                       font_facet = font_axis_label * 1.15,
+                       font_legend_title = font_axis_label, 
+                       font_legend_label = font_axis_label * 0.8,
+                       font_subtitle = font_axis_label * 1.2,
+                       font_title = font_axis_label * 1.3,
+                       grey_background = FALSE,
+                       background_colour = grey10K,
+                       projector = FALSE
+) {
+  
+  # -- Set the aesthetics (common to all the themes) --
+  aesthetics = set_aesthetics(font_normal = font_normal, font_semi = font_semi, font_light = font_light,
+                              projector = projector)
+  
+  # -- Unpack aesthetics --
+  list2env(aesthetics, environment())
+  
+  
+  # -- Choose background colour --
+  background_colour = ifelse(grey_background == TRUE, background_colour, NA)
+  
+  if(grey_background == TRUE) {
+    plot_margin = margin(t = 5, r = 15, b = 5, l = 5, unit = "pt")
+  } else{
+    plot_margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
+  }
+  
+  
+  # -- theme --  
+  theme(
+    title = element_text(size = font_title, colour = title_colour, family = font_normal),
+    plot.subtitle = element_text(size = font_subtitle, colour = subtitle_colour, family = font_semi),
+    text = element_text(family = font_light, colour = text_colour, hjust = 0.5),
+    
+    axis.line = element_blank(), 
+    axis.ticks.x = element_blank(), 
+    axis.line.x = element_blank(),
+    axis.line.y = element_blank(), 
+    axis.ticks.y = element_blank(), 
+    
+    axis.text.x = element_blank(), 
+    axis.title.x = element_blank(), 
+    axis.text.y = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
+    axis.title.y = element_blank(), 
+    
+    
+    legend.position = legend.position, 
+    legend.title = element_text(size = font_legend_title, colour = text_colour, family = font_semi),
+    legend.text = element_text(size = font_legend_label, colour = text_colour, family = font_semi),
+    legend.direction = legend.direction,
+    
+    panel.background = element_rect(fill = 'white', colour = NA, size = NA), 
+    plot.background = element_rect(fill = background_colour, colour = NA, size = NA, linetype = 1), 
+    panel.grid.minor.x = element_blank(), 
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor.y = element_blank(), 
+    panel.grid.major.y = element_blank(), 
+    panel.spacing = unit(panel_spacing, "lines"), 
+    panel.border = element_blank(), 
+    plot.margin = plot_margin, 
+    
+    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0.025), 
+    strip.background = element_blank())
+}
+
+
+#' @describeIn themes Theme with x and y axis labels; no gridlines.
+#' @export
+theme_xylab <- function(font_normal = 'Lato',
+                        font_semi = 'Lato',
+                        font_light = 'Lato Light',
+                        legend.position = 'none',
+                        legend.direction = 'horizontal',
+                        panel_spacing = 3, # panel spacing, in lines
+                        font_axis_label = 12,
+                        font_axis_title = font_axis_label * 1.15,
+                        font_facet = font_axis_label * 1.15,
+                        font_legend_title = font_axis_label, 
+                        font_legend_label = font_axis_label * 0.8,
+                        font_subtitle = font_axis_label * 1.2,
+                        font_title = font_axis_label * 1.3,
+                        grey_background = FALSE,
+                        background_colour = grey10K,
+                        projector = FALSE
+) {
+  
+  # -- Set the aesthetics (common to all the themes) --
+  aesthetics = set_aesthetics(font_normal = font_normal, font_semi = font_semi, font_light = font_light,
+                              projector = projector)
+  
+  # -- Unpack aesthetics --
+  list2env(aesthetics, environment())
+  
+  
+  # -- Choose background colour --
+  background_colour = ifelse(grey_background == TRUE, background_colour, NA)
+  
+  if(grey_background == TRUE) {
+    plot_margin = margin(t = 5, r = 15, b = 5, l = 5, unit = "pt")
+  } else{
+    plot_margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
+  }
+  
+  
+  # -- theme --  
+  theme(
+    title = element_text(size = font_title, colour = title_colour, family = font_normal),
+    plot.subtitle = element_text(size = font_subtitle, colour = subtitle_colour, family = font_semi),
+    text = element_text(family = font_light, colour = text_colour, hjust = 0.5),
+    
+    axis.line = element_blank(), 
+    axis.ticks.x = element_blank(), 
+    axis.line.x = element_blank(),
+    axis.line.y = element_blank(), 
+    axis.ticks.y = element_blank(), 
+    
+    axis.text.x = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
+    axis.title.x = element_blank(), 
+    axis.text.y = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
+    axis.title.y = element_blank(), 
+    
+    
+    legend.position = legend.position, 
+    legend.title = element_text(size = font_legend_title, colour = text_colour, family = font_semi),
+    legend.text = element_text(size = font_legend_label, colour = text_colour, family = font_semi),
+    legend.direction = legend.direction,
+    
+    panel.background = element_rect(fill = 'white', colour = NA, size = NA), 
+    plot.background = element_rect(fill = background_colour, colour = NA, size = NA, linetype = 1), 
+    panel.grid.minor.x = element_blank(), 
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor.y = element_blank(), 
+    panel.grid.major.y = element_blank(), 
+    panel.spacing = unit(panel_spacing, "lines"), 
+    panel.border = element_blank(), 
+    plot.margin = plot_margin, 
+    
+    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0.025), 
+    strip.background = element_blank())
+}
+
 
 #' @describeIn  themes Theme with light x-grid lines, x and y axis labels, and x-axis title.
 #' @export
@@ -295,7 +522,7 @@ theme_xgrid <- function(font_normal = 'Lato',
   # -- Unpack aesthetics --
   list2env(aesthetics, environment())
   
-
+  
   # -- Choose background colour --
   background_colour = ifelse(grey_background == TRUE, background_colour, NA)
   
@@ -422,21 +649,21 @@ theme_ygrid <- function(font_normal = 'Lato',
 #' @describeIn  themes Theme with x and y labels, titles, and gridlines
 #' @export
 theme_xygrid <- function(font_normal = 'Lato',
-                        font_semi = 'Lato',
-                        font_light = 'Lato Light',
-                        legend.position = 'none',
-                        legend.direction = 'horizontal',
-                        panel_spacing = 3, # panel spacing, in lines
-                        font_axis_label = 12,
-                        font_axis_title = font_axis_label * 1.15,
-                        font_facet = font_axis_label * 1.15,
-                        font_legend_title = font_axis_label, 
-                        font_legend_label = font_axis_label * 0.8,
-                        font_subtitle = font_axis_label * 1.2,
-                        font_title = font_axis_label * 1.3,
-                        grey_background = FALSE,
-                        background_colour = grey10K,
-                        projector = FALSE
+                         font_semi = 'Lato',
+                         font_light = 'Lato Light',
+                         legend.position = 'none',
+                         legend.direction = 'horizontal',
+                         panel_spacing = 3, # panel spacing, in lines
+                         font_axis_label = 12,
+                         font_axis_title = font_axis_label * 1.15,
+                         font_facet = font_axis_label * 1.15,
+                         font_legend_title = font_axis_label, 
+                         font_legend_label = font_axis_label * 0.8,
+                         font_subtitle = font_axis_label * 1.2,
+                         font_title = font_axis_label * 1.3,
+                         grey_background = FALSE,
+                         background_colour = grey10K,
+                         projector = FALSE
 ) {
   
   # -- Set the aesthetics (common to all the themes) --
@@ -466,7 +693,7 @@ theme_xygrid <- function(font_normal = 'Lato',
     axis.line = element_blank(), 
     axis.ticks.x = element_blank(), 
     axis.line.x = element_blank(),
-        axis.line.y = element_blank(), 
+    axis.line.y = element_blank(), 
     axis.ticks.y = element_blank(), 
     
     axis.text.x = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
@@ -498,21 +725,21 @@ theme_xygrid <- function(font_normal = 'Lato',
 #' @describeIn  themes Theme with axis labels, titles, grid lines, axes, and legend.
 #' @export
 theme_basic <- function(font_normal = 'Lato',
-                                        font_semi = 'Lato',
-                                        font_light = 'Lato Light',
-                                        legend.position = c(0.85, 0.85),
-                                        legend.direction = 'horizontal',
-                                        panel_spacing = 3, # panel spacing, in lines
-                                        font_axis_label = 12,
-                                        font_axis_title = font_axis_label * 1.15,
-                                        font_facet = font_axis_label * 1.15,
-                                        font_legend_title = font_axis_label, 
-                                        font_legend_label = font_axis_label * 0.8,
-                                        font_subtitle = font_axis_label * 1.2,
-                                        font_title = font_axis_label * 1.3,
-                                        grey_background = FALSE,
-                                        background_colour = grey10K,
-                                        projector = FALSE
+                        font_semi = 'Lato',
+                        font_light = 'Lato Light',
+                        legend.position = c(0.85, 0.85),
+                        legend.direction = 'horizontal',
+                        panel_spacing = 3, # panel spacing, in lines
+                        font_axis_label = 12,
+                        font_axis_title = font_axis_label * 1.15,
+                        font_facet = font_axis_label * 1.15,
+                        font_legend_title = font_axis_label, 
+                        font_legend_label = font_axis_label * 0.8,
+                        font_subtitle = font_axis_label * 1.2,
+                        font_title = font_axis_label * 1.3,
+                        grey_background = FALSE,
+                        background_colour = grey10K,
+                        projector = FALSE
 ) {
   
   # -- Set the aesthetics (common to all the themes) --
@@ -570,55 +797,8 @@ theme_basic <- function(font_normal = 'Lato',
 }
 
 
-#' @describeIn themes Theme with x and y axis labels; no gridlines.
-#' @export
-theme_xylab <- function(font_normal = 'Lato',
-                        font_semi = 'Lato',
-                        font_light = 'Lato Light') {
-  theme_bw() + 
-    theme(text = element_text(family = font_light, colour = grey60K), 
-          rect = element_blank(), 
-          plot.background = element_blank(), 
-          axis.text = element_text(size = 10, colour = grey60K), 
-          title = element_text(size = 10, family = font_normal, 
-                               hjust = 0, colour = grey90K), 
-          axis.title = element_blank(), 
-          strip.text = element_text(size = 14, family = font_semi, hjust = 0.025, vjust = -2.5, colour = grey90K), 
-          legend.position = "none", 
-          strip.background = element_blank(), 
-          axis.ticks = element_blank(), 
-          axis.ticks.length = unit(0, "lines"),
-          panel.spacing =  unit(0, "lines"), 
-          panel.spacing.x = unit(0, "lines"),
-          panel.spacing.y = unit(0, "lines"),
-          plot.margin = unit(c(0, 0, 0, 0), "lines"),
-          panel.grid.major.y = element_blank(), 
-          panel.grid.minor.y = element_blank(), 
-          panel.grid.minor.x = element_blank(), 
-          panel.grid.major.x = element_blank())
-}
 
-#' @describeIn themes Theme with  y axis labels; no gridlines.
-#' @export
-theme_ylab <- function(font_normal = 'Lato',
-                       font_semi = 'Lato',
-                       font_light = 'Lato Light') {
-  theme_bw() + theme(text = element_text(family = font_light, colour = grey60K), 
-                     rect = element_blank(), 
-                     plot.background = element_blank(), 
-                     axis.text = element_text(size = 12, colour = grey60K), 
-                     axis.text.x = element_blank(), 
-                     title = element_text(size = 15, family = font_normal, hjust = 0, colour = grey90K), 
-                     axis.title = element_blank(), 
-                     legend.position = "none", 
-                     strip.background = element_blank(), 
-                     axis.ticks = element_blank(), 
-                     panel.spacing = unit(1, "lines"),  
-                     panel.grid.major.y = element_blank(), 
-                     panel.grid.minor.y = element_blank(), 
-                     panel.grid.minor.x = element_blank(), 
-                     panel.grid.major.x = element_blank())
-}
+
 
 #' @describeIn  themes Theme with only x and y labels; no axes, axis titles, gridlines, or legends
 #' @export
