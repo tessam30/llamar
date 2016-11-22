@@ -141,7 +141,7 @@ theme_xgrid <- function(font_normal = 'Lato',
   # Define themes.
   theme(
     title = element_text(size = font_title, colour = grey90K, family = font_normal),
-    text = element_text(family = font_light, colour = grey60K), 
+    text = element_text(family = font_light, colour = grey60K, hjust = 0.5), 
     
     axis.line = element_blank(), 
     axis.ticks.x = element_blank(), 
@@ -168,7 +168,7 @@ theme_xgrid <- function(font_normal = 'Lato',
     panel.border = element_blank(), 
     plot.margin = plot_margin, 
     
-    strip.text = element_text(size = font_facet, face = "bold"), 
+    strip.text = element_text(size = font_facet, colour = grey75K, hjust = 0), 
     strip.background = element_blank())
 }
 
