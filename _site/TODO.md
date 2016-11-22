@@ -35,7 +35,7 @@
 - [x] "save_plot.R"          
 - [ ] "scale_colour_text.R" 
 - [ ] "stdize4regr.R"        
-- [ ] "themes.R"    
+- [x] "themes.R"    
 
 ## To write
 - [ ] generalized heatmap?
