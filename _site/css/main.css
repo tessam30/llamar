@@ -332,7 +332,8 @@ pre {
   color: #353839; }
 
 .post-group {
-  padding-bottom: 350px; }
+  padding-bottom: 350px;
+  padding-top: 30px; }
 
 .post-list {
   margin-left: 0;
