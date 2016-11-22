@@ -197,11 +197,12 @@
 
   .list {
     width: 100%;
-    height: $base-img-height;
     float: left;
     vertical-align: middle;
     box-sizing: border-box;
-    padding: 20px;
+    padding-left: 20px;
+    padding-bottom: 0px;
+    padding-top: 10px;
 
   }
 
@@ -255,6 +256,15 @@
 
     > li {
       margin-bottom: $spacing-unit;
+    }
+  }
+
+  .post-list-vert {
+    margin-left: 0;
+    list-style: none;
+
+    > li {
+      margin-bottom: 0;
     }
   }
 
