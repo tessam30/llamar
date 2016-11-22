@@ -131,6 +131,12 @@ theme_xgrid <- function(font_normal = 'Lato',
   # Choose background colour
   background_colour = ifelse(grey_background == TRUE, background_colour, 'white')
   
+  if(grey_background == TRUE) {
+    plot_margin = margin(t = 0, r = 20, b = 0, l = 0, unit = "pt")
+  } else{
+    plot_margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
+  }
+  
   
   # Define themes.
   theme(
@@ -160,7 +166,7 @@ theme_xgrid <- function(font_normal = 'Lato',
     panel.grid.minor.y = element_blank(), 
     panel.grid.major.y = element_blank(), 
     panel.border = element_blank(), 
-    plot.margin = rep(unit(0, units = "points"), 4), 
+    plot.margin = plot_margin, 
     
     strip.text = element_text(size = font_facet, face = "bold"), 
     strip.background = element_blank())
