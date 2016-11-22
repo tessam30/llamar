@@ -3,12 +3,12 @@
 ## General
 - [ ] Comment, document, and check each function is portable b/w computers
 - [ ] website?
-  - [ ] base layout: gridded pics
+  - [x] base layout: gridded pics
   - [ ] image for each
-  - [ ] write loop to autopopulate (?)
+  - [x] write loop to autopopulate (?)
   - [ ] loop to pull the man file
   - [ ] figure how to render the man file
-- [ ] Check LAMs for other portable functions
+- [x] Check LAMs for other portable functions
 - [ ] test and update package dependencies (version controlling)
 
 ## Individual functions to document
@@ -32,7 +32,7 @@
 - [ ] "plot_corr.R"
 - [ ] "plot_heatmap.R"
 - [ ] "plot_relationships.R"      
-- [ ] "save_plot.R"          
+- [x] "save_plot.R"          
 - [ ] "scale_colour_text.R" 
 - [ ] "stdize4regr.R"        
 - [ ] "themes.R"    
