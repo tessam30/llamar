@@ -24,10 +24,6 @@ theme_blank(legend.position = "none", legend.direction = "horizontal",
   font_light = "Lato Light", font_legend_title = 12,
   font_legend_label = font_legend_title * 0.8, projector = FALSE)
 
-theme_basic(font_normal = "Lato", font_semi = "Lato Light",
-  font_light = "Lato Light", large_font = 15, medium_font = 14,
-  small_font = 12)
-
 theme_stroke(stroke_size = 0.25, stroke_colour = grey90K)
 
 theme_xgrid(font_normal = "Lato", font_semi = "Lato Light",
@@ -50,6 +46,15 @@ theme_ygrid(font_normal = "Lato", font_semi = "Lato Light",
 
 theme_xygrid(font_normal = "Lato", font_semi = "Lato Light",
   font_light = "Lato Light", legend.position = "none",
+  legend.direction = "horizontal", panel_spacing = 3,
+  font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
+  font_facet = font_axis_label * 1.15, font_legend_title = font_axis_label,
+  font_legend_label = font_axis_label * 0.8, font_subtitle = font_axis_label
+  * 1.2, font_title = font_axis_label * 1.3, grey_background = FALSE,
+  background_colour = grey10K, projector = FALSE)
+
+theme_basic(font_normal = "Lato", font_semi = "Lato Light",
+  font_light = "Lato Light", legend.position = c(0.85, 0.85),
   legend.direction = "horizontal", panel_spacing = 3,
   font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
   font_facet = font_axis_label * 1.15, font_legend_title = font_axis_label,
@@ -97,8 +102,6 @@ Customized ggplot themes
 
 \item \code{theme_blank}: completely blank theme; similar to theme_void but without legend or margins.
 
-\item \code{theme_basic}: Theme with axis labels, titles, grid lines, axes, and legend.
-
 \item \code{theme_stroke}: Theme with thin grey border around edge
 
 \item \code{theme_xgrid}: Theme with light x-grid lines, x and y axis labels, and x-axis title.
@@ -106,6 +109,8 @@ Customized ggplot themes
 \item \code{theme_ygrid}: Theme with light y-grid lines, x and y axis labels, and y-axis title.
 
 \item \code{theme_xygrid}: Theme with x and y labels, titles, and gridlines
+
+\item \code{theme_basic}: Theme with axis labels, titles, grid lines, axes, and legend.
 
 \item \code{theme_legend}: completely blank theme; similar to theme_void but without legend or margins.
 
@@ -124,6 +129,6 @@ ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~
 ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_stroke()
 ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_xgrid(legend.position = c(0.8, 0.9), grey_background = TRUE)
 ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_ygrid()
-ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_xygrid()
+ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency', subtitle='data = mtcars') + theme_xygrid()
 }
 

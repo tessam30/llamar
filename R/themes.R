@@ -105,34 +105,6 @@ theme_blank <- function(legend.position = 'none',
         legend.direction = legend.direction)
 }
 
-#' @describeIn  themes Theme with axis labels, titles, grid lines, axes, and legend.
-#' @export
-theme_basic <- function(font_normal = 'Lato',
-                        font_semi = 'Lato Light',
-                        font_light = 'Lato Light',
-                        large_font = 15,
-                        medium_font = 14, 
-                        small_font = 12) {
-  theme_bw() + 
-    theme(text = element_text(family = font_light, colour = grey60K), 
-          plot.background = element_blank(), 
-          panel.border = element_rect(size = 0.2, colour = grey90K, fill = NA), 
-          axis.text = element_text(size = small_font, colour = grey60K), 
-          title = element_text(size = large_font, family = font_normal, hjust = 0, colour = grey90K), 
-          axis.title = element_text(size = medium_font, family = font_semi, colour = grey60K, hjust = 0.5, vjust = -0.25), 
-          axis.ticks = element_blank(), 
-          panel.spacing = unit(3, "lines"), 
-          panel.grid.major.y = element_line(size = 0.2, colour = grey30K), 
-          panel.grid.minor.y = element_blank(), 
-          panel.grid.minor.x = element_blank(), 
-          panel.grid.major.x = element_line(size = 0.1, colour = grey30K), 
-          strip.text = element_text(size = 13, colour = grey50K, family = font_semi), 
-          legend.position = c(0.85, 0.85), 
-          legend.title = element_text(size = 13), 
-          legend.text = element_text(size = 11), 
-          legend.background = element_blank(), 
-          strip.background = element_blank())
-}
 
 
 
@@ -195,7 +167,7 @@ theme_xgrid <- function(font_normal = 'Lato',
     axis.line.y = element_blank(), 
     axis.ticks.y = element_blank(), 
     
-    axis.text.x = element_text(size = font_title, colour = text_colour, family = font_light), 
+    axis.text.x = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
     axis.title.x = element_text(size = font_axis_title, colour = text_colour, family = font_semi), 
     axis.text.y = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
     axis.title.y = element_blank(), 
@@ -270,7 +242,7 @@ theme_ygrid <- function(font_normal = 'Lato',
     axis.line.x = element_blank(), 
     axis.ticks.x = element_blank(), 
     
-    axis.text.y = element_text(size = font_title, colour = text_colour, family = font_light), 
+    axis.text.y = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
     axis.title.y = element_text(size = font_axis_title, colour = text_colour, family = font_semi), 
     axis.text.x = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
     axis.title.x = element_blank(), 
@@ -347,9 +319,9 @@ theme_xygrid <- function(font_normal = 'Lato',
         axis.line.y = element_blank(), 
     axis.ticks.y = element_blank(), 
     
-    axis.text.x = element_text(size = font_title, colour = text_colour, family = font_light), 
+    axis.text.x = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
     axis.title.x = element_text(size = font_axis_title, colour = text_colour, family = font_semi), 
-    axis.text.y = element_text(size = font_title, colour = text_colour, family = font_light), 
+    axis.text.y = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
     axis.title.y = element_text(size = font_axis_title, colour = text_colour, family = font_semi), 
     
     
@@ -373,6 +345,80 @@ theme_xygrid <- function(font_normal = 'Lato',
 }
 
 
+#' @describeIn  themes Theme with axis labels, titles, grid lines, axes, and legend.
+#' @export
+theme_basic <- function(font_normal = 'Lato',
+                                        font_semi = 'Lato Light',
+                                        font_light = 'Lato Light',
+                                        legend.position = c(0.85, 0.85),
+                                        legend.direction = 'horizontal',
+                                        panel_spacing = 3, # panel spacing, in lines
+                                        font_axis_label = 12,
+                                        font_axis_title = font_axis_label * 1.15,
+                                        font_facet = font_axis_label * 1.15,
+                                        font_legend_title = font_axis_label, 
+                                        font_legend_label = font_axis_label * 0.8,
+                                        font_subtitle = font_axis_label * 1.2,
+                                        font_title = font_axis_label * 1.3,
+                                        grey_background = FALSE,
+                                        background_colour = grey10K,
+                                        projector = FALSE
+) {
+  
+  # -- Set the aesthetics (common to all the themes) --
+  aesthetics = set_aesthetics(font_normal = font_normal, font_semi = font_semi, font_light = font_light,
+                              projector = projector)
+  
+  # -- Unpack aesthetics --
+  list2env(aesthetics, environment())
+  
+  
+  # -- Choose background colour --
+  background_colour = ifelse(grey_background == TRUE, background_colour, NA)
+  
+  if(grey_background == TRUE) {
+    plot_margin = margin(t = 5, r = 15, b = 5, l = 5, unit = "pt")
+  } else{
+    plot_margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
+  }
+  
+  
+  # -- theme --  
+  theme(
+    title = element_text(size = font_title, colour = title_colour, family = font_normal),
+    plot.subtitle = element_text(size = font_subtitle, colour = subtitle_colour, family = font_semi),
+    text = element_text(family = font_light, colour = text_colour, hjust = 0.5),
+    
+    
+    axis.text.x = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
+    axis.title.x = element_text(size = font_axis_title, colour = text_colour, family = font_semi), 
+    axis.text.y = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
+    axis.title.y = element_text(size = font_axis_title, colour = text_colour, family = font_semi), 
+    
+    
+    legend.position = legend.position, 
+    legend.title = element_text(size = font_legend_title, colour = text_colour, family = font_semi),
+    legend.text = element_text(size = font_legend_label, colour = text_colour, family = font_semi),
+    legend.direction = legend.direction,
+    
+    panel.background = element_rect(fill = 'white', colour = NA, size = NA), 
+    plot.background = element_rect(fill = background_colour, colour = NA, size = NA, linetype = 1), 
+    panel.grid.minor.x = element_blank(), 
+    panel.grid.major.x = element_line(size = grid_stroke, colour = grid_colour), 
+    panel.grid.minor.y = element_blank(), 
+    panel.grid.major.y = element_line(size = grid_stroke, colour = grid_colour), 
+    panel.spacing = unit(panel_spacing, "lines"), 
+    plot.margin = plot_margin, 
+    
+    panel.border = element_rect(size = grid_stroke * 4, colour = grey90K, fill = NA),
+    axis.line = element_blank(), 
+    axis.ticks.x = element_blank(), 
+    axis.ticks.y = element_blank(), 
+    
+    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0.05), 
+    strip.background = element_blank())
+}
+
 
 #' @describeIn  themes completely blank theme; similar to theme_void but without legend or margins.
 #' @export
@@ -391,6 +437,7 @@ theme_legend <- function(font_normal = 'Lato',
 theme_xaxis <- function(font_normal = 'Lato',
                         font_semi = 'Lato Light',
                         font_light = 'Lato Light') {
+  axis.line = element_line(size = grid_stroke * 2, colour = grey90K), 
   theme_bw() + theme(text = element_text(family = font_light, colour = grey60K), 
                      rect = element_blank(), plot.background = element_blank(), axis.text = element_text(size = 12, 
                                                                                                          colour = grey60K), axis.text.y = element_blank(), title = element_text(size = 15, 
