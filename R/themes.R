@@ -178,7 +178,8 @@ theme_xgrid <- function(font_normal = 'Lato',
 #' 
 theme_stroke = function(stroke_size = 0.25,
                         stroke_colour = grey90K) {
-  theme(plot.background = element_rect(colour = stroke_colour, size = stroke_size, linetype = 1))
+  theme(plot.background = element_rect(colour = stroke_colour, size = stroke_size, linetype = 1),
+        plot.margin = margin(t = 5, r = 5, b = 5, l = 5, unit = "pt"))
 }
 
 #' @describeIn  themes Theme with light y-grid lines, x and y axis labels, and y-axis title.
