@@ -195,7 +195,15 @@
     height: 50px;
   }
 
+  .list {
+    width: 100%;
+    height: $base-img-height;
+    float: left;
+    vertical-align: middle;
+    box-sizing: border-box;
+    padding: 20px;
 
+  }
 
 
 
@@ -236,6 +244,10 @@
     color: $text-color;
   }
 
+  .post-group {
+    padding-bottom: 350px;
+  }
+
   .post-list {
     margin-left: 0;
     list-style: none;
@@ -264,13 +276,19 @@
   }
 
   .post-link {
-    display: block;
+    display: inline;
     font-size: $base-font-size;
     font-weight: $base-font-weight;
     line-height: $base-header-height;
     padding-bottom: 3px;
   }
-
+  .post-summary {
+    display: inline;
+    font-size: $base-font-size;
+    font-weight: $base-font-weight;
+    line-height: $base-header-height;
+    padding-bottom: 3px;
+  }
 
   /**
   * Posts
