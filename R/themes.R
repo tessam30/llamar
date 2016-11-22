@@ -69,7 +69,7 @@ set_aesthetics = function(font_normal, font_semi, font_light, projector) {
 theme_blank <- function(legend.position = 'none',
                         legend.direction = 'horizontal',
                         font_normal = 'Lato',
-                        font_semi = 'Lato Light',
+                        font_semi = 'Lato',
                         font_light = 'Lato Light',
                         font_legend_title = 12, 
                         font_legend_label = font_legend_title * 0.8,
@@ -121,7 +121,7 @@ theme_stroke = function(stroke_size = 0.25,
 #' @describeIn  themes Theme with x labels, x title, and x-axis line; no gridlines
 #' @export
 theme_xaxis <- theme_xgrid <- function(font_normal = 'Lato',
-                                       font_semi = 'Lato Light',
+                                       font_semi = 'Lato',
                                        font_light = 'Lato Light',
                                        legend.position = 'none',
                                        legend.direction = 'horizontal',
@@ -196,7 +196,7 @@ theme_xaxis <- theme_xgrid <- function(font_normal = 'Lato',
 #' @describeIn  themes Theme with y labels, titles, and y-axis line; no gridlines
 #' @export
 theme_yaxis <- function(font_normal = 'Lato',
-                        font_semi = 'Lato Light',
+                        font_semi = 'Lato',
                         font_light = 'Lato Light') {
   theme_bw() + theme(text = element_text(family = font_light, colour = grey60K), 
                      rect = element_blank(), 
@@ -220,7 +220,7 @@ theme_yaxis <- function(font_normal = 'Lato',
 #' @describeIn  themes Theme with light x-grid lines, x and y axis labels, and x-axis title.
 #' @export
 theme_xgrid <- function(font_normal = 'Lato',
-                        font_semi = 'Lato Light',
+                        font_semi = 'Lato',
                         font_light = 'Lato Light',
                         legend.position = 'none',
                         legend.direction = 'horizontal',
@@ -296,7 +296,7 @@ theme_xgrid <- function(font_normal = 'Lato',
 #' @describeIn  themes Theme with light y-grid lines, x and y axis labels, and y-axis title.
 #' @export
 theme_ygrid <- function(font_normal = 'Lato',
-                        font_semi = 'Lato Light',
+                        font_semi = 'Lato',
                         font_light = 'Lato Light',
                         legend.position = 'none',
                         legend.direction = 'horizontal',
@@ -371,7 +371,7 @@ theme_ygrid <- function(font_normal = 'Lato',
 #' @describeIn  themes Theme with x and y labels, titles, and gridlines
 #' @export
 theme_xygrid <- function(font_normal = 'Lato',
-                        font_semi = 'Lato Light',
+                        font_semi = 'Lato',
                         font_light = 'Lato Light',
                         legend.position = 'none',
                         legend.direction = 'horizontal',
@@ -447,7 +447,7 @@ theme_xygrid <- function(font_normal = 'Lato',
 #' @describeIn  themes Theme with axis labels, titles, grid lines, axes, and legend.
 #' @export
 theme_basic <- function(font_normal = 'Lato',
-                                        font_semi = 'Lato Light',
+                                        font_semi = 'Lato',
                                         font_light = 'Lato Light',
                                         legend.position = c(0.85, 0.85),
                                         legend.direction = 'horizontal',
@@ -522,7 +522,7 @@ theme_basic <- function(font_normal = 'Lato',
 #' @describeIn  themes completely blank theme; similar to theme_void but without legend or margins.
 #' @export
 theme_legend <- function(font_normal = 'Lato',
-                         font_semi = 'Lato Light',
+                         font_semi = 'Lato',
                          font_light = 'Lato Light') {
   theme(title = element_text(size = 15, family = font_normal, hjust = 0, colour = grey90K), 
         axis.title = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), 
@@ -535,7 +535,7 @@ theme_legend <- function(font_normal = 'Lato',
 #' @describeIn themes Theme with x and y axis labels; no gridlines.
 #' @export
 theme_xylab <- function(font_normal = 'Lato',
-                        font_semi = 'Lato Light',
+                        font_semi = 'Lato',
                         font_light = 'Lato Light') {
   theme_bw() + 
     theme(text = element_text(family = font_light, colour = grey60K), 
@@ -563,7 +563,7 @@ theme_xylab <- function(font_normal = 'Lato',
 #' @describeIn themes Theme with  y axis labels; no gridlines.
 #' @export
 theme_ylab <- function(font_normal = 'Lato',
-                       font_semi = 'Lato Light',
+                       font_semi = 'Lato',
                        font_light = 'Lato Light') {
   theme_bw() + theme(text = element_text(family = font_light, colour = grey60K), 
                      rect = element_blank(), 
@@ -585,7 +585,7 @@ theme_ylab <- function(font_normal = 'Lato',
 #' @describeIn  themes Theme with only x and y labels; no axes, axis titles, gridlines, or legends
 #' @export
 theme_labelsOnly <- function(font_normal = 'Lato',
-                             font_semi = 'Lato Light',
+                             font_semi = 'Lato',
                              font_light = 'Lato Light') {
   theme(title = element_text(size = 16, hjust = 0, colour = grey90K, family = font_normal), 
         axis.title = element_blank(), axis.text = element_text(size = 12, hjust = 0.5, colour = grey60K, 
