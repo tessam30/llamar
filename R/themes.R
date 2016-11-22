@@ -11,10 +11,11 @@ NULL
 #' @param projector (optional) if TRUE, make lines and text bolder for an LCD projector
 #' 
 #' @examples
-#' ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + 
-#' ggtitle('Heavier cars have worse gas efficiency') + 
-#' theme_xgrid(legend.position = c(0.8, 0.9), grey_background = T)
-#' 
+#' ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_blank()
+#' ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_stroke()
+#' ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_xgrid(legend.position = c(0.8, 0.9), grey_background = TRUE)
+#' ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_ygrid()
+
 
 
 #' @describeIn  themes Internal function to set aesthetics.
@@ -179,6 +180,16 @@ theme_xygridlight <- function(font_normal = 'Lato',
           panel.grid.major.x = element_line(size = 0.1, colour = grey70K))
 }
 
+#' @describeIn  themes Theme with thin grey border around edge
+#' @export
+#' 
+theme_stroke = function(stroke_size = 0.25,
+                        stroke_colour = grey90K) {
+  theme(plot.background = element_rect(colour = stroke_colour, size = stroke_size, linetype = 1),
+        plot.margin = margin(t = 5, r = 5, b = 5, l = 5, unit = "pt"))
+}
+
+
 #' @describeIn  themes Theme with light x-grid lines, x and y axis labels, and x-axis title.
 #' @export
 theme_xgrid <- function(font_normal = 'Lato',
@@ -321,14 +332,6 @@ theme_ygrid <- function(font_normal = 'Lato',
 }
 
 
-#' @describeIn  themes Theme with thin grey border around edge
-#' @export
-#' 
-theme_stroke = function(stroke_size = 0.25,
-                        stroke_colour = grey90K) {
-  theme(plot.background = element_rect(colour = stroke_colour, size = stroke_size, linetype = 1),
-        plot.margin = margin(t = 5, r = 5, b = 5, l = 5, unit = "pt"))
-}
 
 
 
