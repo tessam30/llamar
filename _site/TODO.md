@@ -18,9 +18,9 @@
 * check library dependencies is fine
 * import from?
 * write test code / examples
-- [ ] attributes.R
+- [ ] "attributes.R""
 - [ ] "calcPtEst.R"         
-- [ ] "check_font.R"         
+- [x] "check_font.R"         
 - [x] "coefplot.R"           
 - [ ] "copy4facet.R"
 - [ ] "factorize.R"
