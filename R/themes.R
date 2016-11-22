@@ -173,6 +173,90 @@ theme_xgrid <- function(font_normal = 'Lato',
 }
 
 
+
+#' @describeIn  themes Theme with light y-grid lines, x and y axis labels, and y-axis title.
+#' @export
+theme_ygrid <- function(font_normal = 'Lato',
+                        font_semi = 'Lato Light',
+                        font_light = 'Lato Light',
+                        legend.position = 'none',
+                        legend.direction = 'horizontal',
+                        font_axis_label = 12,
+                        font_axis_title = font_axis_label * 1.15,
+                        font_facet = font_axis_label * 1.15,
+                        font_legend_title = font_axis_label, 
+                        font_legend_label = font_axis_label * 0.8,
+                        font_title = font_axis_label * 1.3,
+                        grey_background = FALSE,
+                        background_colour = grey10K,
+                        projector = FALSE
+) {
+  
+  # Decide whether to use projector mode or not.
+  if(projector == FALSE) {
+    grid_stroke = 0.1
+    grid_colour = grey60K
+    
+    # Check if fonts are defined.
+    font_normal = llamar::replace_font(font_name = font_normal)
+    font_semi = llamar::replace_font(font_name = font_semi)
+    font_light = llamar::replace_font(font_name = font_light)
+    
+  } else {
+    grid_stroke = 0.25
+    grid_colour = grey75K
+    
+    # Check if fonts are defined.
+    font_normal = llamar::replace_font(font_name = font_normal)
+    font_semi = llamar::replace_font(font_name = font_normal)
+    font_light = llamar::replace_font(font_name = font_normal)
+  }
+  
+  # Choose background colour
+  background_colour = ifelse(grey_background == TRUE, background_colour, 'white')
+  
+  if(grey_background == TRUE) {
+    plot_margin = margin(t = 5, r = 15, b = 5, l = 5, unit = "pt")
+  } else{
+    plot_margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
+  }
+  
+  
+  # Define themes.
+  theme(
+    title = element_text(size = font_title, colour = grey90K, family = font_normal),
+    text = element_text(family = font_light, colour = grey60K, hjust = 0.5), 
+    
+    axis.line = element_blank(), 
+    axis.ticks.x = element_blank(), 
+    axis.line.x = element_blank(), 
+    axis.ticks.y = element_blank(), 
+    
+    axis.text.x = element_text(size = font_title, colour = grey60K, family = font_light), 
+    axis.title.y = element_text(size = font_axis_title, colour = grey60K, family = font_semi), 
+    axis.text.y = element_text(size = font_axis_label, colour = grey60K, family = font_light), 
+    axis.title.x = element_blank(), 
+    
+    
+    legend.position = legend.position, 
+    legend.title = element_text(size = font_legend_title, colour = grey60K, family = font_semi),
+    legend.text = element_text(size = font_legend_label, colour = grey60K, family = font_semi),
+    legend.direction = legend.direction,
+    
+    panel.background = element_rect(fill = 'white', colour = NA, size = NA), 
+    plot.background = element_rect(fill = background_colour, colour = NA, size = NA, linetype = 1), 
+    panel.grid.minor.x = element_blank(), 
+    panel.grid.major.y = element_line(size = grid_stroke, colour = grid_colour), 
+    panel.grid.minor.y = element_blank(), 
+    panel.grid.major.x = element_blank(), 
+    panel.border = element_blank(), 
+    plot.margin = plot_margin, 
+    
+    strip.text = element_text(size = font_facet, colour = grey75K, hjust = 0), 
+    strip.background = element_blank())
+}
+
+
 #' @describeIn  themes Theme with thin grey border around edge
 #' @export
 #' 
@@ -180,31 +264,6 @@ theme_stroke = function(stroke_size = 0.25,
                         stroke_colour = grey90K) {
   theme(plot.background = element_rect(colour = stroke_colour, size = stroke_size, linetype = 1),
         plot.margin = margin(t = 5, r = 5, b = 5, l = 5, unit = "pt"))
-}
-
-#' @describeIn  themes Theme with light y-grid lines, x and y axis labels, and y-axis title.
-#' @export
-theme_ygrid <- function(font_normal = 'Lato',
-                        font_semi = 'Lato Light',
-                        font_light = 'Lato Light') {
-  theme(title = element_text(size = 16, colour = grey90K, family = font_normal), 
-        plot.title = element_text(hjust = 0), 
-        axis.line = element_blank(), axis.ticks.x = element_blank(), 
-        axis.text.x = element_text(size = 16, colour = grey80K, family = font_light), 
-        axis.title.y = element_text(size = 18, colour = grey80K, family = font_semi), 
-        axis.text.y = element_text(size = 16, colour = grey80K, family = font_light), 
-        axis.title.x = element_blank(), 
-        axis.line.y = element_blank(), axis.ticks.y = element_blank(), 
-        legend.position = "none", 
-        panel.grid.minor.y = element_blank(), 
-        panel.grid.major.y = element_line(size = 0.1, colour = grey80K), 
-        panel.grid.minor.x = element_blank(), 
-        panel.grid.major.x = element_blank(), 
-        panel.border = element_blank(), 
-        plot.margin = rep(unit(0, units = "points"), 4), 
-        panel.background = element_blank(), 
-        strip.text = element_text(size = 13, face = "bold"), 
-        strip.background = element_blank())
 }
 
 

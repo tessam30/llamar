@@ -36,10 +36,16 @@ theme_xgrid(font_normal = "Lato", font_semi = "Lato Light",
   1.3, grey_background = FALSE, background_colour = grey10K,
   projector = FALSE)
 
-theme_stroke(stroke_size = 0.25, stroke_colour = grey90K)
-
 theme_ygrid(font_normal = "Lato", font_semi = "Lato Light",
-  font_light = "Lato Light")
+  font_light = "Lato Light", legend.position = "none",
+  legend.direction = "horizontal", font_axis_label = 12,
+  font_axis_title = font_axis_label * 1.15, font_facet = font_axis_label *
+  1.15, font_legend_title = font_axis_label,
+  font_legend_label = font_axis_label * 0.8, font_title = font_axis_label *
+  1.3, grey_background = FALSE, background_colour = grey10K,
+  projector = FALSE)
+
+theme_stroke(stroke_size = 0.25, stroke_colour = grey90K)
 
 theme_blank(legend.position = "none")
 
@@ -87,9 +93,9 @@ Customized ggplot themes
 
 \item \code{theme_xgrid}: Theme with light x-grid lines, x and y axis labels, and x-axis title.
 
-\item \code{theme_stroke}: Theme with thin grey border around edge
-
 \item \code{theme_ygrid}: Theme with light y-grid lines, x and y axis labels, and y-axis title.
+
+\item \code{theme_stroke}: Theme with thin grey border around edge
 
 \item \code{theme_blank}: completely blank theme; similar to theme_void but without legend or margins.
 
