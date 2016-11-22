@@ -5,7 +5,6 @@
 \alias{theme_basic}
 \alias{theme_blank}
 \alias{theme_labelsOnly}
-\alias{theme_legend}
 \alias{theme_stroke}
 \alias{theme_xaxis}
 \alias{theme_xgrid}
@@ -20,13 +19,13 @@
 set_aesthetics(font_normal, font_semi, font_light, projector)
 
 theme_blank(legend.position = "none", legend.direction = "horizontal",
-  font_normal = "Lato", font_semi = "Lato Light",
-  font_light = "Lato Light", font_legend_title = 12,
-  font_legend_label = font_legend_title * 0.8, projector = FALSE)
+  font_normal = "Lato", font_semi = "Lato", font_light = "Lato Light",
+  font_legend_title = 12, font_legend_label = font_legend_title * 0.8,
+  projector = FALSE)
 
 theme_stroke(stroke_size = 0.25, stroke_colour = grey90K)
 
-theme_xaxis(font_normal = "Lato", font_semi = "Lato Light",
+theme_xaxis(font_normal = "Lato", font_semi = "Lato",
   font_light = "Lato Light", legend.position = "none",
   legend.direction = "horizontal", panel_spacing = 3,
   font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
@@ -35,10 +34,7 @@ theme_xaxis(font_normal = "Lato", font_semi = "Lato Light",
   * 1.2, font_title = font_axis_label * 1.3, grey_background = FALSE,
   background_colour = grey10K, projector = FALSE)
 
-theme_yaxis(font_normal = "Lato", font_semi = "Lato Light",
-  font_light = "Lato Light")
-
-theme_xgrid(font_normal = "Lato", font_semi = "Lato Light",
+theme_yaxis(font_normal = "Lato", font_semi = "Lato",
   font_light = "Lato Light", legend.position = "none",
   legend.direction = "horizontal", panel_spacing = 3,
   font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
@@ -47,7 +43,16 @@ theme_xgrid(font_normal = "Lato", font_semi = "Lato Light",
   * 1.2, font_title = font_axis_label * 1.3, grey_background = FALSE,
   background_colour = grey10K, projector = FALSE)
 
-theme_ygrid(font_normal = "Lato", font_semi = "Lato Light",
+theme_xgrid(font_normal = "Lato", font_semi = "Lato",
+  font_light = "Lato Light", legend.position = "none",
+  legend.direction = "horizontal", panel_spacing = 3,
+  font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
+  font_facet = font_axis_label * 1.15, font_legend_title = font_axis_label,
+  font_legend_label = font_axis_label * 0.8, font_subtitle = font_axis_label
+  * 1.2, font_title = font_axis_label * 1.3, grey_background = FALSE,
+  background_colour = grey10K, projector = FALSE)
+
+theme_ygrid(font_normal = "Lato", font_semi = "Lato",
   font_light = "Lato Light", legend.position = "none",
   legend.direction = "horizontal", panel_spacing = 3,
   font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
@@ -56,7 +61,7 @@ theme_ygrid(font_normal = "Lato", font_semi = "Lato Light",
   1.3, font_subtitle = font_axis_label * 1.2, grey_background = FALSE,
   background_colour = grey10K, projector = FALSE)
 
-theme_xygrid(font_normal = "Lato", font_semi = "Lato Light",
+theme_xygrid(font_normal = "Lato", font_semi = "Lato",
   font_light = "Lato Light", legend.position = "none",
   legend.direction = "horizontal", panel_spacing = 3,
   font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
@@ -65,7 +70,7 @@ theme_xygrid(font_normal = "Lato", font_semi = "Lato Light",
   * 1.2, font_title = font_axis_label * 1.3, grey_background = FALSE,
   background_colour = grey10K, projector = FALSE)
 
-theme_basic(font_normal = "Lato", font_semi = "Lato Light",
+theme_basic(font_normal = "Lato", font_semi = "Lato",
   font_light = "Lato Light", legend.position = c(0.85, 0.85),
   legend.direction = "horizontal", panel_spacing = 3,
   font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
@@ -74,16 +79,13 @@ theme_basic(font_normal = "Lato", font_semi = "Lato Light",
   * 1.2, font_title = font_axis_label * 1.3, grey_background = FALSE,
   background_colour = grey10K, projector = FALSE)
 
-theme_legend(font_normal = "Lato", font_semi = "Lato Light",
+theme_xylab(font_normal = "Lato", font_semi = "Lato",
   font_light = "Lato Light")
 
-theme_xylab(font_normal = "Lato", font_semi = "Lato Light",
+theme_ylab(font_normal = "Lato", font_semi = "Lato",
   font_light = "Lato Light")
 
-theme_ylab(font_normal = "Lato", font_semi = "Lato Light",
-  font_light = "Lato Light")
-
-theme_labelsOnly(font_normal = "Lato", font_semi = "Lato Light",
+theme_labelsOnly(font_normal = "Lato", font_semi = "Lato",
   font_light = "Lato Light")
 }
 \arguments{
@@ -121,8 +123,6 @@ Customized ggplot themes
 \item \code{theme_xygrid}: Theme with x and y labels, titles, and gridlines
 
 \item \code{theme_basic}: Theme with axis labels, titles, grid lines, axes, and legend.
-
-\item \code{theme_legend}: completely blank theme; similar to theme_void but without legend or margins.
 
 \item \code{theme_xylab}: Theme with x and y axis labels; no gridlines.
 
