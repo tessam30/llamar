@@ -11,8 +11,97 @@ NULL
 #' @param projector (optional) if TRUE, make lines and text bolder for an LCD projector
 #' 
 #' @examples
-#' ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_xgrid(legend.position = c(0.8, 0.9), grey_background = T)
+#' ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + 
+#' ggtitle('Heavier cars have worse gas efficiency') + 
+#' theme_xgrid(legend.position = c(0.8, 0.9), grey_background = T)
 #' 
+
+
+#' @describeIn  themes Internal function to set aesthetics.
+set_aesthetics = function(font_normal, font_semi, font_light, projector) {
+  # Decide whether to use projector mode or not.
+  if(projector == FALSE) {
+    # Define standard colours for grid lines and text
+    normal_grid_stroke = 0.1
+    
+    normal_grid = grey60K
+    
+    text_colour = grey60K
+    subtitle_colour = grey75K
+    title_colour = grey90K
+    
+    grid_stroke = normal_grid_stroke
+    grid_colour = normal_grid
+    
+    # Check if fonts are defined.
+    font_normal = llamar::replace_font(font_name = font_normal)
+    font_semi = llamar::replace_font(font_name = font_semi)
+    font_light = llamar::replace_font(font_name = font_light)
+    
+  } else {
+    # Define standard colours for grid lines and text
+    projector_grid_stroke = 0.25
+    
+    projector_grid = grey75K
+    
+    text_colour = grey75K
+    subtitle_colour = grey90K
+    title_colour = grey90K
+    
+    grid_stroke = projector_grid_stroke
+    grid_colour = projector_grid
+    
+    # Check if fonts are defined; use darker font.
+    font_normal = llamar::replace_font(font_name = font_normal)
+    font_semi = llamar::replace_font(font_name = font_normal)
+    font_light = llamar::replace_font(font_name = font_normal)
+  }
+  
+  return(list(font_normal = font_normal, font_semi = font_semi, font_light = font_light,
+              grid_stroke = grid_stroke, grid_colour = grid_colour, 
+              text_colour = text_colour, subtitle_colour = subtitle_colour, title_colour = title_colour))
+}
+
+#' @describeIn  themes completely blank theme; similar to theme_void but without legend or margins.
+#' @export
+theme_blank <- function(legend.position = 'none',
+                        legend.direction = 'horizontal',
+                        font_normal = 'Lato',
+                        font_semi = 'Lato Light',
+                        font_light = 'Lato Light',
+                        font_legend_title = 12, 
+                        font_legend_label = font_legend_title * 0.8,
+                        projector = FALSE
+) {
+  
+  # -- Set the aesthetics (common to all the themes) --
+  aesthetics = set_aesthetics(font_normal = font_normal, font_semi = font_semi, font_light = font_light,
+                              projector = projector)
+  
+  # -- Unpack aesthetics --
+  list2env(aesthetics, environment())
+  
+  # -- theme --
+  theme(title = element_blank(), 
+        
+        axis.title = element_blank(), 
+        axis.text = element_blank(), 
+        axis.ticks = element_blank(), 
+        axis.ticks.length = unit(0, units = "points"), 
+        
+        strip.text = element_blank(),
+        strip.background = element_blank(),
+        
+        panel.border = element_blank(), 
+        panel.grid = element_blank(), 
+        panel.background = element_blank(), 
+        plot.background = element_blank(), 
+        
+        legend.position = legend.position,
+        legend.title = element_text(size = font_legend_title, colour = text_colour, family = font_semi, angle = 0),
+        legend.text = element_text(size = font_legend_label, colour = text_colour, family = font_semi, angle = 0),
+        legend.direction = legend.direction)
+}
 
 #' @describeIn  themes Theme with axis labels, titles, grid lines, axes, and legend.
 #' @export
@@ -108,28 +197,16 @@ theme_xgrid <- function(font_normal = 'Lato',
                         projector = FALSE
 ) {
   
-  # Decide whether to use projector mode or not.
-  if(projector == FALSE) {
-    grid_stroke = 0.1
-    grid_colour = grey60K
-    
-    # Check if fonts are defined.
-    font_normal = llamar::replace_font(font_name = font_normal)
-    font_semi = llamar::replace_font(font_name = font_semi)
-    font_light = llamar::replace_font(font_name = font_light)
-    
-  } else {
-    grid_stroke = 0.25
-    grid_colour = grey75K
-    
-    # Check if fonts are defined.
-    font_normal = llamar::replace_font(font_name = font_normal)
-    font_semi = llamar::replace_font(font_name = font_normal)
-    font_light = llamar::replace_font(font_name = font_normal)
-  }
+  # -- Set the aesthetics (common to all the themes) --
+  aesthetics = set_aesthetics(font_normal = font_normal, font_semi = font_semi, font_light = font_light,
+                              projector = projector)
   
-  # Choose background colour
-  background_colour = ifelse(grey_background == TRUE, background_colour, 'white')
+  # -- Unpack aesthetics --
+  list2env(aesthetics, environment())
+  
+
+  # -- Choose background colour --
+  background_colour = ifelse(grey_background == TRUE, background_colour, NA)
   
   if(grey_background == TRUE) {
     plot_margin = margin(t = 5, r = 15, b = 5, l = 5, unit = "pt")
@@ -138,25 +215,25 @@ theme_xgrid <- function(font_normal = 'Lato',
   }
   
   
-  # Define themes.
+  # -- theme --  
   theme(
-    title = element_text(size = font_title, colour = grey90K, family = font_normal),
-    text = element_text(family = font_light, colour = grey60K, hjust = 0.5), 
+    title = element_text(size = font_title, colour = title_colour, family = font_normal),
+    text = element_text(family = font_light, colour = text_colour, hjust = 0.5),
     
     axis.line = element_blank(), 
     axis.ticks.x = element_blank(), 
     axis.line.y = element_blank(), 
     axis.ticks.y = element_blank(), 
     
-    axis.text.x = element_text(size = font_title, colour = grey60K, family = font_light), 
-    axis.title.x = element_text(size = font_axis_title, colour = grey60K, family = font_semi), 
-    axis.text.y = element_text(size = font_axis_label, colour = grey60K, family = font_light), 
+    axis.text.x = element_text(size = font_title, colour = text_colour, family = font_light), 
+    axis.title.x = element_text(size = font_axis_title, colour = text_colour, family = font_semi), 
+    axis.text.y = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
     axis.title.y = element_blank(), 
     
     
     legend.position = legend.position, 
-    legend.title = element_text(size = font_legend_title, colour = grey60K, family = font_semi),
-    legend.text = element_text(size = font_legend_label, colour = grey60K, family = font_semi),
+    legend.title = element_text(size = font_legend_title, colour = text_colour, family = font_semi),
+    legend.text = element_text(size = font_legend_label, colour = text_colour, family = font_semi),
     legend.direction = legend.direction,
     
     panel.background = element_rect(fill = 'white', colour = NA, size = NA), 
@@ -168,7 +245,7 @@ theme_xgrid <- function(font_normal = 'Lato',
     panel.border = element_blank(), 
     plot.margin = plot_margin, 
     
-    strip.text = element_text(size = font_facet, colour = grey75K, hjust = 0), 
+    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0), 
     strip.background = element_blank())
 }
 
@@ -191,29 +268,16 @@ theme_ygrid <- function(font_normal = 'Lato',
                         background_colour = grey10K,
                         projector = FALSE
 ) {
+  # -- Set the aesthetics (common to all the themes) --
+  aesthetics = set_aesthetics(font_normal = font_normal, font_semi = font_semi, font_light = font_light,
+                              projector = projector)
   
-  # Decide whether to use projector mode or not.
-  if(projector == FALSE) {
-    grid_stroke = 0.1
-    grid_colour = grey60K
-    
-    # Check if fonts are defined.
-    font_normal = llamar::replace_font(font_name = font_normal)
-    font_semi = llamar::replace_font(font_name = font_semi)
-    font_light = llamar::replace_font(font_name = font_light)
-    
-  } else {
-    grid_stroke = 0.25
-    grid_colour = grey75K
-    
-    # Check if fonts are defined.
-    font_normal = llamar::replace_font(font_name = font_normal)
-    font_semi = llamar::replace_font(font_name = font_normal)
-    font_light = llamar::replace_font(font_name = font_normal)
-  }
+  # -- Unpack aesthetics --
+  list2env(aesthetics, environment())
   
-  # Choose background colour
-  background_colour = ifelse(grey_background == TRUE, background_colour, 'white')
+  
+  # -- Choose background colour --
+  background_colour = ifelse(grey_background == TRUE, background_colour, NA)
   
   if(grey_background == TRUE) {
     plot_margin = margin(t = 5, r = 15, b = 5, l = 5, unit = "pt")
@@ -222,25 +286,25 @@ theme_ygrid <- function(font_normal = 'Lato',
   }
   
   
-  # Define themes.
+  # -- theme --  
   theme(
-    title = element_text(size = font_title, colour = grey90K, family = font_normal),
-    text = element_text(family = font_light, colour = grey60K, hjust = 0.5), 
+    title = element_text(size = font_title, colour = title_colour, family = font_normal),
+    text = element_text(family = font_light, colour = text_colour, hjust = 0.5),
     
     axis.line = element_blank(), 
-    axis.ticks.x = element_blank(), 
-    axis.line.x = element_blank(), 
     axis.ticks.y = element_blank(), 
+    axis.line.x = element_blank(), 
+    axis.ticks.x = element_blank(), 
     
-    axis.text.x = element_text(size = font_title, colour = grey60K, family = font_light), 
-    axis.title.y = element_text(size = font_axis_title, colour = grey60K, family = font_semi), 
-    axis.text.y = element_text(size = font_axis_label, colour = grey60K, family = font_light), 
+    axis.text.y = element_text(size = font_title, colour = text_colour, family = font_light), 
+    axis.title.y = element_text(size = font_axis_title, colour = text_colour, family = font_semi), 
+    axis.text.x = element_text(size = font_axis_label, colour = text_colour, family = font_light), 
     axis.title.x = element_blank(), 
     
     
     legend.position = legend.position, 
-    legend.title = element_text(size = font_legend_title, colour = grey60K, family = font_semi),
-    legend.text = element_text(size = font_legend_label, colour = grey60K, family = font_semi),
+    legend.title = element_text(size = font_legend_title, colour = text_colour, family = font_semi),
+    legend.text = element_text(size = font_legend_label, colour = text_colour, family = font_semi),
     legend.direction = legend.direction,
     
     panel.background = element_rect(fill = 'white', colour = NA, size = NA), 
@@ -252,7 +316,7 @@ theme_ygrid <- function(font_normal = 'Lato',
     panel.border = element_blank(), 
     plot.margin = plot_margin, 
     
-    strip.text = element_text(size = font_facet, colour = grey75K, hjust = 0), 
+    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0), 
     strip.background = element_blank())
 }
 
@@ -268,27 +332,6 @@ theme_stroke = function(stroke_size = 0.25,
 
 
 
-
-#' @describeIn  themes completely blank theme; similar to theme_void but without legend or margins.
-#' @export
-theme_blank <- function(legend.position = 'none') {
-  theme(title = element_blank(), 
-        
-        axis.title = element_blank(), 
-        axis.text = element_blank(), 
-        axis.ticks = element_blank(), 
-        axis.ticks.length = unit(0, units = "points"), 
-        
-        strip.text = element_blank(),
-        strip.background = element_blank(),
-        
-        panel.border = element_blank(), 
-        panel.grid = element_blank(), 
-        panel.background = element_blank(), 
-        plot.background = element_blank(), 
-        
-        legend.position = legend.position)
-}
 
 #' @describeIn  themes completely blank theme; similar to theme_void but without legend or margins.
 #' @export
