@@ -107,17 +107,37 @@ theme_basic(font_normal = "Lato", font_semi = "Lato",
   background_colour = grey10K, projector = FALSE)
 }
 \arguments{
-\item{font_normal}{string containing font name for normal text}
+\item{font_normal}{(optional) string containing font name for normal text}
 
-\item{font_semi}{string containing font name for semilight text}
+\item{font_semi}{(optional) string containing font name for semilight text}
 
-\item{font_light}{string containing font name for light text}
+\item{font_light}{(optional) string containing font name for light text}
 
 \item{projector}{(optional) if TRUE, make lines and text bolder for an LCD projector}
 
 \item{legend.position}{(optional) legend position; takes either a ggplot legend position string like `'left'` or a tuple in percent of the x- and y-axes, like `c(0.3, 0.7)`}
 
-\item{font_size}{value, in points, of the font size}
+\item{legend.direction}{(optional) legend direction; eitehr 'horizontal' or 'vertical'}
+
+\item{font_legend_title}{(optional) value, in points, of the font in the legend title}
+
+\item{font_legend_label}{(optional) value, in points, of the font in the legend values}
+
+\item{panel_spacing}{(optional) number of lines between facet panels}
+
+\item{font_axis_label}{(optional) value, in points, of the font in the axis labels. If changed, will change the other font sizes in the plot unless they are also adjusted.}
+
+\item{font_axis_title}{(optional) value, in points, of the font in the axis titles}
+
+\item{font_facet}{(optional) value, in points, of the font in the facet titles}
+
+\item{font_subtitle}{(optional) value, in points, of the font in the plot subtitle}
+
+\item{font_title}{(optional) value, in points, of the font in the plot title}
+
+\item{grey_background}{(optional) if TRUE, make the background of the plot (but not the panel) background_colour}
+
+\item{background_colour}{(optional) colour argument for the fill of the background, if grey_background == TRUE}
 }
 \description{
 Customized ggplot themes

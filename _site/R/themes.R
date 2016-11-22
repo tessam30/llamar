@@ -3,12 +3,24 @@
 #' @name themes
 NULL
 # > NULL
-#' @param font_normal string containing font name for normal text
-#' @param font_semi string containing font name for semilight text
-#' @param font_light string containing font name for light text
-#' @param font_size value, in points, of the font size
+#' @param font_normal (optional) string containing font name for normal text
+#' @param font_semi (optional) string containing font name for semilight text
+#' @param font_light (optional) string containing font name for light text
+#' @param font_axis_label (optional) value, in points, of the font in the axis labels. If changed, will change the other font sizes in the plot unless they are also adjusted.
+#' @param font_axis_title (optional) value, in points, of the font in the axis titles
+#' @param font_facet (optional) value, in points, of the font in the facet titles
+#' @param font_legend_title (optional) value, in points, of the font in the legend title
+#' @param font_legend_label (optional) value, in points, of the font in the legend values
+#' @param font_title (optional) value, in points, of the font in the plot title
+#' @param font_subtitle (optional) value, in points, of the font in the plot subtitle
 #' @param legend.position (optional) legend position; takes either a ggplot legend position string like `'left'` or a tuple in percent of the x- and y-axes, like `c(0.3, 0.7)`
+#' @param legend.direction (optional) legend direction; eitehr 'horizontal' or 'vertical'
+#' @param panel_spacing (optional) number of lines between facet panels
+#' @param grey_background (optional) if TRUE, make the background of the plot (but not the panel) background_colour
+#' @param background_colour (optional) colour argument for the fill of the background, if grey_background == TRUE
 #' @param projector (optional) if TRUE, make lines and text bolder for an LCD projector
+
+#' 
 #' 
 #' @examples
 #' ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_blank()
