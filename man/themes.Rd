@@ -17,7 +17,8 @@
 \title{Customized ggplot themes}
 \usage{
 theme_basic(font_normal = "Lato", font_semi = "Lato Light",
-  font_light = "Lato Light")
+  font_light = "Lato Light", large_font = 15, medium_font = 14,
+  small_font = 12)
 
 theme_xygrid(font_normal = "Lato", font_semi = "Lato Light",
   font_light = "Lato Light")
@@ -26,12 +27,18 @@ theme_xygridlight(font_normal = "Lato", font_semi = "Lato Light",
   font_light = "Lato Light")
 
 theme_xgrid(font_normal = "Lato", font_semi = "Lato Light",
-  font_light = "Lato Light")
+  font_light = "Lato Light", legend.position = "none",
+  legend.direction = "horizontal", font_axis_label = 12,
+  font_axis_title = font_axis_label * 1.15, font_facet = font_axis_label *
+  1.15, font_legend_title = font_axis_label,
+  font_legend_label = font_axis_label * 0.8, font_title = font_axis_label *
+  1.3, grey_background = FALSE, background_colour = grey10K,
+  projector = FALSE)
 
 theme_ygrid(font_normal = "Lato", font_semi = "Lato Light",
   font_light = "Lato Light")
 
-theme_blank()
+theme_blank(legend.position = "none")
 
 theme_legend(font_normal = "Lato", font_semi = "Lato Light",
   font_light = "Lato Light")
@@ -57,6 +64,12 @@ theme_labelsOnly(font_normal = "Lato", font_semi = "Lato Light",
 \item{font_semi}{string containing font name for semilight text}
 
 \item{font_light}{string containing font name for light text}
+
+\item{legend.position}{(optional) legend position; takes either a ggplot legend position string like `'left'` or a tuple in percent of the x- and y-axes, like `c(0.3, 0.7)`}
+
+\item{projector}{(optional) if TRUE, make lines and text bolder for an LCD projector}
+
+\item{font_size}{value, in points, of the font size}
 }
 \description{
 Customized ggplot themes
@@ -88,7 +101,7 @@ Customized ggplot themes
 \item \code{theme_labelsOnly}: Theme with only x and y labels; no axes, axis titles, gridlines, or legends
 }}
 \examples{
-ggplot(mtcars, aes(x = mpg, y = wt, colour = cyl)) + geom_point() + theme_xylab()
+ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_xgrid(legend.position = c(0.8, 0.9), grey_background = T)
 
 }
 
