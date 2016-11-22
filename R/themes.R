@@ -159,7 +159,7 @@ theme_xgrid <- function(font_normal = 'Lato',
     legend.text = element_text(size = font_legend_label, colour = grey60K, family = font_semi),
     legend.direction = legend.direction,
     
-    panel.background = element_rect(fill = 'white', colour = NA, size = NA, linetype = 1), 
+    panel.background = element_rect(fill = 'white', colour = NA, size = NA), 
     plot.background = element_rect(fill = background_colour, colour = NA, size = NA, linetype = 1), 
     panel.grid.minor.x = element_blank(), 
     panel.grid.major.x = element_line(size = grid_stroke, colour = grid_colour), 
@@ -173,7 +173,7 @@ theme_xgrid <- function(font_normal = 'Lato',
 }
 
 
-#' @describeIn  themes Theme with light x-grid lines, x and y axis labels, and x-axis title.
+#' @describeIn  themes Theme with thin grey border around edge
 #' @export
 #' 
 theme_stroke = function(stroke_size = 0.25,
