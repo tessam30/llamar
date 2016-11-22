@@ -10,7 +10,6 @@
 \alias{theme_xaxis}
 \alias{theme_xgrid}
 \alias{theme_xygrid}
-\alias{theme_xygridlight}
 \alias{theme_xylab}
 \alias{theme_yaxis}
 \alias{theme_ygrid}
@@ -29,31 +28,34 @@ theme_basic(font_normal = "Lato", font_semi = "Lato Light",
   font_light = "Lato Light", large_font = 15, medium_font = 14,
   small_font = 12)
 
-theme_xygrid(font_normal = "Lato", font_semi = "Lato Light",
-  font_light = "Lato Light")
-
-theme_xygridlight(font_normal = "Lato", font_semi = "Lato Light",
-  font_light = "Lato Light")
+theme_stroke(stroke_size = 0.25, stroke_colour = grey90K)
 
 theme_xgrid(font_normal = "Lato", font_semi = "Lato Light",
   font_light = "Lato Light", legend.position = "none",
-  legend.direction = "horizontal", font_axis_label = 12,
-  font_axis_title = font_axis_label * 1.15, font_facet = font_axis_label *
-  1.15, font_legend_title = font_axis_label,
-  font_legend_label = font_axis_label * 0.8, font_title = font_axis_label *
-  1.3, grey_background = FALSE, background_colour = grey10K,
-  projector = FALSE)
+  legend.direction = "horizontal", panel_spacing = 3,
+  font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
+  font_facet = font_axis_label * 1.15, font_legend_title = font_axis_label,
+  font_legend_label = font_axis_label * 0.8, font_subtitle = font_axis_label
+  * 1.2, font_title = font_axis_label * 1.3, grey_background = FALSE,
+  background_colour = grey10K, projector = FALSE)
 
 theme_ygrid(font_normal = "Lato", font_semi = "Lato Light",
   font_light = "Lato Light", legend.position = "none",
-  legend.direction = "horizontal", font_axis_label = 12,
-  font_axis_title = font_axis_label * 1.15, font_facet = font_axis_label *
-  1.15, font_legend_title = font_axis_label,
+  legend.direction = "horizontal", panel_spacing = 3,
+  font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
+  font_facet = font_axis_label * 1.15, font_legend_title = font_axis_label,
   font_legend_label = font_axis_label * 0.8, font_title = font_axis_label *
-  1.3, grey_background = FALSE, background_colour = grey10K,
-  projector = FALSE)
+  1.3, font_subtitle = font_axis_label * 1.2, grey_background = FALSE,
+  background_colour = grey10K, projector = FALSE)
 
-theme_stroke(stroke_size = 0.25, stroke_colour = grey90K)
+theme_xygrid(font_normal = "Lato", font_semi = "Lato Light",
+  font_light = "Lato Light", legend.position = "none",
+  legend.direction = "horizontal", panel_spacing = 3,
+  font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
+  font_facet = font_axis_label * 1.15, font_legend_title = font_axis_label,
+  font_legend_label = font_axis_label * 0.8, font_subtitle = font_axis_label
+  * 1.2, font_title = font_axis_label * 1.3, grey_background = FALSE,
+  background_colour = grey10K, projector = FALSE)
 
 theme_legend(font_normal = "Lato", font_semi = "Lato Light",
   font_light = "Lato Light")
@@ -97,15 +99,13 @@ Customized ggplot themes
 
 \item \code{theme_basic}: Theme with axis labels, titles, grid lines, axes, and legend.
 
-\item \code{theme_xygrid}: Theme with x and y labels, titles, and gridlines
-
-\item \code{theme_xygridlight}: Theme with x and y labels, titles, and gridlines
+\item \code{theme_stroke}: Theme with thin grey border around edge
 
 \item \code{theme_xgrid}: Theme with light x-grid lines, x and y axis labels, and x-axis title.
 
 \item \code{theme_ygrid}: Theme with light y-grid lines, x and y axis labels, and y-axis title.
 
-\item \code{theme_stroke}: Theme with thin grey border around edge
+\item \code{theme_xygrid}: Theme with x and y labels, titles, and gridlines
 
 \item \code{theme_legend}: completely blank theme; similar to theme_void but without legend or margins.
 
@@ -120,9 +120,10 @@ Customized ggplot themes
 \item \code{theme_labelsOnly}: Theme with only x and y labels; no axes, axis titles, gridlines, or legends
 }}
 \examples{
-ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + 
-ggtitle('Heavier cars have worse gas efficiency') + 
-theme_xgrid(legend.position = c(0.8, 0.9), grey_background = T)
-
+ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_blank()
+ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_stroke()
+ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_xgrid(legend.position = c(0.8, 0.9), grey_background = TRUE)
+ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_ygrid()
+ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_xygrid()
 }
 
