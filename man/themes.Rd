@@ -4,7 +4,6 @@
 \alias{set_aesthetics}
 \alias{theme_basic}
 \alias{theme_blank}
-\alias{theme_labelsOnly}
 \alias{theme_stroke}
 \alias{theme_xaxis}
 \alias{theme_xgrid}
@@ -106,9 +105,6 @@ theme_basic(font_normal = "Lato", font_semi = "Lato",
   font_legend_label = font_axis_label * 0.8, font_subtitle = font_axis_label
   * 1.2, font_title = font_axis_label * 1.3, grey_background = FALSE,
   background_colour = grey10K, projector = FALSE)
-
-theme_labelsOnly(font_normal = "Lato", font_semi = "Lato",
-  font_light = "Lato Light")
 }
 \arguments{
 \item{font_normal}{string containing font name for normal text}
@@ -151,8 +147,6 @@ Customized ggplot themes
 \item \code{theme_xygrid}: Theme with x and y labels, titles, and gridlines
 
 \item \code{theme_basic}: Theme with axis labels, titles, grid lines, axes, and legend.
-
-\item \code{theme_labelsOnly}: Theme with only x and y labels; no axes, axis titles, gridlines, or legends
 }}
 \examples{
 ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point() + facet_wrap(~am) + ggtitle('Heavier cars have worse gas efficiency') + theme_blank()

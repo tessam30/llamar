@@ -797,17 +797,3 @@ theme_basic <- function(font_normal = 'Lato',
 }
 
 
-
-
-
-#' @describeIn  themes Theme with only x and y labels; no axes, axis titles, gridlines, or legends
-#' @export
-theme_labelsOnly <- function(font_normal = 'Lato',
-                             font_semi = 'Lato',
-                             font_light = 'Lato Light') {
-  theme(title = element_text(size = 16, hjust = 0, colour = grey90K, family = font_normal), 
-        axis.title = element_blank(), axis.text = element_text(size = 12, hjust = 0.5, colour = grey60K, 
-                                                               family = font_light), axis.ticks = element_blank(), panel.border = element_blank(), 
-        plot.margin = rep(unit(0, units = "points"), 4), panel.grid = element_blank(), panel.background = element_blank(), 
-        plot.background = element_blank(), legend.position = "none")
-}
