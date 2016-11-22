@@ -24,9 +24,10 @@ layout: default
 
   <article>
 
-<div class="post-descrip">Example output</div>
+
 <!-- images -->
     {% if page.img %}
+    <div class="post-descrip">Example output</div>
     {% for image in site.static_files %}
     {% if image.path contains page.img %}
     <div class="post-img">
