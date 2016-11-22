@@ -1,32 +1,3 @@
-stunting_comb = full_join(stunting_lz_2012, stunting_lz_cfsva, by = 'livelihood_zone')
-
-
-stunting_comb = stunting_comb %>% 
-  select(`2012` = isStunted.x, `2015` = unweighted_avg, livelihood_zone) %>% 
-  gather(year, avg, -livelihood_zone) %>% 
-  mutate(lvdzone_name = case_when())
-
-stunting2015 = stunting_comb %>% 
-  filter(year == '2015') %>% 
-  arrange((avg))
-
-# Reorder factors
-stunting_comb$livelihood_zone = factor(stunting_comb$livelihood_zone, 
-                                       levels = stunting2015$livelihood_zone)
-arrow_adj = 0.05
-stunting_untidy = stunting_comb %>% 
-  spread(year, avg) %>% 
-  mutate(year1 = `2012`, 
-         year2 = `2015`, 
-         y2 = ifelse(`2015` < `2012`, 
-                     `2015` * (1 + arrow_adj),
-                     `2015` * (1 - arrow_adj)),
-         diff = `2015` - `2012`)
-
-
-df = factorize(dhs, dhs, 'lvdzone', 'lvdzone_name')
-
-
 
 plot_dotplot = function(df,
                         year_var = 'year',
