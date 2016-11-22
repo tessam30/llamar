@@ -519,19 +519,6 @@ theme_basic <- function(font_normal = 'Lato',
 }
 
 
-#' @describeIn  themes completely blank theme; similar to theme_void but without legend or margins.
-#' @export
-theme_legend <- function(font_normal = 'Lato',
-                         font_semi = 'Lato',
-                         font_light = 'Lato Light') {
-  theme(title = element_text(size = 15, family = font_normal, hjust = 0, colour = grey90K), 
-        axis.title = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(), 
-        axis.ticks.length = unit(0, units = "points"), panel.border = element_blank(), panel.grid = element_blank(), 
-        panel.background = element_blank(), plot.background = element_blank(), legend.text = element_text(size = 12, 
-                                                                                                          family = font_light, hjust = 0, colour = grey60K))
-}
-
-
 #' @describeIn themes Theme with x and y axis labels; no gridlines.
 #' @export
 theme_xylab <- function(font_normal = 'Lato',
