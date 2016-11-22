@@ -188,7 +188,7 @@ theme_xgrid <- function(font_normal = 'Lato',
     panel.border = element_blank(), 
     plot.margin = plot_margin, 
     
-    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0.05), 
+    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0.025), 
     strip.background = element_blank())
 }
 
@@ -263,7 +263,7 @@ theme_ygrid <- function(font_normal = 'Lato',
     panel.border = element_blank(), 
     plot.margin = plot_margin, 
     
-    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0.05), 
+    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0.025), 
     strip.background = element_blank())
 }
 
@@ -340,7 +340,7 @@ theme_xygrid <- function(font_normal = 'Lato',
     panel.border = element_blank(), 
     plot.margin = plot_margin, 
     
-    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0.05), 
+    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0.025), 
     strip.background = element_blank())
 }
 
@@ -415,7 +415,7 @@ theme_basic <- function(font_normal = 'Lato',
     axis.ticks.x = element_blank(), 
     axis.ticks.y = element_blank(), 
     
-    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0.05), 
+    strip.text = element_text(size = font_facet, colour = subtitle_colour, hjust = 0.025), 
     strip.background = element_blank())
 }
 
@@ -444,7 +444,7 @@ theme_xaxis <- function(font_normal = 'Lato',
                                                                                                                                                                                 family = font_normal, hjust = 0, colour = grey90K), axis.title = element_text(size = 14, 
                                                                                                                                                                                                                                                               family = font_semi, colour = grey60K, hjust = 0.5, vjust = -0.25), 
                      axis.title.y = element_blank(), 
-                     strip.text = element_text(size = 14, face = "bold", hjust = 0.05, vjust = -2.5, colour = "#4D525A"), 
+                     strip.text = element_text(size = 14, face = "bold", hjust = 0.025, vjust = -2.5, colour = "#4D525A"), 
                      legend.position = "none", 
                      strip.background = element_blank(), 
                      axis.ticks = element_blank(), 
@@ -468,7 +468,7 @@ theme_yaxis <- function(font_normal = 'Lato',
                      title = element_text(size = 15, family = font_normal, hjust = 0, colour = grey90K), 
                      axis.title = element_text(size = 14, family = font_semi, colour = grey60K, hjust = 0.5, vjust = -0.25), 
                      axis.title.x = element_blank(), 
-                     strip.text = element_text(size = 14, face = "bold", hjust = 0.05, vjust = -2.5, colour = "#4D525A"), 
+                     strip.text = element_text(size = 14, face = "bold", hjust = 0.025, vjust = -2.5, colour = "#4D525A"), 
                      legend.position = "none", 
                      strip.background = element_blank(), 
                      axis.ticks = element_blank(), panel.spacing = unit(3, "lines"),  
@@ -491,7 +491,7 @@ theme_xylab <- function(font_normal = 'Lato',
           title = element_text(size = 10, family = font_normal, 
                                hjust = 0, colour = grey90K), 
           axis.title = element_blank(), 
-          strip.text = element_text(size = 14, family = font_semi, hjust = 0.05, vjust = -2.5, colour = grey90K), 
+          strip.text = element_text(size = 14, family = font_semi, hjust = 0.025, vjust = -2.5, colour = grey90K), 
           legend.position = "none", 
           strip.background = element_blank(), 
           axis.ticks = element_blank(), 
