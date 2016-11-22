@@ -132,7 +132,7 @@ theme_xgrid <- function(font_normal = 'Lato',
   background_colour = ifelse(grey_background == TRUE, background_colour, 'white')
   
   if(grey_background == TRUE) {
-    plot_margin = margin(t = 0, r = 20, b = 0, l = 0, unit = "pt")
+    plot_margin = margin(t = 0, r = 15, b = 0, l = 5, unit = "pt")
   } else{
     plot_margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
   }
