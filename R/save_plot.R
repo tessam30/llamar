@@ -2,7 +2,7 @@
 #' 
 #' Wrapper to ggsave to auto-save the annoying fiddly arguments I always forget. Works only w/ ggplot2 objects.
 #' 
-#' @import ggplot2 extrafont
+#' @import ggplot2 extrafont data.table
 #' 
 #' @param filename string containing file name
 #' @param plot which plot to save; by default, the last one created
@@ -10,6 +10,7 @@
 #' @param height height of the rendered plot
 #' @param units units of the width/height of rendered plot (typically inches -- 'in')
 #' @param scale scalar factor to enlarge/shrink the rendered plot
+#' @param saveBoth If TRUE, save both a .pdf and .png
 #' 
 #' @examples
 #' # create a figure
@@ -25,6 +26,7 @@
 
 save_plot <- function(filename,
                       plot = last_plot(),
+                      saveBoth = FALSE,
                       width = NA, 
                       height = NA, 
                       units = 'in', 
@@ -32,15 +34,62 @@ save_plot <- function(filename,
   # -- load fonts for use by pdf writer --
   extrafont::loadfonts(quiet = TRUE)
   
-  # -- save the file --
-  ggsave(filename = filename, 
-         plot,
-         width = width, height = height, 
-         units = units,
-         bg = "transparent", 
-         scale = scale,
-         paper = "special", 
-         useDingbats = FALSE, 
-         compress = FALSE, 
-         dpi = 300)
+  if(filename %like% '.pdf'){
+    
+    # -- save the file as .pdf --
+    ggsave(filename = filename, 
+           plot,
+           width = width, height = height, 
+           units = units,
+           bg = "transparent", 
+           scale = scale,
+           paper = "special", 
+           useDingbats = FALSE, 
+           compress = FALSE, 
+           dpi = 300)
+    
+  } else if (filename %like% '.png') {
+    # -- save the file as .png --
+    ggsave(filename = filename, 
+           plot,
+           width = width, height = height, 
+           units = units,
+           bg = "transparent", 
+           dpi = 300)
+  } else if (saveBoth == TRUE) {
+    
+    # -- save the file as .pdf --
+    ggsave(filename = paste0(filename, '.pdf'),
+           plot,
+           width = width, height = height, 
+           units = units,
+           bg = "transparent", 
+           scale = scale,
+           paper = "special", 
+           useDingbats = FALSE, 
+           compress = FALSE, 
+           dpi = 300)
+    
+    # -- save the file as .png --
+    ggsave(filename = paste0(filename, '.png'), 
+           plot,
+           width = width, height = height, 
+           units = units,
+           bg = "transparent", 
+           dpi = 300)
+  } else {
+    warning('Unknown file type.  Saving as a .pdf')
+    
+    # -- save the file as .pdf --
+    ggsave(filename = paste0(filename, '.pdf'),
+           plot,
+           width = width, height = height, 
+           units = units,
+           bg = "transparent", 
+           scale = scale,
+           paper = "special", 
+           useDingbats = FALSE, 
+           compress = FALSE, 
+           dpi = 300)
+  }
 }

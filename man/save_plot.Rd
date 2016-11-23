@@ -4,13 +4,15 @@
 \alias{save_plot}
 \title{Simple wrapper to ggsave}
 \usage{
-save_plot(filename, plot = last_plot(), width = NA, height = NA,
-  units = "in", scale = 1)
+save_plot(filename, plot = last_plot(), saveBoth = FALSE, width = NA,
+  height = NA, units = "in", scale = 1)
 }
 \arguments{
 \item{filename}{string containing file name}
 
 \item{plot}{which plot to save; by default, the last one created}
+
+\item{saveBoth}{If TRUE, save both a .pdf and .png}
 
 \item{width}{width of rendered plot}
 
