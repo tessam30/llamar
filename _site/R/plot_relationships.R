@@ -70,7 +70,7 @@ plot_relationships = function(model,
           stat_summary(geom = 'pointrange', size = 1, fun.data = 'mean_cl_boot', colour = binary_colour) +
           scale_y_continuous(limits = binary_range, labels = scales::percent) +
           ggtitle(current_var, subtitle = paste0('Number of NAs: ', sum(is.na(orig_df[[current_var]])))) +
-          theme_xygridlight() +
+          theme_xygrid() +
           theme(panel.grid.major.x = element_blank())
         
         print(p)
@@ -81,7 +81,7 @@ plot_relationships = function(model,
           geom_smooth(colour = binary_colour) +
           scale_y_continuous(limits = binary_range, labels = scales::percent) +
           ggtitle(current_var, subtitle = paste0('Number of NAs: ', sum(is.na(orig_df[[current_var]])))) +
-          theme_xygridlight()
+          theme_xygrid()
         
         print(p)
         readline()
@@ -95,7 +95,7 @@ plot_relationships = function(model,
           scale_y_continuous(limits = cont_range) +
           scale_fill_brewer(palette = 'Spectral') +
           ggtitle(current_var, subtitle = paste0('Number of NAs: ', sum(is.na(orig_df[[current_var]])))) +
-          theme_xygridlight() +
+          theme_xygrid() +
           theme(panel.grid.major.x = element_blank())
         
         print(p)
@@ -105,7 +105,7 @@ plot_relationships = function(model,
         p = ggplot(df, aes_string(x = current_var, y = dpndt_var$variable)) +
           geom_smooth(colour = cont_colour) +
           scale_y_continuous(limits = cont_range) +
-          theme_xygridlight() +           
+          theme_xygrid() +           
           ggtitle(current_var, subtitle = paste0('Number of NAs: ', sum(is.na(orig_df[[current_var]]))))
           
         print(p)
