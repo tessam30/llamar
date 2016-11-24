@@ -5,7 +5,7 @@
 \title{Plot a bump chart / slope graph}
 \usage{
 plot_bump(df, time_var = "year", value_var = "value",
-  region_var = "region", facet_var = NA, sort_by_lastval = TRUE,
+  region_var = "region", facet_var = NA, sort_by = "last",
   sort_desc = TRUE, line_stroke = 0.5, dot_size = 5, dot_shape = 21,
   label_size = 4, label_x_offset = 0.3, value_y_offset = NA,
   label_vals = TRUE, tufte_style = FALSE, x_buffer = 0.5,
@@ -25,8 +25,9 @@ Plot a bump chart / slope graph to show changes over time
 }
 \examples{
 # generate random data
-df = data.frame(year = c(rep(2007, 5), rep(2016, 5)), value = sample(1:100, 10), region = rep(letters[1:5], 2))
-plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', tufte_style = TRUE, facet_var = 'region')
+df = data.frame(year = c(rep(2007, 6), rep(2016, 6)), value = sample(1:100, 12), region = rep(letters[1:6], 2), facet = rep(c('group1', 'group2'), 6))
+plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', tufte_style = TRUE, facet_var = 'facet')
+plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', facet_var = 'region', sort_desc = FALSE, sort_by = 'diff')
 
 }
 

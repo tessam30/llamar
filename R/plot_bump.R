@@ -8,8 +8,9 @@
 
 #' @examples
 #' # generate random data
-#' df = data.frame(year = c(rep(2007, 5), rep(2016, 5)), value = sample(1:100, 10), region = rep(letters[1:5], 2))
-#' plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', tufte_style = TRUE, facet_var = 'region')
+#' df = data.frame(year = c(rep(2007, 6), rep(2016, 6)), value = sample(1:100, 12), region = rep(letters[1:6], 2), facet = rep(c('group1', 'group2'), 6))
+#' plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', tufte_style = TRUE, facet_var = 'facet')
+#' plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', facet_var = 'region', sort_desc = FALSE, sort_by = 'diff')
 #' 
 #' @export
 #' 
@@ -20,7 +21,7 @@ plot_bump = function(df,
                      value_var = 'value',
                      region_var = 'region',
                      facet_var = NA,
-                     sort_by_lastval = TRUE,
+                     sort_by = 'last', # one of: 'diff', 'first', 'last', 'none'
                      sort_desc = TRUE,
                      
                      line_stroke = 0.5,
@@ -79,21 +80,54 @@ plot_bump = function(df,
   
   
   # -- reshape to get the slope lines --
-  df_untidy = df %>% 
-    select_(time_var, region_var, value_var) %>% 
-    spread_(time_var, value_var)
-  
+  if(is.na(facet_var)) {
+    df_untidy = df %>% 
+      select_(time_var, region_var, value_var) %>% 
+      spread_(time_var, value_var) %>% 
+      rename_('time1' = as.name(min_time),
+              'time2' = as.name(max_time)) %>% 
+      mutate(diff = (time2 - time1)/time1)
+  } else {
+    df_untidy = df %>% 
+      select_(time_var, region_var, value_var, facet_var) %>% 
+      spread_(time_var, value_var) %>% 
+      rename_('time1' = as.name(min_time),
+              'time2' = as.name(max_time)) %>% 
+      mutate(diff = (time2 - time1)/time1)
+  }
   
   # -- refactor facets --
-  if(sort_by_lastval == TRUE) {
+  if(sort_by != 'none') {
+    if(sort_by == 'last') {
+      facet_order = df %>% 
+        filter_(paste0(time_var, '==', max_time))
+      
+      sort_var = value_var
+      
+    } else if (sort_by == 'first'){
+      facet_order = df %>% 
+        filter_(paste0(time_var, '==', min_time))
+      
+      sort_var = value_var
+      
+    } else if(sort_by == 'diff'){
+      facet_order = df_untidy
+      sort_var = 'diff'
+      
+    } else {
+      facet_order = df_untidy
+      sort_var = 'diff' 
+      
+      warning('sorting values by difference')
+    }
+    
+    
     if(sort_desc == TRUE) {
-      facet_order = df %>% 
-        filter_(paste0(time_var, '==', max_time)) %>% 
-        arrange_(paste0('desc(', value_var, ')'))
+      facet_order = facet_order %>% 
+        arrange_(paste0('desc(', sort_var, ')'))
     } else{
-      facet_order = df %>% 
-        filter_(paste0(time_var, '==', max_time)) %>% 
-        arrange_(value_var)
+      facet_order = facet_order %>% 
+        arrange_(sort_var)
     }
     
     df[[region_var]] = factor(df[[region_var]],
@@ -102,10 +136,10 @@ plot_bump = function(df,
   
   # -- PLOT --
   p = ggplot(df, aes_string(x = time_var, y = value_var,
-                        fill = region_var, colour = region_var, group = region_var)) +
+                            fill = region_var, colour = region_var, group = region_var)) +
     # -- slope lines --
-    geom_segment(aes(x = 2007, xend = 2016,
-                     y = `2007`, yend  = `2016`),
+    geom_segment(aes(x = min_time, xend = max_time,
+                     y = time1, yend  = time2),
                  size = line_stroke, data = df_untidy) + 
     
     # -- points --
@@ -150,4 +184,43 @@ plot_bump = function(df,
   
   # -- return --
   return(p)
+}
+
+#' @export
+plot_slope = function(df,
+                      time_var = 'year',
+                      value_var = 'value',
+                      region_var = 'region',
+                      facet_var = NA,
+                      sort_by_lastval = TRUE,
+                      sort_desc = TRUE,
+                      
+                      line_stroke = 0.5,
+                      dot_size = 5,
+                      dot_shape = 21, 
+                      label_size = 4, 
+                      label_x_offset = 0.3,
+                      value_y_offset = NA,
+                      
+                      label_vals = TRUE,
+                      
+                      tufte_style = FALSE,
+                      
+                      x_buffer = 0.5, # how much to adjust the x axis for labels
+                      
+                      font_normal = 'Lato',
+                      font_semi = 'Lato',
+                      font_light = 'Lato Light',
+                      panel_spacing = 3, # panel spacing, in lines
+                      font_axis_label = 12,
+                      font_axis_title = font_axis_label * 1.15,
+                      font_facet = font_axis_label * 1.15,
+                      font_legend_title = font_axis_label, 
+                      font_legend_label = font_axis_label * 0.8,
+                      font_subtitle = font_axis_label * 1.2,
+                      font_title = font_axis_label * 1.3,
+                      grey_background = FALSE,
+                      background_colour = grey10K,
+                      projector = FALSE) {
+  plot_bump()
 }
