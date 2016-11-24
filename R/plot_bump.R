@@ -26,6 +26,9 @@ plot_bump = function(df,
                      facet_var = NA,
                      sort_by = 'diff', # one of: 'diff', 'first', 'last', 'none'
                      sort_desc = TRUE,
+                     ncol = NULL,
+                     nrow = NULL,
+                     scales = 'fixed',
                      
                      file_name = NA,
                      width = 10,
@@ -49,7 +52,7 @@ plot_bump = function(df,
                      font_normal = 'Lato',
                      font_semi = 'Lato',
                      font_light = 'Lato Light',
-                     panel_spacing = 3, # panel spacing, in lines
+                     panel_spacing = 1, # panel spacing, in lines
                      font_axis_label = 12,
                      font_axis_title = font_axis_label * 1.15,
                      font_facet = font_axis_label * 1.15,
@@ -67,6 +70,12 @@ plot_bump = function(df,
       mutate_(.dots = setNames(paste0('as.factor(', region_var, ')'), region_var))
   }
   
+  # facet variable isn't defined in the data frame 
+  if(!is.na(facet_var) & !facet_var %in% colnames(df)) {
+    warning('facet_var is not in df. Facetting is removed.')
+    facet_var = NA
+  }
+  
   # -- change stroke around dots --
   if(tufte_style == TRUE) {
     dot_stroke = 2
@@ -80,8 +89,15 @@ plot_bump = function(df,
   
   # -- calculate y-offset for labels, if needed --
   if (is.na(value_y_offset)) {
+    if(is.na(facet_var)) {
+      y_offset = 0.05
+    } else {
+      y_offset = 0.25
+    }
+    
+    
     # set a reasonable y-offset
-    value_y_offset = diff(range(df[[value_var]])) * 0.05
+    value_y_offset = diff(range(df[[value_var]])) * y_offset
   }
   
   
@@ -143,6 +159,9 @@ plot_bump = function(df,
     
     df[[region_var]] = factor(df[[region_var]],
                               levels = facet_order[[region_var]])
+
+    df_untidy[[region_var]] = factor(df_untidy[[region_var]],
+                              levels = facet_order[[region_var]])
   }
   
   # -- PLOT --
@@ -198,9 +217,27 @@ plot_bump = function(df,
   }
   
   # -- facetting --
-  if(!is.na(facet_var)) {
+  # + facet, single slope graph per facet
+  if(!is.na(facet_var) & facet_var == region_var) {
     p = p +
-      facet_wrap(as.formula(paste0('~', facet_var)))
+      facet_wrap(as.formula(paste0('~', facet_var)),
+                 ncol = ncol, nrow = nrow,
+                 scales = scales)
+    
+    # + facet, multiple lines per facet  
+  } else if(!is.na(facet_var)) {
+    p = p +
+      facet_wrap(as.formula(paste0('~', facet_var)),
+                 ncol = ncol, nrow = nrow,
+                 scales = scales) +
+      # -- labels --
+      geom_text(aes_string(label = region_var),
+                size = label_size, hjust = 0, nudge_x = label_x_offset,
+                family = font_light,
+                data = df %>% filter_(paste0(time_var, '==', max_time))
+      )
+    
+    # no facetting
   } else {
     p = p +
       # -- labels --
@@ -220,8 +257,6 @@ plot_bump = function(df,
   return(p)
 }
 
-# percent axis
-# discrete scale
 
 #' @export
 plot_slope = function(df,
