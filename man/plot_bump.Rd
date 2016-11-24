@@ -9,9 +9,9 @@ plot_bump(df, time_var = "year", value_var = "value",
   sort_desc = TRUE, file_name = NA, width = 10, height = 6,
   saveBoth = FALSE, line_stroke = 0.5, dot_size = 5, dot_shape = 21,
   label_size = 4, label_x_offset = 0.3, value_y_offset = NA,
-  label_vals = TRUE, tufte_style = FALSE, x_buffer = 0.5,
-  font_normal = "Lato", font_semi = "Lato", font_light = "Lato Light",
-  panel_spacing = 3, font_axis_label = 12,
+  label_vals = TRUE, percent_vals = FALSE, tufte_style = FALSE,
+  x_buffer = 0.5, font_normal = "Lato", font_semi = "Lato",
+  font_light = "Lato Light", panel_spacing = 3, font_axis_label = 12,
   font_axis_title = font_axis_label * 1.15, font_facet = font_axis_label *
   1.15, font_legend_title = font_axis_label,
   font_legend_label = font_axis_label * 0.8, font_subtitle = font_axis_label

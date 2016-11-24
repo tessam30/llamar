@@ -40,6 +40,7 @@ plot_bump = function(df,
                      value_y_offset = NA,
                      
                      label_vals = TRUE,
+                     percent_vals = FALSE,
                      
                      tufte_style = FALSE,
                      
@@ -60,9 +61,11 @@ plot_bump = function(df,
                      background_colour = grey10K,
                      projector = FALSE) {
   
-  # facet select
-  # year names -- segment deciders
-  # sorting for facets
+  # -- check inputs are correct --
+  if(is.numeric(df[[region_var]])) {
+    df= df %>% 
+      mutate_(.dots = setNames(paste0('as.factor(', region_var, ')'), region_var))
+  }
   
   # -- change stroke around dots --
   if(tufte_style == TRUE) {
@@ -154,10 +157,6 @@ plot_bump = function(df,
     geom_point(size = dot_size, shape = dot_shape, 
                colour = stroke_colour, stroke = dot_stroke) +
     
-    # -- scales --
-    scale_x_continuous(limits = c(min_time, max_time + x_buffer),
-                       breaks = c(min_time, max_time)) +
-    
     
     # -- theme --
     theme_ygrid(font_normal = font_normal, font_semi = font_semi, font_light = font_light,
@@ -167,13 +166,35 @@ plot_bump = function(df,
                 font_facet = font_facet, font_title = font_title, font_subtitle = font_subtitle) +
     theme(axis.title.y = element_blank())
   
+  # -- x-scale --
+  if(is.numeric(df[[time_var]])) {
+    p = p + scale_x_continuous(limits = c(min_time, max_time + x_buffer),
+                               breaks = c(min_time, max_time))
+  } else {
+    p = p + scale_x_discrete(breaks = c(min_time, max_time))
+  }
+  
+  # -- y-scale --
+  if(percent_vals == TRUE) {
+    p = p + scale_y_continuous(labels = percent)
+  }
+  
   # -- value labels --
   if (label_vals == TRUE) {
+    if(percent_vals == TRUE) {
+      df = df %>% 
+        mutate_(.dots = setNames(paste0('llamar::percent(', value_var, ', 0)'), 'value_label'))
+    } else {
+      df = df %>% 
+        mutate_(.dots = setNames(paste0('round(', value_var, ', 1)'), 'value_label'))
+    }
+    
     p = p + 
-      geom_text(aes_string(label = value_var), 
+      geom_text(aes(label = value_label), 
                 size = label_size,
                 family = font_light,
-                nudge_y = value_y_offset)
+                nudge_y = value_y_offset,
+                data = df)
   }
   
   # -- facetting --
@@ -199,6 +220,9 @@ plot_bump = function(df,
   return(p)
 }
 
+# percent axis
+# discrete scale
+
 #' @export
 plot_slope = function(df,
                       time_var = 'year',
@@ -222,6 +246,7 @@ plot_slope = function(df,
                       value_y_offset = NA,
                       
                       label_vals = TRUE,
+                      percent_vals = FALSE,
                       
                       tufte_style = FALSE,
                       
@@ -243,8 +268,8 @@ plot_slope = function(df,
                       projector = FALSE) {
   plot_bump(df = df, time_var = time_var, value_var = value_var, region_var = region_var, facet_var = facet_var,
             sort_by = sort_by, sort_desc = sort_desc, line_stroke = line_stroke, dot_size = dot_size, dot_shape = dot_shape, 
-            label_size = label_size, label_x_offset = label_x_offset, value_y_offset = value_y_offset, label_vals = label_vals, 
-            tufte_style = tufte_style, x_buffer = x_buffer, 
+            label_size = label_size, label_x_offset = label_x_offset, value_y_offset = value_y_offset, 
+            label_vals = label_vals, percent_vals = percent_vals, tufte_style = tufte_style, x_buffer = x_buffer, 
             font_normal =  font_normal, font_semi = font_semi, font_light = font_light, panel_spacing = panel_spacing, 
             font_axis_label = font_axis_label, font_axis_title = font_axis_title, font_facet = font_facet, 
             font_legend_title = font_legend_title, font_legend_label = font_legend_label, font_subtitle = font_subtitle, font_title = font_title, 
