@@ -10,6 +10,8 @@
 #' # generate random data
 #' df = data.frame(year = c(rep(2007, 6), rep(2016, 6)), value = sample(1:100, 12), region = rep(letters[1:6], 2), facet = rep(c('group1', 'group2'), 6))
 #' plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', tufte_style = TRUE, facet_var = 'facet')
+#' plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', facet_var = 'region', sort_desc = FALSE, sort_by = 'first')
+#' plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', facet_var = 'region', sort_desc = FALSE, sort_by = 'last')
 #' plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', facet_var = 'region', sort_desc = FALSE, sort_by = 'diff')
 #' 
 #' @export
@@ -20,9 +22,15 @@ plot_bump = function(df,
                      time_var = 'year',
                      value_var = 'value',
                      region_var = 'region',
+                     
                      facet_var = NA,
-                     sort_by = 'last', # one of: 'diff', 'first', 'last', 'none'
+                     sort_by = 'diff', # one of: 'diff', 'first', 'last', 'none'
                      sort_desc = TRUE,
+                     
+                     file_name = NA,
+                     width = 10,
+                     height = 6,
+                     saveBoth = FALSE,
                      
                      line_stroke = 0.5,
                      dot_size = 5,
@@ -182,6 +190,11 @@ plot_bump = function(df,
       )
   }
   
+  # -- save plot --
+  if(!is.na(file_name)) {
+    save_plot(file_name, saveBoth = saveBoth, width = width, height = height)
+  }
+  
   # -- return --
   return(p)
 }
@@ -191,9 +204,15 @@ plot_slope = function(df,
                       time_var = 'year',
                       value_var = 'value',
                       region_var = 'region',
+                      
                       facet_var = NA,
-                      sort_by_lastval = TRUE,
+                      sort_by = 'diff', # one of: 'diff', 'first', 'last', 'none'
                       sort_desc = TRUE,
+                      
+                      file_name = NA,
+                      width = 10,
+                      height = 6,
+                      saveBoth = FALSE,
                       
                       line_stroke = 0.5,
                       dot_size = 5,
@@ -222,5 +241,12 @@ plot_slope = function(df,
                       grey_background = FALSE,
                       background_colour = grey10K,
                       projector = FALSE) {
-  plot_bump()
+  plot_bump(df = df, time_var = time_var, value_var = value_var, region_var = region_var, facet_var = facet_var,
+            sort_by = sort_by, sort_desc = sort_desc, line_stroke = line_stroke, dot_size = dot_size, dot_shape = dot_shape, 
+            label_size = label_size, label_x_offset = label_x_offset, value_y_offset = value_y_offset, label_vals = label_vals, 
+            tufte_style = tufte_style, x_buffer = x_buffer, 
+            font_normal =  font_normal, font_semi = font_semi, font_light = font_light, panel_spacing = panel_spacing, 
+            font_axis_label = font_axis_label, font_axis_title = font_axis_title, font_facet = font_facet, 
+            font_legend_title = font_legend_title, font_legend_label = font_legend_label, font_subtitle = font_subtitle, font_title = font_title, 
+            grey_background = grey_background, background_colour = background_colour, projector = projector)
 }
