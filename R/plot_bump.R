@@ -205,7 +205,7 @@ plot_bump = function(df,
         mutate_(.dots = setNames(paste0('llamar::percent(', value_var, ', 0)'), 'value_label'))
     } else {
       df = df %>% 
-        mutate_(.dots = setNames(paste0('round(', value_var, ', 1)'), 'value_label'))
+        mutate_(.dots = setNames(paste0('llamar::round_exact(', value_var, ', 1)'), 'value_label'))
     }
     
     p = p + 
