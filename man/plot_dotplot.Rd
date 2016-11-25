@@ -4,16 +4,19 @@
 \alias{plot_dotplot}
 \title{Plots a dot plot}
 \usage{
-plot_dotplot(df, time_var = "year", region_var = "region", facet_var = NA,
-  value_var = "avg", sort_desc = TRUE, arrow_arg = arrow(length =
-  unit(0.03, "npc")), dot_size = 6, connector_stroke = 0.25,
-  connector_colour = grey75K, label_vals = TRUE, label_colour = grey75K,
-  percent_vals = FALSE, value_y_offset = 0.05, sort_by = "last",
-  horiz = TRUE, file_name = NA, width = 10, height = 6,
-  saveBoth = FALSE, font_normal = "Lato", font_semi = "Lato",
-  font_light = "Lato Light", panel_spacing = 1, font_axis_label = 12,
-  font_axis_title = font_axis_label * 1.15, font_facet = font_axis_label *
-  1.15, font_legend_title = font_axis_label,
+plot_dotplot(df, time_var = "year", region_var = "region",
+  value_var = "avg", sort_desc = TRUE, sort_by = "diff", facet_var = NA,
+  ncol = NULL, nrow = NULL, scales = "fixed", arrow_arg = arrow(length =
+  unit(0.03, "npc")), arrow_length = 0.85, dot_size = 6, dot_shape = c(21,
+  23, 22, 24), fill_value = TRUE, dot_fill_discrete = c("#D3DEED",
+  "#3288BD"), dot_fill_cont = brewer.pal(9, "YlGnBu"),
+  connector_stroke = 0.25, connector_colour = grey75K, label_vals = TRUE,
+  label_size = 3, label_colour = grey75K, percent_vals = FALSE,
+  value_y_offset = 0, horiz = TRUE, file_name = NA, width = 10,
+  height = 6, saveBoth = FALSE, font_normal = "Lato",
+  font_semi = "Lato", font_light = "Lato Light", panel_spacing = 1,
+  font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
+  font_facet = font_axis_label * 1.15, font_legend_title = font_axis_label,
   font_legend_label = font_axis_label * 0.8, font_subtitle = font_axis_label
   * 1.2, font_title = font_axis_label * 1.3, grey_background = FALSE,
   background_colour = grey10K, projector = FALSE)

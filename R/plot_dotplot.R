@@ -1,24 +1,39 @@
+# Check if works w/ M/F
+# color labels if not 0
+# redo names?
+
 #' Plots a dot plot 
 #' 
 #' @export
 plot_dotplot = function(df,
                         time_var = 'year',
                         region_var = 'region',
-                        facet_var = NA,
                         value_var = 'avg',
+                        
                         sort_desc = TRUE,
+                        sort_by = 'diff', # one of: 'diff', 'first', 'last', 'none'
+                        
+                        facet_var = NA,
+                        ncol = NULL,
+                        nrow = NULL,
+                        scales = 'fixed',
                         
                         arrow_arg = arrow(length = unit(0.03, "npc")),
+                        arrow_length = 0.85, # fraction of total difference
                         dot_size = 6, 
+                        dot_shape = c(21, 23, 22, 24),
+                        fill_value = TRUE,
+                        dot_fill_discrete = c('#D3DEED', '#3288BD'), # first year, second year tuple
+                        dot_fill_cont = brewer.pal(9, 'YlGnBu'),
                         connector_stroke = 0.25,
                         connector_colour = grey75K,
                         
                         label_vals = TRUE,
+                        label_size = 3,
                         label_colour = grey75K,
                         percent_vals = FALSE,
-                        value_y_offset = 0.05,
+                        value_y_offset = 0,
                         
-                        sort_by = 'last', # options: first, last, none, diff
                         horiz = TRUE,
                         
                         file_name = NA,
@@ -42,9 +57,13 @@ plot_dotplot = function(df,
                         projector = FALSE){
   
   # -- Check inputs --
-  if(is.na(arrow)) {
-    warning('arrow should be either an arrow object or NULL.  Switching to NULL')
-    arrow = NULL
+  if(!is.list(arrow_arg)){
+    if(is.na(arrow)) {
+      warning('arrow should be either an arrow object or NULL.  Switching to NULL')
+      arrow = NULL
+    } else {
+      warning('Provide a valid arrow argument (see function "arrow")')
+    }
   }
   # Assumes data come in tidy form and pre-calculated averages.
   
@@ -101,10 +120,10 @@ plot_dotplot = function(df,
     # sort ascending or descending
     if(sort_desc == TRUE) {
       facet_order = facet_order %>% 
-        arrange_(paste0('desc(', sort_var, ')'))
+        arrange_(sort_var)
     } else{
       facet_order = facet_order %>% 
-        arrange_(sort_var)
+        arrange_(paste0('desc(', sort_var, ')'))
     }
     
     # relevel
@@ -120,54 +139,114 @@ plot_dotplot = function(df,
   p = ggplot(df) +
     
     # -- bar between dots --
-    geom_segment(aes_string(x = 'time1', xend  = 'diff * 0.9 + time1',
+    geom_segment(aes_string(x = 'time1', xend  = 'diff * arrow_length + time1',
                             y = region_var, yend = region_var),
                  size = connector_stroke,
                  arrow = arrow_arg,
                  colour = connector_colour,
                  data = df_untidy) +
     
-    geom_point(aes_string(x = 'avg', y = region_var,
-                          color = paste0('as.factor(', time_var, ')'), 
-                          shape = paste0('as.factor(', time_var, ')'), 
-                          fill = 'avg'),
-               # paste0('as.factor(', time_var, ')')),
-               size = dot_size, colour = grey90K) +
     
-
-  
-    
-  theme_xgrid() +
-    scale_shape_manual(values = c(21, 23, 22, 24)) +
-    scale_x_continuous(labels = percent) +
-    scale_fill_gradientn(colours = brewer.pal(9, 'RdPu')) +
-    # scale_fill_manual(values = c('2010' = 'white', '2014' = brewer.pal(9, 'Spectral')[1])) +
+    theme_xgrid() +
+    scale_shape_manual(values = dot_shape) +
     theme(axis.title.x = element_blank())
+  
+  # -- scale fill of points --
+  if(fill_value == TRUE){
+    p = p + 
+      geom_point(aes_string(x = 'avg', y = region_var,
+                            color = paste0('as.factor(', time_var, ')'), 
+                            shape = paste0('as.factor(', time_var, ')'), 
+                            fill = 'avg'),
+                 size = dot_size, colour = grey90K) +
+      scale_fill_gradientn(colours = dot_fill_cont)
+    
+  } else {
+    p = p + 
+      geom_point(aes_string(x = 'avg', y = region_var,
+                            color = paste0('as.factor(', time_var, ')'), 
+                            shape = paste0('as.factor(', time_var, ')'), 
+                            fill = paste0('as.factor(', time_var, ')')),
+                 size = dot_size, colour = grey90K) +
+      scale_fill_manual(values = dot_fill_discrete)
+  }
   
   # -- flip coords --
   if(horiz == FALSE) {
     p = p + coord_flip()
   }
   
-
-  # -- value labels --
-  # if (label_vals == TRUE) {
-  #   if(percent_vals == TRUE) {
-  #     df = df %>% 
-  #       mutate_(.dots = setNames(paste0('llamar::percent(', value_var, ', 0)'), 'value_label'))
-  #   } else {
-  #     df = df %>% 
-  #       mutate_(.dots = setNames(paste0('round(', value_var, ', 1)'), 'value_label'))
-  #   }
-  #   
-  #   p = p + 
-  #     geom_text(aes(label = value_label), 
-  #               size = label_size,
-  #               family = font_light,
-  #               nudge_y = value_y_offset,
-  #               data = df)
-  # }  
   
+  # -- value labels --
+  if (label_vals == TRUE) {
+    
+    # -- calculate y-offset for labels, if needed --
+    if (is.na(value_y_offset)) {
+      if(is.na(facet_var)) {
+        y_offset = 0.05
+      } else {
+        y_offset = 0.25
+      }
+      
+      
+      # set a reasonable y-offset
+      value_y_offset = diff(range(df[[value_var]])) * y_offset
+    }
+    
+    if(percent_vals == TRUE) {
+      df = df %>%
+        mutate_(.dots = setNames(paste0('llamar::percent(', value_var, ', 0)'), 'value_label'))
+    } else {
+      df = df %>%
+        mutate_(.dots = setNames(paste0('llamar::round_exact(', value_var, ', 1)'), 'value_label'))
+    }
+    
+    
+    if(value_y_offset != 0) {
+      # text is above/below the dots
+      p = p +
+        geom_text(aes_string(x = value_var, 
+                             y = region_var,
+                             label = 'value_label'),
+                  size = label_size,
+                  family = font_light,
+                  nudge_y = value_y_offset,
+                  colour = grey60K,
+                  data = df) 
+    } else if (fill_value == TRUE) {
+      # continuous variable
+      p = p + 
+        geom_text(aes_string(x = value_var, 
+                             y = region_var,
+                             label = 'value_label',
+                             colour = value_var),
+                  size = label_size,
+                  family = font_light,
+                  nudge_y = value_y_offset,
+                  data = df) +
+        scale_colour_text(df[[value_var]])
+    } else {
+      # discrete variable
+      p = p +
+        geom_text(aes_string(x = value_var, 
+                             y = region_var,
+                             label = 'value_label',
+                             colour = paste0('as.factor(', time_var, ')')),
+                  size = label_size,
+                  family = font_light,
+                  nudge_y = value_y_offset,
+                  data = df) +
+        scale_colour_manual(values = c(grey90K, 'white'))
+    }
+  }
+  # -- facetting --
+  # + facet, single slope graph per facet
+  if(!is.na(facet_var)) {
+    p = p +
+      facet_wrap(as.formula(paste0('~', facet_var)),
+                 ncol = ncol, nrow = nrow,
+                 scales = scales)
+  }
   # -- save plot --
   if(!is.na(file_name)) {
     save_plot(file_name, saveBoth = saveBoth, width = width, height = height)
