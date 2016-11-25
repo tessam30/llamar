@@ -1,9 +1,17 @@
 # Check if works w/ M/F
-# color labels if not 0
 # redo names?
 
 #' Plots a dot plot 
 #' 
+#' @examples
+#' # generate random data
+#' df = data.frame(year = c(rep(2007, 6), rep(2016, 6)), value = sample(1:100, 12), region = rep(letters[1:6], 2), facet = rep(c('group1', 'group2'), 6))
+#' 
+#' plot_dotplot(df, time_var = 'year', region_var = 'region', value_var = 'value')
+#' plot_dotplot(df, time_var = 'year', region_var = 'region', value_var = 'value', include_arrows = FALSE)
+#' plot_dotplot(df, time_var = 'year', region_var = 'region', value_var = 'value', sort_by = 'first', fill_value = FALSE, value_y_offset = 0.25, sort_desc = FALSE)
+#' plot_dotplot(df, time_var = 'year', region_var = 'region', value_var = 'value', sort_by = 'first', fill_value = FALSE, value_y_offset = 0.25, sort_desc = FALSE)
+#'  
 #' @export
 plot_dotplot = function(df,
                         time_var = 'year',
@@ -18,8 +26,9 @@ plot_dotplot = function(df,
                         nrow = NULL,
                         scales = 'fixed',
                         
+                        include_arrows = TRUE,
                         arrow_arg = arrow(length = unit(0.03, "npc")),
-                        arrow_length = 0.85, # fraction of total difference
+                        connector_length = 0.85, # fraction of total difference
                         dot_size = 6, 
                         dot_shape = c(21, 23, 22, 24),
                         fill_value = TRUE,
@@ -31,6 +40,7 @@ plot_dotplot = function(df,
                         label_vals = TRUE,
                         label_size = 3,
                         label_colour = grey75K,
+                        label_digits = 1,
                         percent_vals = FALSE,
                         value_y_offset = 0,
                         
@@ -60,10 +70,16 @@ plot_dotplot = function(df,
   if(!is.list(arrow_arg)){
     if(is.na(arrow)) {
       warning('arrow should be either an arrow object or NULL.  Switching to NULL')
-      arrow = NULL
+      arrow_arg = NULL
     } else {
       warning('Provide a valid arrow argument (see function "arrow")')
     }
+  }
+  
+  if(include_arrows == FALSE) {
+    # make sure the line goes all the way to the dot
+    connector_length = 1
+    arrow_arg = NULL
   }
   # Assumes data come in tidy form and pre-calculated averages.
   
@@ -139,7 +155,7 @@ plot_dotplot = function(df,
   p = ggplot(df) +
     
     # -- bar between dots --
-    geom_segment(aes_string(x = 'time1', xend  = 'diff * arrow_length + time1',
+    geom_segment(aes_string(x = 'time1', xend  = 'diff * connector_length + time1',
                             y = region_var, yend = region_var),
                  size = connector_stroke,
                  arrow = arrow_arg,
@@ -154,16 +170,16 @@ plot_dotplot = function(df,
   # -- scale fill of points --
   if(fill_value == TRUE){
     p = p + 
-      geom_point(aes_string(x = 'avg', y = region_var,
+      geom_point(aes_string(x = value_var, y = region_var,
                             color = paste0('as.factor(', time_var, ')'), 
                             shape = paste0('as.factor(', time_var, ')'), 
-                            fill = 'avg'),
+                            fill = value_var),
                  size = dot_size, colour = grey90K) +
       scale_fill_gradientn(colours = dot_fill_cont)
     
   } else {
     p = p + 
-      geom_point(aes_string(x = 'avg', y = region_var,
+      geom_point(aes_string(x = value_var, y = region_var,
                             color = paste0('as.factor(', time_var, ')'), 
                             shape = paste0('as.factor(', time_var, ')'), 
                             fill = paste0('as.factor(', time_var, ')')),
@@ -198,7 +214,7 @@ plot_dotplot = function(df,
         mutate_(.dots = setNames(paste0('llamar::percent(', value_var, ', 0)'), 'value_label'))
     } else {
       df = df %>%
-        mutate_(.dots = setNames(paste0('llamar::round_exact(', value_var, ', 1)'), 'value_label'))
+        mutate_(.dots = setNames(paste0('llamar::round_exact(', value_var, ',', label_digits, ')'), 'value_label'))
     }
     
     
