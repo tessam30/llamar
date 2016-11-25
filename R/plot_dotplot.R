@@ -7,14 +7,20 @@
 #' # generate random data
 #' df = data.frame(year = c(rep(2007, 6), rep(2016, 6)), value = sample(1:100, 12), region = rep(letters[1:6], 2), facet = rep(c('group1', 'group2'), 6))
 #' 
-#' plot_dotplot(df, time_var = 'year', region_var = 'region', value_var = 'value')
-#' plot_dotplot(df, time_var = 'year', region_var = 'region', value_var = 'value', include_arrows = FALSE)
-#' plot_dotplot(df, time_var = 'year', region_var = 'region', value_var = 'value', sort_by = 'first', fill_value = FALSE, value_y_offset = 0.25, sort_desc = FALSE)
-#' plot_dotplot(df, time_var = 'year', region_var = 'region', value_var = 'value', sort_by = 'first', fill_value = FALSE, value_y_offset = 0.25, sort_desc = FALSE)
+#' plot_dotplot(df, group_var = 'year', region_var = 'region', value_var = 'value')
+#' plot_dotplot(df, group_var = 'year', region_var = 'region', value_var = 'value', include_arrows = FALSE)
+#' plot_dotplot(df, group_var = 'year', region_var = 'region', value_var = 'value', sort_by = 'first', fill_value = FALSE, value_label_offset = 0.25, sort_desc = FALSE)
+#' plot_dotplot(df, group_var = 'year', region_var = 'region', value_var = 'value', sort_by = 'first', fill_value = FALSE, value_label_offset = 0.25, sort_desc = FALSE)
+#' 
+#' # example with categorical data
+#' df2 = data.frame(group = c(rep('group1', 6), rep('group2', 6)), value = sample(1:100, 12), region = rep(letters[1:6], 2), facet = rep(c('group1', 'group2'), 6))
+#' 
+#' plot_dotplot(df2, group_var = 'group', region_var = 'region', value_var = 'value')
+
 #'  
 #' @export
 plot_dotplot = function(df,
-                        time_var = 'year',
+                        group_var = 'year',
                         region_var = 'region',
                         value_var = 'avg',
                         
@@ -42,7 +48,11 @@ plot_dotplot = function(df,
                         label_colour = grey75K,
                         label_digits = 1,
                         percent_vals = FALSE,
-                        value_y_offset = 0,
+                        value_label_offset = 0,
+                        
+                        label_group = TRUE,
+                        label_group_size = 4,
+                        group_label_offset = 0.25, 
                         
                         horiz = TRUE,
                         
@@ -62,6 +72,8 @@ plot_dotplot = function(df,
                         font_legend_label = font_axis_label * 0.8,
                         font_subtitle = font_axis_label * 1.2,
                         font_title = font_axis_label * 1.3,
+                        legend.position = 'none', 
+                        legend.direction = 'horizontal',
                         grey_background = FALSE,
                         background_colour = grey10K,
                         projector = FALSE){
@@ -83,23 +95,29 @@ plot_dotplot = function(df,
   }
   # Assumes data come in tidy form and pre-calculated averages.
   
-  # -- find latest year --
-  min_time = min(df[[time_var]])
-  max_time = max(df[[time_var]])
+  # -- find latest year / group --
+  # for factors, set to the first value.
+  if(is.numeric(df[[group_var]])) {
+    min_time = min(df[[group_var]])
+    max_time = max(df[[group_var]])
+  } else {
+    min_time = as.character(unique(df[[group_var]])[1])
+    max_time = as.character(unique(df[[group_var]])[2])
+  } 
   
   # -- Spread wide for connector line / sorting --
   df_untidy =  if(is.na(facet_var)) {
     df_untidy = df %>% 
-      select_(time_var, region_var, value_var) %>% 
-      spread_(time_var, value_var) %>% 
+      select_(group_var, region_var, value_var) %>% 
+      spread_(group_var, value_var) %>% 
       rename_('time1' = as.name(min_time),
               'time2' = as.name(max_time)) %>% 
       mutate(diff = (time2 - time1),
              pct_diff = diff/time1)
   } else {
     df_untidy = df %>% 
-      select_(time_var, region_var, value_var, facet_var) %>% 
-      spread_(time_var, value_var) %>% 
+      select_(group_var, region_var, value_var, facet_var) %>% 
+      spread_(group_var, value_var) %>% 
       rename_('time1' = as.name(min_time),
               'time2' = as.name(max_time)) %>% 
       mutate(diff = (time2 - time1),
@@ -112,23 +130,27 @@ plot_dotplot = function(df,
   if(sort_by != 'none') {
     if(sort_by == 'last') {
       facet_order = df %>% 
-        filter_(paste0(time_var, '==', max_time))
+        filter_(paste0(group_var, '==', max_time))
       
       sort_var = value_var
       
     } else if (sort_by == 'first'){
       facet_order = df %>% 
-        filter_(paste0(time_var, '==', min_time))
+        filter_(paste0(group_var, '==', min_time))
       
       sort_var = value_var
       
     } else if(sort_by == 'diff'){
       facet_order = df_untidy
+      sort_var = 'diff'
+      
+    } else if(sort_by == 'pct_diff'){
+      facet_order = df_untidy
       sort_var = 'pct_diff'
       
     } else {
       facet_order = df_untidy
-      sort_var = 'pct_diff' 
+      sort_var = 'diff' 
       
       warning('sorting values by difference')
     }
@@ -148,8 +170,13 @@ plot_dotplot = function(df,
     
     df_untidy[[region_var]] = factor(df_untidy[[region_var]],
                                      levels = facet_order[[region_var]])
+  } else {
+    facet_order = df_untidy
   }
   
+  # -- define the value of the top element --
+  top_region = facet_order %>% slice(n())
+  top_region = top_region[[region_var]]
   
   # -- PLOT --
   p = ggplot(df) +
@@ -163,16 +190,23 @@ plot_dotplot = function(df,
                  data = df_untidy) +
     
     
-    theme_xgrid() +
+    theme_xgrid(font_normal = font_normal, font_semi = font_semi,
+                font_light = font_light, legend.position = legend.position,
+                legend.direction = legend.direction, panel_spacing = panel_spacing,
+                font_axis_label = font_axis_label, font_axis_title = font_axis_title, 
+                font_facet = font_facet, font_legend_title = font_legend_title, 
+                font_legend_label = font_legend_label, font_subtitle = font_subtitle, 
+                font_title = font_title, grey_background = grey_background, background_colour = background_colour
+                  ) +
     scale_shape_manual(values = dot_shape) +
-    theme(axis.title.x = element_blank())
+    theme(axis.title.x = element_blank(),
+          axis.text.y  = element_text(family = font_normal, size = font_axis_label * 1.25))
   
   # -- scale fill of points --
   if(fill_value == TRUE){
     p = p + 
       geom_point(aes_string(x = value_var, y = region_var,
-                            color = paste0('as.factor(', time_var, ')'), 
-                            shape = paste0('as.factor(', time_var, ')'), 
+                            shape = paste0('as.factor(', group_var, ')'), 
                             fill = value_var),
                  size = dot_size, colour = grey90K) +
       scale_fill_gradientn(colours = dot_fill_cont)
@@ -180,9 +214,8 @@ plot_dotplot = function(df,
   } else {
     p = p + 
       geom_point(aes_string(x = value_var, y = region_var,
-                            color = paste0('as.factor(', time_var, ')'), 
-                            shape = paste0('as.factor(', time_var, ')'), 
-                            fill = paste0('as.factor(', time_var, ')')),
+                            shape = paste0('as.factor(', group_var, ')'), 
+                            fill = paste0('as.factor(', group_var, ')')),
                  size = dot_size, colour = grey90K) +
       scale_fill_manual(values = dot_fill_discrete)
   }
@@ -192,12 +225,22 @@ plot_dotplot = function(df,
     p = p + coord_flip()
   }
   
+  # -- group label --
+  if(label_group == TRUE) {
+    p = p +
+      geom_text(aes_string(x = value_var, y = region_var, 
+                           label = group_var), 
+                family = font_light,
+                size = label_group_size,
+                nudge_y = group_label_offset,
+    data = df %>% filter_(paste0(region_var, '=="', top_region, '"')))
+  }
   
   # -- value labels --
   if (label_vals == TRUE) {
     
     # -- calculate y-offset for labels, if needed --
-    if (is.na(value_y_offset)) {
+    if (is.na(value_label_offset)) {
       if(is.na(facet_var)) {
         y_offset = 0.05
       } else {
@@ -206,7 +249,7 @@ plot_dotplot = function(df,
       
       
       # set a reasonable y-offset
-      value_y_offset = diff(range(df[[value_var]])) * y_offset
+      value_label_offset = diff(range(df[[value_var]])) * y_offset
     }
     
     if(percent_vals == TRUE) {
@@ -218,7 +261,7 @@ plot_dotplot = function(df,
     }
     
     
-    if(value_y_offset != 0) {
+    if(value_label_offset != 0) {
       # text is above/below the dots
       p = p +
         geom_text(aes_string(x = value_var, 
@@ -226,7 +269,7 @@ plot_dotplot = function(df,
                              label = 'value_label'),
                   size = label_size,
                   family = font_light,
-                  nudge_y = value_y_offset,
+                  nudge_y = value_label_offset,
                   colour = grey60K,
                   data = df) 
     } else if (fill_value == TRUE) {
@@ -238,7 +281,7 @@ plot_dotplot = function(df,
                              colour = value_var),
                   size = label_size,
                   family = font_light,
-                  nudge_y = value_y_offset,
+                  nudge_y = value_label_offset,
                   data = df) +
         scale_colour_text(df[[value_var]])
     } else {
@@ -247,10 +290,10 @@ plot_dotplot = function(df,
         geom_text(aes_string(x = value_var, 
                              y = region_var,
                              label = 'value_label',
-                             colour = paste0('as.factor(', time_var, ')')),
+                             colour = paste0('as.factor(', group_var, ')')),
                   size = label_size,
                   family = font_light,
-                  nudge_y = value_y_offset,
+                  nudge_y = value_label_offset,
                   data = df) +
         scale_colour_manual(values = c(grey90K, 'white'))
     }
