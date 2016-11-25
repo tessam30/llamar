@@ -5,6 +5,7 @@
 \alias{percent}
 \alias{roundMean}
 \alias{roundStd}
+\alias{round_exact}
 \title{Simple reusable functions to format numbers}
 \usage{
 roundMean(x, ndigits = 2)
@@ -12,6 +13,8 @@ roundMean(x, ndigits = 2)
 roundStd(x, ndigits = 2)
 
 percent(x, ndigits = 1)
+
+round_exact(x, ndigits = 1)
 }
 \arguments{
 \item{x}{numbers to be converted}
@@ -28,6 +31,8 @@ Simple reusable functions to format numbers
 \item \code{roundStd}: Function to calculate the standard deviation and round to two digits.
 
 \item \code{percent}: Function to convert a decimal to a percent, round to a specific number of digits, and convert to a string with a percent sign.
+
+\item \code{round_exact}: Function to round a number w/ an exact number of digits
 }}
 \examples{
 roundMean(mtcars$mpg)
