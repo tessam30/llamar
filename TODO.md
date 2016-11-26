@@ -45,7 +45,7 @@
 ## To remove
 - [ ] "convert01.R" 
 - [ ] "orderLevels.R", "recode.R" -- redundant from forcats?
-- [ ] "plotBasicMap.R" -- frontier
+- [x] "plotBasicMap.R" -- frontier
 
 ## To fix
 - [ ] pull attributes: weirdness from CFSVA pullAttr.
