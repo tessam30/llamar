@@ -18,3 +18,7 @@ list(paste0('forcats::fct_infreq(factor(', var, ',',
 group_by_(time_var, region_var) %>% 
 summarise_(.dots = list(N = 'n()', 
 avg = paste0('mean(', var, ')')))`
+
+##filter_
+`facet_order = df %>% 
+filter_(paste0(time_var, '==', max_time))`
