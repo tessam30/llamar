@@ -298,6 +298,7 @@ plot_dotplot = function(df,
         scale_colour_manual(values = c(grey90K, 'white'))
     }
   }
+  
   # -- facetting --
   # + facet, single slope graph per facet
   if(!is.na(facet_var)) {
@@ -305,6 +306,12 @@ plot_dotplot = function(df,
       facet_wrap(as.formula(paste0('~', facet_var)),
                  ncol = ncol, nrow = nrow,
                  scales = scales)
+  }
+  
+  # -- scales --
+  if(percent_vals == TRUE) {
+    p = p + 
+      scale_x_continuous(labels = percent)
   }
   # -- save plot --
   if(!is.na(file_name)) {
