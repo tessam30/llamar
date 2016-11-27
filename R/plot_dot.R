@@ -1,4 +1,14 @@
+#' Plot a dot plot, either with or without axis bars
+#' 
+#' @examples 
+#' # generate random data
+#' df = data.frame(value = sample(1:100, 8), region = letters[1:8])
+#' 
+#' plot_dot(df, by_var = 'region', value_var = 'value')
+
+#' 
 #' @export
+
 plot_dot = function(df,
                     by_var = 'region',
                     value_var = 'avg',
@@ -66,6 +76,7 @@ plot_dot = function(df,
   
   # -- calculate the average, by a particular variable --
   # df_avgs = calcPtEst(df, value_var, by_var = by_var, use_weights = use_weights)
+  df_avgs = df
   
   # -- calculate the sample mean --
   if (reference_line == TRUE) {
