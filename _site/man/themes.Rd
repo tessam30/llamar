@@ -21,7 +21,7 @@ set_aesthetics(font_normal, font_semi, font_light, projector)
 theme_blank(legend.position = "none", legend.direction = "horizontal",
   font_normal = "Lato", font_semi = "Lato", font_light = "Lato Light",
   font_legend_title = 12, font_legend_label = font_legend_title * 0.8,
-  projector = FALSE)
+  projector = FALSE, background_colour = NA)
 
 theme_stroke(stroke_size = 0.25, stroke_colour = grey90K)
 
@@ -123,6 +123,8 @@ theme_basic(font_normal = "Lato", font_semi = "Lato",
 
 \item{font_legend_label}{(optional) value, in points, of the font in the legend values}
 
+\item{background_colour}{(optional) colour argument for the fill of the background, if grey_background == TRUE}
+
 \item{panel_spacing}{(optional) number of lines between facet panels}
 
 \item{font_axis_label}{(optional) value, in points, of the font in the axis labels. If changed, will change the other font sizes in the plot unless they are also adjusted.}
@@ -136,8 +138,6 @@ theme_basic(font_normal = "Lato", font_semi = "Lato",
 \item{font_title}{(optional) value, in points, of the font in the plot title}
 
 \item{grey_background}{(optional) if TRUE, make the background of the plot (but not the panel) background_colour}
-
-\item{background_colour}{(optional) colour argument for the fill of the background, if grey_background == TRUE}
 }
 \description{
 Customized ggplot themes

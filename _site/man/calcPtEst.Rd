@@ -4,13 +4,16 @@
 \alias{calcPtEst}
 \title{Calculate point estimates and errors}
 \usage{
-calcPtEst(df, var, by_var = NA, design = NA, psu_var = NA,
-  strata_var = NA, weight_var = NA, na.rm = TRUE, ci_factor = 2)
+calcPtEst(df, var, use_weights = TRUE, by_var = NA, design = NA,
+  psu_var = NA, strata_var = NA, weight_var = NA, na.rm = TRUE,
+  ci_factor = 2)
 }
 \arguments{
 \item{df}{main data frame containing the raw data}
 
 \item{var}{string containing the variable name you want to average}
+
+\item{use_weights}{TRUE/FALSE for whether to apply a sampling frame or calculate a simple average.}
 
 \item{by_var}{(optional) string containing the variable name over which you want to calculate the estimates}
 
@@ -29,6 +32,13 @@ calcPtEst(df, var, by_var = NA, design = NA, psu_var = NA,
 \description{
 Calculates point estimates and errors using the package `survey` based 
 on sampling weights from a survey design
+}
+\examples{
+# Generate random data
+df = data.frame(region = rep(letters, 100), value = sample(100, 2600, replace = TRUE))
+
+calcPtEst = 
+
 }
 \author{
 Laura Hughes, laura.d.hughes@gmail.com

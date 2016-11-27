@@ -1,7 +1,7 @@
 Package: llamar
 Type: Package
 Title: Plotting Functions and Styles for Livelihoods Analysis Work
-Version: 0.0.0.9000
+Version: 0.1
 Authors@R: person("Laura", "Hughes", email = "laura.d.hughes@gmail.com", role = c("aut", "cre"))
 Description: Creates a series of plotting themes for ggplot2 and plotting
     functions used in Livelihoods Analysis & Mapping projects.
@@ -12,7 +12,7 @@ Imports:
     RColorBrewer,
     extrafont,
     forcats,
-    ggplot2 (>= 2.1.0),
+    ggplot2 (>= 2.2.0),
     gridExtra,
     lmtest,
     multiwayvcov,

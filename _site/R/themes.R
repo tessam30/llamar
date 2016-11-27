@@ -85,7 +85,8 @@ theme_blank <- function(legend.position = 'none',
                         font_light = 'Lato Light',
                         font_legend_title = 12, 
                         font_legend_label = font_legend_title * 0.8,
-                        projector = FALSE
+                        projector = FALSE,
+                        background_colour = NA
 ) {
   
   # -- Set the aesthetics (common to all the themes) --
@@ -109,7 +110,8 @@ theme_blank <- function(legend.position = 'none',
         panel.border = element_blank(), 
         panel.grid = element_blank(), 
         panel.background = element_blank(), 
-        plot.background = element_blank(), 
+        plot.background = element_rect(fill = background_colour, colour = NA, size = NA, linetype = 1), 
+        
         
         legend.position = legend.position,
         legend.title = element_text(size = font_legend_title, colour = text_colour, family = font_semi, angle = 0),
