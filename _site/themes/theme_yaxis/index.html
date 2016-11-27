@@ -170,22 +170,22 @@
 
     <footer class="site-footer">
   <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-78814953-1', 'auto');
-    ga('send', 'pageview');
+  ga('create', 'UA-78814953-1', 'auto');
+  ga('send', 'pageview');
 
-    var trackOutboundLink = function(url) {
-      ga("send", "event", "outbound", url, {
-        "transport": "beacon",
-        "hitCallback": function() {
-          //document.location = url;
-        }
-      });
-    };
+  var trackOutboundLink = function(url) {
+    ga("send", "event", "outbound", url, {
+      "transport": "beacon",
+      "hitCallback": function() {
+        //document.location = url;
+      }
+    });
+  };
 
   </script>
 
@@ -198,7 +198,28 @@
           <li>
             <a href="https://github.com/flaneuse/llamar" target="_blank">
               <i class="contact-list-light fa fa-github"></i>
-              <span class="username">llamar</span>
+              <span class="username">github</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://github.com/flaneuse/llamar/issues" target="_blank">
+              <i class="contact-list-light fa fa-warning"></i>
+              <span class="username">report an issue</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="http://lauradhughes.com" target="_blank">
+              <i class="contact-list-light fa fa-bar-chart"></i>
+              <span class="username">examples in the real world</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="mailto:laura.d.hughes at gmail.com"  target="_blank">
+              <i class="contact-list-light fa fa-send-o"></i>
+              laura.d.hughes at gmail.com
             </a>
           </li>
 
