@@ -87,7 +87,7 @@ plot_change = function(df,
     df2 = llamar::factorize(df, df, region_var, region_var)
   }
   
-  
+  # -- calculate average --
   if(is.na(facet_var)){
     df2 = df2 %>% 
       filter_(paste0('!is.na(', value_var,')')) %>% 
@@ -104,7 +104,7 @@ plot_change = function(df,
   
   
   if(plot_type == 'dot') {
-    p = plot_dotplot(df2, group_var = group_var, value_var = 'avg', region_var = region_var,
+    p = plot_dot_diff(df2, group_var = group_var, value_var = 'avg', region_var = region_var,
                      sort_desc = sort_desc,
                      sort_by = sort_by, 
                      facet_var = facet_var,
