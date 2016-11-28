@@ -232,7 +232,7 @@ plot_avg_dot = function(df,
                                  widths = c(0.1, 0.9),
                                  padding = unit(0, "line"))
     
-    dot = gridExtra::grid.arrange(dot)
+    gridExtra::grid.arrange(dot)
   }
   
   return(dot)
