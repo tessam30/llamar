@@ -16,14 +16,14 @@ df2 = data.frame(avg = sample(-100:100, 10)/100, region = letters[1:10], ci = sa
 # plot_dot ----------------------------------------------------------------
 plot_avg_dot(dhs, value_var = 'stunted2', by_var = 'lz', 
               percent_vals = TRUE, weight_var = 'cweight',
-             dot_size = 9, include_n = FALSE,
+             dot_size = 9, include_n = FALSE, x_limits = c(0.2, 0.55), x_breaks = seq(0.25, 0.55, by = 0.1),
              dot_fill_cont = rev(brewer.pal(11, 'Spectral')[1:6]), sat_threshold = 0.65) +
   theme_stroke()
 
 save_plot('~/GitHub/llamar/img/plot_dot1.png', width = 8, height = 8)
 
 plot_dot(df2, by_var = 'region', value_var = 'avg', ref_line = 0, 
-         ref_text = 'no change', label_ref = FALSE, lollipop = TRUE, value_label_offset = .125,
+         ref_text = 'no change', label_ref = FALSE, lollipop = TRUE, value_label_offset = .075,
          dot_fill_cont = brewer.pal(10, 'RdYlBu'), percent_vals = TRUE) +
   theme_stroke()
 save_plot('~/GitHub/llamar/img/plot_dot2.png', width = 5, height = 5)

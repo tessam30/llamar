@@ -47,7 +47,7 @@ plot_dot = function(df,
                     incl_x_axis = TRUE,
                     x_label = NULL,
                     x_limits = NULL,
-                    x_breaks = NULL,
+                    x_breaks = waiver(),
                     
                     sort_asc = FALSE,
                     sort_by = 'avg', # a column within df
@@ -125,13 +125,13 @@ plot_dot = function(df,
     }
   }
   
-  if(incl_x_axis == TRUE & is.null(x_limits)) {
-    x_limits = range(df[[value_var]])
-  }
-  
-  if(incl_x_axis == TRUE & is.null(x_breaks)) {
-    x_breaks = pretty(range(df[[value_var]]))
-  }
+  # if(incl_x_axis == TRUE & is.null(x_limits)) {
+  #   x_limits = range(df[[value_var]])
+  # }
+
+  # if(incl_x_axis == TRUE & is.null(x_breaks)) {
+  #   x_breaks = pretty(range(df[[value_var]]))
+  # }
   
   # determine sorting ----------------------------------------------------------
   if(!is.null(sort_by)) {
@@ -302,7 +302,7 @@ plot_dot = function(df,
   }
   
   # axis----------------------------------------------------------
-    if(incl_x_axis == TRUE) {
+  if(incl_x_axis == TRUE) {
     if(percent_vals == TRUE) {
       p = p + 
         scale_x_continuous(labels = percent, limits = x_limits, breaks = x_breaks)

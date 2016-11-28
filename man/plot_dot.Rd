@@ -5,10 +5,10 @@
 \title{Plot a dot plot, either with or without lollipop sticks}
 \usage{
 plot_dot(df, by_var = "region", value_var = "avg", incl_x_axis = TRUE,
-  x_label = NULL, x_limits = NULL, x_breaks = NULL, sort_asc = FALSE,
-  sort_by = "avg", plot_ci = FALSE, lb_var = "lb", ub_var = "ub",
-  ci_colour = grey25K, ci_alpha = 0.6, ci_size = 2, ref_line = FALSE,
-  ref_text = "sample average", label_ref_val = TRUE,
+  x_label = NULL, x_limits = NULL, x_breaks = waiver(),
+  sort_asc = FALSE, sort_by = "avg", plot_ci = FALSE, lb_var = "lb",
+  ub_var = "ub", ci_colour = grey25K, ci_alpha = 0.6, ci_size = 2,
+  ref_line = FALSE, ref_text = "sample average", label_ref_val = TRUE,
   nudge_ref_label = 0.05 * diff(range(abs(df[[value_var]]))),
   ref_label_y = 1, ref_arrow = arrow(length = unit(0.007, "npc")),
   ref_stroke = 0.5, ref_colour = grey75K, lollipop = FALSE,

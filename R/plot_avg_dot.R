@@ -44,7 +44,7 @@ plot_avg_dot = function(df,
                         incl_x_axis = TRUE,
                         x_label = NULL,
                         x_limits = NULL,
-                        x_breaks = NULL,
+                        x_breaks = waiver(),
                         
                         include_n = TRUE,
                         n_shape = 'square',
