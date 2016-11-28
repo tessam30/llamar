@@ -39,6 +39,9 @@ plot_avg_dot(dhs, value_var = 'stunted2', by_var = 'lz',
 
 save_plot('~/GitHub/llamar/img/plot_avg_dot.png', width = 8, height = 8)
 
+
+# DHS musings -------------------------------------------------------------
+
 plot_avg_dot(dhs, value_var = 'improvedWater', by_var = 'lz', 
              percent_vals = TRUE, weight_var = 'cweight',
              dot_size = 9, include_n = TRUE,
