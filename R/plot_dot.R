@@ -27,10 +27,10 @@
 #' plot_dot(df2, by_var = 'region', value_var = 'avg', percent_vals = TRUE, lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
 #'
 #' # with reference line
-#' plot_dot(df2, by_var = 'region', value_var = 'avg', ref_line = 0, ref_label = 'no change', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'), percent_vals = TRUE)
+#' plot_dot(df2, by_var = 'region', value_var = 'avg', ref_line = 0, ref_text = 'no change', label_ref = FALSE, lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'), percent_vals = TRUE)
 #'
 #' # horizontal
-#' plot_dot(df2, by_var = 'region', value_var = 'avg', horiz = FALSE, ref_line = 0, ref_label = 'no change', lollipop = TRUE, plot_ci = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
+#' plot_dot(df2, by_var = 'region', value_var = 'avg', horiz = FALSE, ref_line = 0, ref_text = 'no change', label_ref = FALSE, lollipop = TRUE, plot_ci = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
 #'
 #' # in-built facet_wrap. Note: may screw up ordering, since will sort based on ALL the data.
 #' df3 = data.frame(avg = sample(-100:100, 20), region = rep(letters[1:10], 2), group = c(rep('group1', 10), rep('group2', 10)))
@@ -54,8 +54,9 @@ plot_dot = function(df,
                     ci_colour = grey15K,
                     ci_size = 2,
                     
-                    ref_line = NULL,
-                    ref_label = 'sample average',
+                    ref_line = FALSE,
+                    ref_text = 'sample average',
+                    label_ref_val = TRUE,
                     nudge_ref_label = 0.05 * diff(range(abs(df[[value_var]]))),
                     ref_label_y = 1, # reference label y-position
                     ref_arrow = arrow(length = unit(0.007, "npc")),
@@ -113,7 +114,7 @@ plot_dot = function(df,
     if(!lb_var %in% colnames(df)) {
       stop('lb_var not found in df. Turn off plot_ci or fix inputs.')
     }
-
+    
     if(!ub_var %in% colnames(df)) {
       stop('ub_var not found in df. Turn off plot_ci or fix inputs.')
     }
@@ -142,13 +143,13 @@ plot_dot = function(df,
   }
   
   # add the reference line ----------------------------------------------------------
-  if(!is.null(ref_line)){
+  if(is.logical(ref_line) & ref_line == FALSE){
+    p = ggplot()
+  } else {
     p = ggplot() + 
       geom_vline(xintercept = ref_line,
                  size = ref_stroke,
                  colour = ref_colour)
-  } else {
-    p = ggplot()
   }
   
   # add in CIs ----------------------------------------------------------
@@ -173,11 +174,6 @@ plot_dot = function(df,
   
   # plot dots (MAIN PLOT) ----------------------------------------------------------
   p = p +
-    # geom_vline(xintercept = ref_line,
-    # size = line_stroke,
-    # colour = line_colour) +
-    # annotate(geom = 'text', x = ref_line * 1.1, y = 1, 
-    # colour = label_colour, size = label_size, family = font_light) +
     geom_point(aes_string(x = value_var, 
                           y = y_var,
                           fill = value_var),
@@ -258,16 +254,30 @@ plot_dot = function(df,
   
   # -- ref line annotation. --
   # must be done after the rest so order of the y-axis isn't mucked up
-  if(!is.null(ref_line) & !is.null(ref_label)){
-    p = p +
-      annotate(geom = 'text', x = ref_line + nudge_ref_label, y = ref_label_y,
-               label = ref_label, hjust = 0,
-               colour = label_colour, size = label_size, family = font_light) +
-      geom_curve(aes(x = ref_line + nudge_ref_label * 0.8, xend = ref_line, 
-                     y = ref_label_y, yend = ref_label_y + 0.1), 
-                 colour = ref_colour, 
-                 size = ref_stroke / 2, 
-                 arrow = ref_arrow)
+  if(!is.logical(ref_line)){
+    if(!is.null(ref_text)) {
+      p = p +
+        annotate(geom = 'text', x = ref_line + nudge_ref_label, y = ref_label_y,
+                 label = ref_text, hjust = 0,
+                 colour = label_colour, size = label_size, family = font_light) +
+        geom_curve(aes(x = ref_line + nudge_ref_label * 0.8, xend = ref_line,
+                       y = ref_label_y, yend = ref_label_y + 0.1),
+                   colour = ref_colour,
+                   size = ref_stroke / 2,
+                   arrow = ref_arrow)
+    }
+
+    if(label_ref_val == TRUE & percent_vals == TRUE) {
+      p = p +
+        annotate(geom = 'text', x = ref_line + nudge_ref_label, y = ref_label_y - 0.2,
+                 label = llamar::percent(ref_line, 0), hjust = 0,
+                 colour = label_colour, size = label_size, family = font_light)
+    } else if(label_ref_val == TRUE){
+      p = p +
+        annotate(geom = 'text', x = ref_line + nudge_ref_label, y = ref_label_y - 0.2,
+                 label = llamar::round_exact(ref_line, label_digits), hjust = 0,
+                 colour = label_colour, size = label_size, family = font_light)
+    }
   }
   
   # facet wrap ----------------------------------------------------------
