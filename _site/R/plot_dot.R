@@ -17,7 +17,7 @@
 #' # percent labels
 #' plot_dot(df2, by_var = 'region', value_var = 'avg', percent_vals = TRUE, lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
 
-#' # in-built facet_wrap
+#' # in-built facet_wrap. Note: may screw up ordering, since will sort based on ALL the data.
 #' df3 = data.frame(avg = sample(-100:100, 20), region = rep(letters[1:10], 2), group = c(rep('group1', 10), rep('group2', 10)), ci = sample(1:100, 20)/10) %>% mutate(lb = avg - ci, ub = avg + ci)
 #' plot_dot(df3, by_var = 'region', value_var = 'avg', facet_var = 'group', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
 #'
@@ -116,6 +116,7 @@ plot_dot = function(df,
   if(!is.na(sort_by) | !is.null(sort_by)) {
     if(sort_by %in% colnames(df)){
       if(is.numeric(df[[sort_by]])) {
+        
         y_var = paste0('forcats::fct_reorder(', by_var, ',', 
                        sort_by, ', .desc = ', sort_asc, ')')
       } else {
@@ -180,7 +181,14 @@ plot_dot = function(df,
                size = dot_size, shape = dot_shape, colour = grey90K, stroke = 0.1) +
     scale_fill_gradientn(colours = dot_fill_cont) +
     xlab(x_label) +
-    theme_xgrid()
+    theme_xgrid(font_normal = font_normal, font_semi = font_semi,
+                font_light = font_light, legend.position = legend.position,
+                legend.direction = legend.direction, panel_spacing = panel_spacing,
+                font_axis_label = font_axis_label, font_axis_title = font_axis_title, 
+                font_facet = font_facet, font_legend_title = font_legend_title, 
+                font_legend_label = font_legend_label, font_subtitle = font_subtitle, 
+                font_title = font_title, grey_background = grey_background, background_colour = background_colour
+    )
   
   # apply labels ----------------------------------------------------------
   
@@ -230,6 +238,12 @@ plot_dot = function(df,
   }
   
   # facet wrap ----------------------------------------------------------
+  if(!is.null(facet_var)) {
+    p = p +
+      facet_wrap(as.formula(paste0('~', facet_var)),
+                 ncol = ncol, nrow = nrow,
+                 scales = scales)
+  }
   
   # percent values ----------------------------------------------------------
   if(percent_vals == TRUE) {
