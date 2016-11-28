@@ -40,7 +40,7 @@
 # Calculates point estimates with standard errors, weighted by sample weights
 calcPtEst = function(df, # main data frame containing raw data,
                      var, # What you want to average
-                     use_weights = TRUE,
+                     use_weights = FALSE,
                      by_var = NA, # variable 
                      design = NA, # survey design object (containing sampling procedure)
                      psu_var = NA,
