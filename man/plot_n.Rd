@@ -5,12 +5,12 @@
 \title{Plots the sample size across a given variable.}
 \usage{
 plot_n(df, by_var, n_var = "N", sort_by = "avg", sort_asc = FALSE,
-  x_label = NULL, incl_y_labels = FALSE, dot_shape = "square",
-  dot_size = 15, dot_stroke = 0.1, dot_outline = grey90K,
-  low_colour = grey10K, high_colour = grey70K, label_size = 4,
-  file_name = NULL, width = 10, height = 6, saveBoth = FALSE,
-  font_normal = "Lato", font_semi = "Lato", font_light = "Lato Light",
-  panel_spacing = 1, font_axis_label = 12,
+  x_label = NULL, incl_x_axis = FALSE, incl_y_labels = FALSE,
+  dot_shape = "square", dot_size = 15, dot_stroke = 0.1,
+  dot_outline = grey90K, low_colour = grey10K, high_colour = grey70K,
+  label_size = 4, file_name = NULL, width = 10, height = 6,
+  saveBoth = FALSE, font_normal = "Lato", font_semi = "Lato",
+  font_light = "Lato Light", panel_spacing = 1, font_axis_label = 12,
   font_axis_title = font_axis_label * 1.15, font_facet = font_axis_label *
   1.15, font_legend_title = font_axis_label,
   font_legend_label = font_axis_label * 0.8, font_subtitle = font_axis_label

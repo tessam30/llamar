@@ -11,6 +11,7 @@ plot_n = function(df,
                   sort_asc = FALSE,
                   x_label = NULL,
                   
+                  incl_x_axis = FALSE,
                   incl_y_labels = FALSE,
                   
                   dot_shape = 'square',
@@ -87,7 +88,7 @@ plot_n = function(df,
   
   p = ggplot(df, aes_string(x = '1', 
                             y = y_var, 
-                            label = n_var,
+                            label = paste0('format(', n_var, ', big.mark =",")'),
                             colour = 'text_colour', 
                             fill = n_var)) +
     
@@ -111,10 +112,16 @@ plot_n = function(df,
                 background_colour = background_colour, projector = projector) +
     theme(axis.text.x = element_text(colour = 'white'))
   
-  
   if(incl_y_labels == FALSE) {
     p = p +
       theme(axis.text.y = element_blank())
+  }
+  
+  if(incl_x_axis == FALSE) {
+    p = p +
+      theme(axis.title.x = element_blank(),
+            axis.text.x = element_blank(),
+            panel.grid.major.x = element_blank())
   }
   # save plot ----------------------------------------------------------
   if(!is.null(file_name)) {
