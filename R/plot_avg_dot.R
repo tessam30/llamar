@@ -61,7 +61,7 @@ plot_avg_dot = function(df,
                         lb_var = 'lb',
                         ub_var = 'ub',
                         ci_colour = grey25K,
-                        ci_alpha = 0.8,
+                        ci_alpha = 0.6,
                         ci_size = 2,
                         
                         ref_line = TRUE,
