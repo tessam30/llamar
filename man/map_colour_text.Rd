@@ -4,9 +4,9 @@
 \alias{map_colour_text}
 \title{Modifies a data frame to determine color to overlay on a colored background}
 \usage{
-map_colour_text(df, bckgrnd_column, colour_palette, limits = c(0,
-  max(df[[bckgrnd_column]])), sat_threshold = 0.5, dark_colour = grey90K,
-  light_colour = "white")
+map_colour_text(df, bckgrnd_column, colour_palette,
+  limits = c(min(df[[bckgrnd_column]]), max(df[[bckgrnd_column]])),
+  sat_threshold = 0.5, dark_colour = grey90K, light_colour = "white")
 }
 \arguments{
 \item{df}{data frame containing the data}
@@ -45,6 +45,8 @@ geom_text() +
 scale_fill_gradientn(colours = brewer.pal(9, pal), limits = limits) +
 scale_colour_identity() +
 theme_blank()
+
+#' @seealso \\code{\\link{scale_colour_text}}
 
 }
 

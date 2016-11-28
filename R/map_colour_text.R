@@ -32,12 +32,14 @@
 #' scale_colour_identity() +
 #' theme_blank()
 #' 
+#' #' @seealso \code{\link{scale_colour_text}}
+#' 
 #' @export
 
 map_colour_text = function(df,
                            bckgrnd_column,
                            colour_palette,
-                           limits = c(0, max(df[[bckgrnd_column]])),
+                           limits = c(min(df[[bckgrnd_column]]), max(df[[bckgrnd_column]])),
                            sat_threshold = 0.5,
                            dark_colour = grey90K,
                            light_colour = 'white') {
