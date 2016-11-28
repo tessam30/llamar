@@ -13,6 +13,9 @@
 #' # as lollipops
 #' df2 = data.frame(avg = sample(-100:100, 10)/100, region = letters[1:10])
 #' plot_dot(df2, by_var = 'region', value_var = 'avg', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
+#' 
+#' # with reference line
+#' plot_dot(df2, by_var = 'region', value_var = 'avg', ref_line = 0, ref_label = 'no change', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
 #'
 #' # percent labels
 #' plot_dot(df2, by_var = 'region', value_var = 'avg', percent_vals = TRUE, lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
@@ -44,7 +47,11 @@ plot_dot = function(df,
                     ci_colour = grey15K,
                     ci_size = 2,
                     
-                    reference_line = NULL,
+                    ref_line = NULL,
+                    ref_label = 'sample average',
+                    nudge_ref_label = 0.05 * diff(range(abs(df[[value_var]]))),
+                    ref_label_y = 1, # reference label y-position
+                    ref_arrow = arrow(length = unit(0.007, "npc")),
                     line_stroke = 0.25,
                     line_colour = grey75K,
                     
@@ -95,10 +102,10 @@ plot_dot = function(df,
   # df = calcPtEst(df2, value_var, by_var = by_var, use_weights = use_weights)
   
   # -- calculate the sample mean --
-  # if (reference_line == TRUE) {
+  # if (ref_line == TRUE) {
   # avg_val = calcPtEst(df, value_var, use_weights = use_weights)
   
-  # reference_line = avg_val$avg
+  # ref_line = avg_val$avg
   # }
   
   # check inputs ----------------------------------------------------------
@@ -135,14 +142,11 @@ plot_dot = function(df,
   }
   
   # add the reference line ----------------------------------------------------------
-  if(!is.null(reference_line)){
+  if(!is.null(ref_line)){
     p = ggplot() + 
-      geom_vline(xintercept = reference_line,
+      geom_vline(xintercept = ref_line,
                  size = line_stroke,
-                 colour = line_colour) +
-      annotate(geom = 'text', x = reference_line * 1.1, y = 1, 
-               label = 'sample average', hjust = 0, 
-               colour = label_colour, size = label_size, family = font_light)
+                 colour = line_colour)
   } else {
     p = ggplot()
   }
@@ -169,10 +173,10 @@ plot_dot = function(df,
   
   # plot dots (MAIN PLOT) ----------------------------------------------------------
   p = p +
-    # geom_vline(xintercept = reference_line,
+    # geom_vline(xintercept = ref_line,
     # size = line_stroke,
     # colour = line_colour) +
-    # annotate(geom = 'text', x = reference_line * 1.1, y = 1, 
+    # annotate(geom = 'text', x = ref_line * 1.1, y = 1, 
     # colour = label_colour, size = label_size, family = font_light) +
     geom_point(aes_string(x = value_var, 
                           y = y_var,
@@ -235,6 +239,22 @@ plot_dot = function(df,
                   colour = grey60K,
                   data = df) 
     }
+  }
+  
+  # -- ref line annotation. --
+  # must be done after the rest so order of the y-axis isn't mucked up
+  if(!is.null(ref_line) & !is.null(ref_label)){
+    p = p +
+      annotate(geom = 'text', x = ref_line + nudge_ref_label, y = ref_label_y,
+               label = ref_label, hjust = 0,
+               colour = label_colour, size = label_size, family = font_light) +
+      geom_curve(aes(x = ref_line + nudge_ref_label * 0.8, xend = ref_line, 
+                     y = ref_label_y, yend = ref_label_y + 0.1), 
+                 colour = line_colour, 
+                 size = line_stroke / 2, 
+                 arrow = ref_arrow)
+  } else {
+    p = ggplot()
   }
   
   # facet wrap ----------------------------------------------------------
