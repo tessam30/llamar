@@ -27,7 +27,7 @@ plot_dot_diff = function(df,
                         sort_desc = TRUE,
                         sort_by = 'diff', # one of: 'diff', 'first', 'last', 'none'
                         
-                        facet_var = NA,
+                        facet_var = NULL,
                         ncol = NULL,
                         nrow = NULL,
                         scales = 'fixed',
@@ -56,7 +56,7 @@ plot_dot_diff = function(df,
                         
                         horiz = TRUE,
                         
-                        file_name = NA,
+                        file_name = NULL,
                         width = 10,
                         height = 6,
                         saveBoth = FALSE,
@@ -80,7 +80,7 @@ plot_dot_diff = function(df,
   
   # -- Check inputs --
   if(!is.list(arrow_arg)){
-    if(is.na(arrow)) {
+    if(is.null(arrow)) {
       warning('arrow should be either an arrow object or NULL.  Switching to NULL')
       arrow_arg = NULL
     } else {
@@ -106,7 +106,7 @@ plot_dot_diff = function(df,
   } 
   
   # -- Spread wide for connector line / sorting --
-  df_untidy =  if(is.na(facet_var)) {
+  df_untidy =  if(is.null(facet_var)) {
     df_untidy = df %>% 
       select_(group_var, region_var, value_var) %>% 
       spread_(group_var, value_var) %>% 
@@ -240,8 +240,8 @@ plot_dot_diff = function(df,
   if (label_vals == TRUE) {
     
     # -- calculate y-offset for labels, if needed --
-    if (is.na(value_label_offset)) {
-      if(is.na(facet_var)) {
+    if (is.null(value_label_offset)) {
+      if(is.null(facet_var)) {
         y_offset = 0.05
       } else {
         y_offset = 0.25
@@ -301,7 +301,7 @@ plot_dot_diff = function(df,
   
   # -- facetting --
   # + facet, single slope graph per facet
-  if(!is.na(facet_var)) {
+  if(!is.null(facet_var)) {
     p = p +
       facet_wrap(as.formula(paste0('~', facet_var)),
                  ncol = ncol, nrow = nrow,
@@ -314,7 +314,7 @@ plot_dot_diff = function(df,
       scale_x_continuous(labels = percent)
   }
   # -- save plot --
-  if(!is.na(file_name)) {
+  if(!is.null(file_name)) {
     save_plot(file_name, saveBoth = saveBoth, width = width, height = height)
   }
   
