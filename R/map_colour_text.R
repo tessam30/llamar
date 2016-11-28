@@ -63,10 +63,18 @@ map_colour_text = function(df,
   
   mapped_colours = data.frame('hsv' = t(mapped_colours))
   
-  # pull out the saturation
-  df = df %>% 
-    bind_cols(mapped_colours) %>% 
-    mutate(text_colour = ifelse(hsv.s < sat_threshold, dark_colour, light_colour))
+  if(all(round(mapped_colours$hsv.s, 1) == 0)) {
+    # greyscale: use values
+    df = df %>% 
+      bind_cols(mapped_colours) %>% 
+      mutate(text_colour = ifelse(hsv.v > sat_threshold, dark_colour, light_colour))
+  } else {
+    # colors: use saturation  
+    # pull out the saturation
+    df = df %>% 
+      bind_cols(mapped_colours) %>% 
+      mutate(text_colour = ifelse(hsv.s < sat_threshold, dark_colour, light_colour))
+  }
   
   return(df)
 }

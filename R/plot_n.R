@@ -45,6 +45,7 @@ plot_n = function(df,
                   background_colour = grey10K,
                   projector = FALSE) {
   
+  # determine shape ---------------------------------------------------------
   
   if(dot_shape == 'square'){
     dot_shape = 22
@@ -57,19 +58,46 @@ plot_n = function(df,
     dot_shape = 21
   }
   
+  
+  # determine sorting ----------------------------------------------------------
+  if(!is.null(sort_by)) {
+    if(sort_by %in% colnames(df)){
+      if(is.numeric(df[[sort_by]])) {
+        
+        y_var = paste0('forcats::fct_reorder(', by_var, ',', 
+                       sort_by, ', .desc = ', sort_asc, ')')
+      } else {
+        warning('sort_by column does not contain numeric data. Sorting by factor levels')
+        y_var = paste0('forcats::fct_reorder(', by_var, 
+                       ', as.numeric(', 
+                       sort_by, '), .desc = ', sort_asc, ')')
+      }
+      
+    } else {
+      warning('sorting variable `sort_by` is not in df. No sorting will be applied.')
+      y_var = by_var
+    }
+  } else{
+    y_var = by_var
+  }
+  
+  df = df %>% 
+    map_colour_text(n_var, colour_palette = c(low_colour, high_colour))
+  
+  
   p = ggplot(df, aes_string(x = '1', 
-                            y = paste0('forcats::fct_reorder(', by_var, ',', 
-                                       sort_by, ', .desc = ', sort_asc, ')'), 
+                            y = y_var, 
                             label = n_var,
-                            colour = n_var, fill = n_var)) +
+                            colour = 'text_colour', 
+                            fill = n_var)) +
     
     geom_point(shape = dot_shape, size = dot_size,
                stroke = dot_stroke, colour = dot_outline) +
     
     geom_text(size = label_size, family = font_normal) +
     
-    scale_colour_text(data_col = df[[n_var]]) +
     scale_fill_gradient2(low = low_colour, high = high_colour) +
+    scale_colour_identity() +
     scale_x_continuous(limits = c(0.9, 1.1)) +
     xlab(x_label) +
     
@@ -97,3 +125,5 @@ plot_n = function(df,
   
   return(p)
 }
+
+
