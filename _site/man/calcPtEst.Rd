@@ -34,10 +34,18 @@ Calculates point estimates and errors using the package `survey` based
 on sampling weights from a survey design
 }
 \examples{
-# Generate random data
+# Generate simple random data to average
 df = data.frame(region = rep(letters, 100), value = sample(100, 2600, replace = TRUE))
 
-calcPtEst = 
+calcPtEst(df, 'value', by_var = 'region', use_weights = FALSE)
+
+# generate data from a survey
+data(api, package = 'survey')
+dclus1<-svydesign(id=~dnum, weights=~pw, data=apiclus1, fpc=~fpc)
+# no weights
+calcPtEst(apiclus1, var = 'api99', by_var = 'stype', use_weights = FALSE)
+# specifying the sampling frame as a design object
+calcPtEst(apiclus1, var = 'api99', by_var = 'stype', design = dclus1)
 
 }
 \author{
