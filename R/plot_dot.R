@@ -203,7 +203,19 @@ plot_dot = function(df,
         mutate_(.dots = setNames(paste0('llamar::round_exact(', value_var, ',', label_digits, ')'), 'value_label'))
     }
     
-    if(any(df[[value_var]] < 0)){
+    if(plot_ci == TRUE) {
+      p = p +
+        geom_text(aes_string(x = value_var, 
+                             y = by_var,
+                             colour = value_var,
+                             label = 'value_label'),
+                  size = label_size,
+                  family = font_light,
+                  nudge_x = 0,
+                  data = df) +
+        scale_colour_text(df[[value_var]])
+      
+    } else if(any(df[[value_var]] < 0)){
       # negative numbers
       
       p = p +
@@ -213,7 +225,7 @@ plot_dot = function(df,
                   size = label_size,
                   family = font_light,
                   nudge_x = -1 *value_label_offset,
-                  colour = grey60K,
+                  colour = label_colour,
                   data = df %>% filter_(paste0(value_var, ' < 0'))) +
         geom_text(aes_string(x = value_var, 
                              y = by_var,
@@ -221,7 +233,7 @@ plot_dot = function(df,
                   size = label_size,
                   family = font_light,
                   nudge_x = value_label_offset,
-                  colour = grey60K,
+                  colour = label_colour,
                   data = df %>% filter_(paste0(value_var, ' >= 0')))
       
       
@@ -233,7 +245,7 @@ plot_dot = function(df,
                   size = label_size,
                   family = font_light,
                   nudge_x = value_label_offset,
-                  colour = grey60K,
+                  colour = label_colour,
                   data = df) 
     }
   }
