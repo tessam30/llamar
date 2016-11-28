@@ -57,7 +57,8 @@ plot_avg_dot = function(df,
                         ci_size = 2,
                         
                         ref_line = TRUE,
-                        ref_label = 'sample average',
+                        ref_text = 'sample average',
+                        label_ref = TRUE,
                         nudge_ref_label = NULL,
                         ref_label_y = 1, # reference label y-position
                         ref_arrow = arrow(length = unit(0.007, "npc")),
@@ -128,7 +129,7 @@ plot_avg_dot = function(df,
   
   # reset the label location
   if(is.null(value_label_offset)) {
-    value_label_offset = 0.05 * diff(range(abs(avg_df[[value_var]])))
+    value_label_offset = 0.05 * diff(range(abs(avg_df$avg)))
   }
   
   if(is.null(nudge_ref_label)) {
@@ -150,7 +151,8 @@ plot_avg_dot = function(df,
            ci_size = ci_size,
 
            ref_line = ref_line,
-           ref_label = ref_line,
+           ref_text = ref_text,
+           label_ref = label_ref,
            nudge_ref_label = nudge_ref_label,
            ref_label_y = ref_label_y, # reference label y-position
            ref_arrow = ref_arrow,
