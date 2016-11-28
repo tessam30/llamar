@@ -2,9 +2,18 @@
 #' 
 #' @examples 
 #' # generate random data
-#' df = data.frame(value = sample(1:100, 8), region = letters[1:8])
+#' df = data.frame(avg = sample(1:100, 10), region = letters[1:10], ci = sample(1:100, 10)/10) %>% mutate(lb = avg - ci, ub = avg + ci)
+#'
+#' # sans confidence intervals
+#' plot_dot(df, by_var = 'region', value_var = 'avg')
 #' 
-#' plot_dot(df, by_var = 'region', value_var = 'value')
+#' # with confidence intervals
+#' plot_dot(df, by_var = 'region', value_var = 'avg', plot_ci = TRUE)
+#' 
+#' # as lollipops
+#' df2 = data.frame(avg = sample(-100:100, 10), region = letters[1:10])
+#' plot_dot(df2, by_var = 'region', value_var = 'avg', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
+
 
 #' 
 #' @export
@@ -12,20 +21,19 @@
 plot_dot = function(df,
                     by_var = 'region',
                     value_var = 'avg',
+                    x_label = NULL,
                     use_weights = TRUE,
                     
-                    
-                    
-                    sort_asc = TRUE,
+                    sort_asc = FALSE,
                     sort_by = 'avg', # a column within df
                     
-                    plot_ci = TRUE,
+                    plot_ci = FALSE,
                     lb_var = 'lb',
                     ub_var = 'ub',
                     ci_colour = grey15K,
                     ci_size = 1,
                     
-                    reference_line = TRUE,
+                    reference_line = NULL,
                     line_stroke = 0.25,
                     line_colour = grey75K,
                     
@@ -73,36 +81,38 @@ plot_dot = function(df,
   
   
   # -- calculate the average, by a particular variable --
-  # df_avgs = calcPtEst(df2, value_var, by_var = by_var, use_weights = use_weights)
+  # df = calcPtEst(df2, value_var, by_var = by_var, use_weights = use_weights)
   
   # -- calculate the sample mean --
-  if (reference_line == TRUE) {
+  # if (reference_line == TRUE) {
     # avg_val = calcPtEst(df, value_var, use_weights = use_weights)
     
     # reference_line = avg_val$avg
-  }
+  # }
   
   # determine sorting ----------------------------------------------------------
   if(!is.na(sort_by) | !is.null(sort_by)) {
-    if(sort_by %in% colnames(df))
+    if(sort_by %in% colnames(df)){
       if(is.numeric(df[[sort_by]])) {
         y_var = paste0('forcats::fct_reorder(', by_var, ',', 
-                     sort_by, ', .desc = ', sort_asc, ')')
+                       sort_by, ', .desc = ', sort_asc, ')')
       } else {
         warning('sort_by column does not contain numeric data. Sorting by factor levels')
         y_var = paste0('forcats::fct_reorder(', by_var, 
                        ', as.numeric(', 
                        sort_by, '), .desc = ', sort_asc, ')')
       }
-    else {
+      
+    } else {
       warning('sorting variable `sort_by` is not in df. No sorting will be applied.')
       y_var = by_var
     }
   } else{
     y_var = by_var
   }
+  
   # add the reference line ----------------------------------------------------------
-  if(reference_line != FALSE){
+  if(!is.null(reference_line)){
     p = ggplot() + 
       geom_vline(xintercept = reference_line,
                  size = line_stroke,
@@ -119,7 +129,7 @@ plot_dot = function(df,
     p = p + 
       geom_segment(aes_string(x = lb_var, xend = ub_var,
                               y = y_var, yend = y_var),
-                   data = df_avgs,
+                   data = df,
                    colour = ci_colour,
                    size = ci_size
       )
@@ -131,10 +141,10 @@ plot_dot = function(df,
     p = p +
       geom_segment(aes_string(x = value_var, xend = '0', y = y_var, yend = y_var),
                    colour = line_colour, size = line_stroke, 
-                   data = df_avgs)
+                   data = df)
   }
   
-  # plot dots ----------------------------------------------------------
+  # plot dots (MAIN PLOT) ----------------------------------------------------------
   p = p +
     # geom_vline(xintercept = reference_line,
     # size = line_stroke,
@@ -144,12 +154,13 @@ plot_dot = function(df,
     geom_point(aes_string(x = value_var, 
                           y = y_var,
                           fill = value_var),
-               data = df_avgs,
+               data = df,
                size = dot_size, shape = dot_shape, colour = grey90K, stroke = 0.1) +
     scale_fill_gradientn(colours = dot_fill_cont) +
+    xlab(x_label) +
     theme_xgrid()
   
-
+  
   # save plot ----------------------------------------------------------
   if(!is.na(file_name)) {
     save_plot(file_name, saveBoth = saveBoth, width = width, height = height)
