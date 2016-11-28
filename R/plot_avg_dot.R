@@ -40,7 +40,7 @@ plot_avg_dot = function(df,
                         value_var = 'avg',
                         x_label = NULL,
                         
-                        use_weights = TRUE,
+                        use_weights = FALSE,
                         strata_var = 'strata',
                         psu_var = 'psu',
                         weight_var = 'weight',
@@ -83,6 +83,7 @@ plot_avg_dot = function(df,
                         label_digits = 1,
                         percent_vals = FALSE,
                         value_label_offset = NULL,
+                        sat_threshold = 0.5,
                         
                         horiz = TRUE,
                         
@@ -175,6 +176,7 @@ plot_avg_dot = function(df,
            label_digits = label_digits,
            percent_vals = percent_vals,
            value_label_offset = value_label_offset,
+           sat_threshold = sat_threshold,
 
            horiz = horiz,
 

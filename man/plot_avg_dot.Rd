@@ -5,7 +5,7 @@
 \title{Plot a dot plot after averaging the values}
 \usage{
 plot_avg_dot(df, by_var = "region", value_var = "avg", x_label = NULL,
-  use_weights = TRUE, strata_var = "strata", psu_var = "psu",
+  use_weights = FALSE, strata_var = "strata", psu_var = "psu",
   weight_var = "weight", na.rm = TRUE, sort_asc = FALSE,
   sort_by = "avg", plot_ci = TRUE, ci_factor = 2, lb_var = "lb",
   ub_var = "ub", ci_colour = grey15K, ci_size = 2, ref_line = TRUE,
@@ -16,10 +16,10 @@ plot_avg_dot(df, by_var = "region", value_var = "avg", x_label = NULL,
   scales = "fixed", dot_size = 6, dot_shape = 21,
   dot_fill_cont = brewer.pal(9, "YlGnBu"), label_vals = TRUE,
   label_size = 3, label_colour = grey75K, label_digits = 1,
-  percent_vals = FALSE, value_label_offset = NULL, horiz = TRUE,
-  file_name = NULL, width = 10, height = 6, saveBoth = FALSE,
-  font_normal = "Lato", font_semi = "Lato", font_light = "Lato Light",
-  panel_spacing = 1, font_axis_label = 12,
+  percent_vals = FALSE, value_label_offset = NULL, sat_threshold = 0.5,
+  horiz = TRUE, file_name = NULL, width = 10, height = 6,
+  saveBoth = FALSE, font_normal = "Lato", font_semi = "Lato",
+  font_light = "Lato Light", panel_spacing = 1, font_axis_label = 12,
   font_axis_title = font_axis_label * 1.15, font_facet = font_axis_label *
   1.15, font_legend_title = font_axis_label,
   font_legend_label = font_axis_label * 0.8, font_subtitle = font_axis_label
