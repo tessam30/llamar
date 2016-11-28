@@ -16,18 +16,19 @@ plot_dot(df, by_var = "region", value_var = "avg", x_label = NULL,
   dot_fill_cont = brewer.pal(9, "YlGnBu"), label_vals = TRUE,
   label_size = 3, label_colour = grey75K, label_digits = 1,
   percent_vals = FALSE, value_label_offset = 0.05 *
-  diff(range(abs(df[[value_var]]))), horiz = TRUE, file_name = NULL,
-  width = 10, height = 6, saveBoth = FALSE, font_normal = "Lato",
-  font_semi = "Lato", font_light = "Lato Light", panel_spacing = 1,
-  font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
-  font_facet = font_axis_label * 1.15, font_legend_title = font_axis_label,
+  diff(range(abs(df[[value_var]]))), sat_threshold = 0.5, horiz = TRUE,
+  file_name = NULL, width = 10, height = 6, saveBoth = FALSE,
+  font_normal = "Lato", font_semi = "Lato", font_light = "Lato Light",
+  panel_spacing = 1, font_axis_label = 12,
+  font_axis_title = font_axis_label * 1.15, font_facet = font_axis_label *
+  1.15, font_legend_title = font_axis_label,
   font_legend_label = font_axis_label * 0.8, font_subtitle = font_axis_label
   * 1.2, font_title = font_axis_label * 1.3, legend.position = "none",
   legend.direction = "horizontal", grey_background = FALSE,
   background_colour = grey10K, projector = FALSE)
 }
 \description{
-Plot a dot plot, either with or without lollipop sticks
+Creates a dot plot for a single grouping variable.
 }
 \examples{
 # generate random data
@@ -36,6 +37,9 @@ df = data.frame(avg = sample(1:100, 10), region = letters[1:10], ci = sample(1:1
 
 # sans confidence intervals
 plot_dot(df, by_var = 'region', value_var = 'avg')
+
+# remove sorting
+plot_dot(df, by_var = 'region', value_var = 'avg', sort_by = 'region')
 
 # with confidence intervals, no labels
 plot_dot(df, by_var = 'region', value_var = 'avg', plot_ci = TRUE, label_vals = FALSE)

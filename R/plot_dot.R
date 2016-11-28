@@ -1,5 +1,7 @@
 #' Plot a dot plot, either with or without lollipop sticks
 #' 
+#' Creates a dot plot for a single grouping variable.
+#' 
 #' @import ggplot2 forcats RColorBrewer
 #' 
 #' @examples 
@@ -9,6 +11,9 @@
 #'
 #' # sans confidence intervals
 #' plot_dot(df, by_var = 'region', value_var = 'avg')
+#' 
+#' # remove sorting
+#' plot_dot(df, by_var = 'region', value_var = 'avg', sort_by = 'region')
 #' 
 #' # with confidence intervals, no labels
 #' plot_dot(df, by_var = 'region', value_var = 'avg', plot_ci = TRUE, label_vals = FALSE)
@@ -78,6 +83,7 @@ plot_dot = function(df,
                     label_digits = 1,
                     percent_vals = FALSE,
                     value_label_offset = 0.05 * diff(range(abs(df[[value_var]]))),
+                    sat_threshold = 0.5,
                     
                     horiz = TRUE,
                     
@@ -204,16 +210,18 @@ plot_dot = function(df,
     }
     
     if(plot_ci == TRUE) {
+      df = map_colour_text(df, value_var, colour_palette = dot_fill_cont, sat_threshold = sat_threshold)
+      
       p = p +
         geom_text(aes_string(x = value_var, 
                              y = by_var,
-                             colour = value_var,
+                             colour = 'text_colour',
                              label = 'value_label'),
                   size = label_size,
                   family = font_light,
                   nudge_x = 0,
                   data = df) +
-        scale_colour_text(df[[value_var]])
+        scale_colour_identity()
       
     } else if(any(df[[value_var]] < 0)){
       # negative numbers
