@@ -2,20 +2,20 @@
 % Please edit documentation in R/plot_dot.R
 \name{plot_dot}
 \alias{plot_dot}
-\title{Plot a dot plot, either with or without axis bars}
+\title{Plot a dot plot, either with or without lollipop sticks}
 \usage{
 plot_dot(df, by_var = "region", value_var = "avg", x_label = NULL,
-  use_weights = TRUE, sort_asc = FALSE, sort_by = "avg",
-  plot_ci = FALSE, lb_var = "lb", ub_var = "ub", ci_colour = grey15K,
-  ci_size = 2, ref_line = NULL, ref_label = "sample average",
-  nudge_ref_label = 0.05 * diff(range(abs(df[[value_var]]))),
-  ref_label_y = 1, ref_arrow = arrow(length = unit(0.007, "npc")),
-  ref_stroke = 0.5, ref_colour = grey75K, lollipop = FALSE,
-  lollipop_stroke = 0.25, lollipop_colour = grey75K, facet_var = NULL,
-  ncol = NULL, nrow = NULL, scales = "fixed", dot_size = 6,
-  dot_shape = 21, dot_fill_cont = brewer.pal(9, "YlGnBu"),
-  label_vals = TRUE, label_size = 3, label_colour = grey75K,
-  label_digits = 1, percent_vals = FALSE, value_label_offset = 0.05 *
+  sort_asc = FALSE, sort_by = "avg", plot_ci = FALSE, lb_var = "lb",
+  ub_var = "ub", ci_colour = grey15K, ci_size = 2, ref_line = NULL,
+  ref_label = "sample average", nudge_ref_label = 0.05 *
+  diff(range(abs(df[[value_var]]))), ref_label_y = 1,
+  ref_arrow = arrow(length = unit(0.007, "npc")), ref_stroke = 0.5,
+  ref_colour = grey75K, lollipop = FALSE, lollipop_stroke = 0.25,
+  lollipop_colour = grey75K, facet_var = NULL, ncol = NULL, nrow = NULL,
+  scales = "fixed", dot_size = 6, dot_shape = 21,
+  dot_fill_cont = brewer.pal(9, "YlGnBu"), label_vals = TRUE,
+  label_size = 3, label_colour = grey75K, label_digits = 1,
+  percent_vals = FALSE, value_label_offset = 0.05 *
   diff(range(abs(df[[value_var]]))), horiz = TRUE, file_name = NULL,
   width = 10, height = 6, saveBoth = FALSE, font_normal = "Lato",
   font_semi = "Lato", font_light = "Lato Light", panel_spacing = 1,
@@ -27,7 +27,7 @@ plot_dot(df, by_var = "region", value_var = "avg", x_label = NULL,
   background_colour = grey10K, projector = FALSE)
 }
 \description{
-Plot a dot plot, either with or without axis bars
+Plot a dot plot, either with or without lollipop sticks
 }
 \examples{
 # generate random data

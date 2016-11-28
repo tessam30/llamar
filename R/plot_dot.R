@@ -1,4 +1,4 @@
-#' Plot a dot plot, either with or without axis bars
+#' Plot a dot plot, either with or without lollipop sticks
 #' 
 #' @import ggplot2 forcats RColorBrewer
 #' 
@@ -41,7 +41,6 @@ plot_dot = function(df,
                     by_var = 'region',
                     value_var = 'avg',
                     x_label = NULL,
-                    use_weights = TRUE,
                     
                     sort_asc = FALSE,
                     sort_by = 'avg', # a column within df
@@ -188,7 +187,8 @@ plot_dot = function(df,
                 font_axis_label = font_axis_label, font_axis_title = font_axis_title, 
                 font_facet = font_facet, font_legend_title = font_legend_title, 
                 font_legend_label = font_legend_label, font_subtitle = font_subtitle, 
-                font_title = font_title, grey_background = grey_background, background_colour = background_colour
+                font_title = font_title, grey_background = grey_background, 
+                background_colour = background_colour, projector = projector
     )
   
   # apply labels ----------------------------------------------------------
