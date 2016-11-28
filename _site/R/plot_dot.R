@@ -125,8 +125,16 @@ plot_dot = function(df,
       )
   }
   
-  # plot dots ----------------------------------------------------------
+  # lollipops ----------------------------------------------------------
+  # -- add in lollipop lines to 0, if TRUE --
+  if(lollipop == TRUE) {
+    p = p +
+      geom_segment(aes_string(x = value_var, xend = '0', y = y_var, yend = y_var),
+                   colour = line_colour, size = line_stroke, 
+                   data = df_avgs)
+  }
   
+  # plot dots ----------------------------------------------------------
   p = p +
     # geom_vline(xintercept = reference_line,
     # size = line_stroke,
@@ -141,15 +149,7 @@ plot_dot = function(df,
     scale_fill_gradientn(colours = dot_fill_cont) +
     theme_xgrid()
   
-  
-  # -- add in lollipop lines to 0, if TRUE --
-  if(lollipop == TRUE) {
-    p = p +
-      geom_segment(aes_string(x = value_var, xend = '0', y = y_var, yend = y_var),
-                   colour = line_colour, size = line_stroke, 
-                   data = df_avgs)
-  }
-  
+
   # save plot ----------------------------------------------------------
   if(!is.na(file_name)) {
     save_plot(file_name, saveBoth = saveBoth, width = width, height = height)
