@@ -16,8 +16,8 @@ plot_dot = function(df,
                     
                     
                     
-                    sort_desc = TRUE,
-                    sort_by = 'diff', # one of: 'diff', 'first', 'last', 'none'
+                    sort_asc = TRUE,
+                    sort_by = 'avg', # a column within df
                     
                     plot_ci = TRUE,
                     lb_var = 'lb',
@@ -82,7 +82,25 @@ plot_dot = function(df,
     # reference_line = avg_val$avg
   }
   
-  y_var = paste0('forcats::fct_reorder(', by_var, ', avg, .desc = ', sort_desc, ')')
+  # determine sorting ----------------------------------------------------------
+  if(!is.na(sort_by) | !is.null(sort_by)) {
+    if(sort_by %in% colnames(df))
+      if(is.numeric(df[[sort_by]])) {
+        y_var = paste0('forcats::fct_reorder(', by_var, ',', 
+                     sort_by, ', .desc = ', sort_asc, ')')
+      } else {
+        warning('sort_by column does not contain numeric data. Sorting by factor levels')
+        y_var = paste0('forcats::fct_reorder(', by_var, 
+                       ', as.numeric(', 
+                       sort_by, '), .desc = ', sort_asc, ')')
+      }
+    else {
+      warning('sorting variable `sort_by` is not in df. No sorting will be applied.')
+      y_var = by_var
+    }
+  } else{
+    y_var = by_var
+  }
   # add the reference line ----------------------------------------------------------
   if(reference_line != FALSE){
     p = ggplot() + 
