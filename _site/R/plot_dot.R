@@ -13,6 +13,14 @@
 #' # as lollipops
 #' df2 = data.frame(avg = sample(-100:100, 10), region = letters[1:10])
 #' plot_dot(df2, by_var = 'region', value_var = 'avg', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
+#'
+#' # in-built facet_wrap
+#' df3 = data.frame(avg = sample(-100:100, 20), region = rep(letters[1:10], 2), group = c(rep('group1', 10), rep('group2', 10)), ci = sample(1:100, 20)/10) %>% mutate(lb = avg - ci, ub = avg + ci)
+#' plot_dot(df3, by_var = 'region', value_var = 'avg', facet_var = 'group', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
+#'
+#' # horizontal
+#' plot_dot(df3, by_var = 'region', facet_var = 'group', value_var = 'avg', horiz = FALSE, lollipop = TRUE, plot_ci = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
+#'
 
 
 #' 
@@ -31,7 +39,7 @@ plot_dot = function(df,
                     lb_var = 'lb',
                     ub_var = 'ub',
                     ci_colour = grey15K,
-                    ci_size = 1,
+                    ci_size = 2,
                     
                     reference_line = NULL,
                     line_stroke = 0.25,
@@ -89,6 +97,17 @@ plot_dot = function(df,
   
   # reference_line = avg_val$avg
   # }
+  
+  # check inputs ----------------------------------------------------------
+  if(plot_ci == TRUE) {
+    if(!lb_var %in% colnames(df)) {
+      stop('lb_var not found in df. Turn off plot_ci or fix inputs.')
+    }
+
+    if(!ub_var %in% colnames(df)) {
+      stop('ub_var not found in df. Turn off plot_ci or fix inputs.')
+    }
+  }
   
   # determine sorting ----------------------------------------------------------
   if(!is.na(sort_by) | !is.null(sort_by)) {
@@ -195,16 +214,24 @@ plot_dot = function(df,
       
       
     } else {
-    p = p +
-      geom_text(aes_string(x = value_var, 
-                           y = by_var,
-                           label = 'value_label'),
-                size = label_size,
-                family = font_light,
-                nudge_x = value_label_offset,
-                colour = grey60K,
-                data = df) 
+      p = p +
+        geom_text(aes_string(x = value_var, 
+                             y = by_var,
+                             label = 'value_label'),
+                  size = label_size,
+                  family = font_light,
+                  nudge_x = value_label_offset,
+                  colour = grey60K,
+                  data = df) 
     }
+  }
+  
+  # facet wrap ----------------------------------------------------------
+  
+  # horizontal ----------------------------------------------------------
+  if(horiz != TRUE) {
+    p = p +
+      coord_flip()
   }
   
   # save plot ----------------------------------------------------------
