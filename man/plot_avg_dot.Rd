@@ -4,8 +4,8 @@
 \alias{plot_avg_dot}
 \title{Plot a dot plot after averaging the values}
 \usage{
-plot_avg_dot(df, by_var = "region", value_var = "avg", x_label = NULL,
-  x_limits = NULL, x_breaks = NULL, include_n = TRUE,
+plot_avg_dot(df, by_var = "region", value_var = "avg", incl_x_axis = TRUE,
+  x_label = NULL, x_limits = NULL, x_breaks = NULL, include_n = TRUE,
   n_shape = "square", low_colour = grey10K, high_colour = grey70K,
   use_weights = FALSE, strata_var = "strata", psu_var = "psu",
   weight_var = "weight", na.rm = TRUE, sort_asc = FALSE,

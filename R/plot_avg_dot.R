@@ -40,6 +40,8 @@
 plot_avg_dot = function(df,
                         by_var = 'region',
                         value_var = 'avg',
+                        
+                        incl_x_axis = TRUE,
                         x_label = NULL,
                         x_limits = NULL,
                         x_breaks = NULL,
@@ -149,6 +151,8 @@ plot_avg_dot = function(df,
   dot = plot_dot(avg_df,
                  by_var = by_var,
                  value_var = 'avg',
+                 
+                 incl_x_axis = incl_x_axis,
                  x_label = x_label,
                  x_limits = x_limits,
                  x_breaks = x_breaks,

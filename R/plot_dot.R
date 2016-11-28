@@ -43,6 +43,8 @@
 plot_dot = function(df,
                     by_var = 'region',
                     value_var = 'avg',
+                    
+                    incl_x_axis = TRUE,
                     x_label = NULL,
                     x_limits = NULL,
                     x_breaks = NULL,
@@ -121,6 +123,14 @@ plot_dot = function(df,
     if(!ub_var %in% colnames(df)) {
       stop('ub_var not found in df. Turn off plot_ci or fix inputs.')
     }
+  }
+  
+  if(incl_x_axis == TRUE & is.null(x_limits)) {
+    x_limits = range(df[[value_var]])
+  }
+  
+  if(incl_x_axis == TRUE & is.null(x_breaks)) {
+    x_breaks = pretty(range(df[[value_var]]))
   }
   
   # determine sorting ----------------------------------------------------------
@@ -269,7 +279,7 @@ plot_dot = function(df,
                    size = ref_stroke / 2,
                    arrow = ref_arrow)
     }
-
+    
     if(label_ref_val == TRUE & percent_vals == TRUE) {
       p = p +
         annotate(geom = 'text', x = ref_line + nudge_ref_label, y = ref_label_y - 0.2,
@@ -291,13 +301,20 @@ plot_dot = function(df,
                  scales = scales)
   }
   
-  # percent values ----------------------------------------------------------
-  if(percent_vals == TRUE) {
-    p = p + 
-      scale_x_continuous(labels = percent, limits = x_limits, breaks = x_breaks)
-  } else{
-    p = p + 
-      scale_x_continuous(limits = x_limits, breaks = x_breaks)
+  # axis----------------------------------------------------------
+    if(incl_x_axis == TRUE) {
+    if(percent_vals == TRUE) {
+      p = p + 
+        scale_x_continuous(labels = percent, limits = x_limits, breaks = x_breaks)
+    } else{
+      p = p + 
+        scale_x_continuous(limits = x_limits, breaks = x_breaks)
+    }
+  } else {
+    p = p +
+      theme(axis.title.x = element_blank(),
+            axis.text.x = element_blank(),
+            panel.grid.major.x = element_blank())
   }
   
   # horizontal ----------------------------------------------------------
