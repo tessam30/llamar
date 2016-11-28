@@ -51,7 +51,8 @@ plot_dot = function(df,
                     plot_ci = FALSE,
                     lb_var = 'lb',
                     ub_var = 'ub',
-                    ci_colour = grey15K,
+                    ci_colour = grey25K,
+                    ci_alpha = 0.6,
                     ci_size = 2,
                     
                     ref_line = FALSE,
@@ -159,6 +160,7 @@ plot_dot = function(df,
                               y = y_var, yend = y_var),
                    data = df,
                    colour = ci_colour,
+                   alpha = ci_alpha,
                    size = ci_size
       )
   }

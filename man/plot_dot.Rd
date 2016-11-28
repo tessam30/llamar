@@ -6,8 +6,8 @@
 \usage{
 plot_dot(df, by_var = "region", value_var = "avg", x_label = NULL,
   sort_asc = FALSE, sort_by = "avg", plot_ci = FALSE, lb_var = "lb",
-  ub_var = "ub", ci_colour = grey15K, ci_size = 2, ref_line = FALSE,
-  ref_text = "sample average", label_ref_val = TRUE,
+  ub_var = "ub", ci_colour = grey25K, ci_alpha = 0.8, ci_size = 2,
+  ref_line = FALSE, ref_text = "sample average", label_ref_val = TRUE,
   nudge_ref_label = 0.05 * diff(range(abs(df[[value_var]]))),
   ref_label_y = 1, ref_arrow = arrow(length = unit(0.007, "npc")),
   ref_stroke = 0.5, ref_colour = grey75K, lollipop = FALSE,
