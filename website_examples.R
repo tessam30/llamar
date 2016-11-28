@@ -31,13 +31,12 @@ save_plot('~/GitHub/llamar/img/plot_dot2.png', width = 5, height = 5)
 
 # plot_avg_dot ------------------------------------------------------------
 
-plot_avg_dot(dhs, value_var = 'stunted2', by_var = 'lz', 
+p = plot_avg_dot(dhs, value_var = 'stunted2', by_var = 'lz', 
              percent_vals = TRUE, weight_var = 'cweight',
-             dot_size = 9, include_n = TRUE,
-             dot_fill_cont = rev(brewer.pal(11, 'Spectral')[1:6]), sat_threshold = 0.65) +
-  theme_stroke()
+             dot_size = 9, include_n = TRUE, x_breaks = c(0.2, 0.4, 0.6),
+             dot_fill_cont = rev(brewer.pal(11, 'Spectral')[1:6]), sat_threshold = 0.65) 
 
-save_plot('~/GitHub/llamar/img/plot_avg_dot.png', width = 8, height = 8)
+save_plot('~/GitHub/llamar/img/plot_avg_dot.png',p, width = 8, height = 8)
 
 
 # DHS musings -------------------------------------------------------------
