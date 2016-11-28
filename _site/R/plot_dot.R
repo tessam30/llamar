@@ -14,8 +14,16 @@ plot_dot = function(df,
                     value_var = 'avg',
                     use_weights = TRUE,
                     
+                    
+                    
                     sort_desc = TRUE,
                     sort_by = 'diff', # one of: 'diff', 'first', 'last', 'none'
+                    
+                    plot_ci = TRUE,
+                    lb_var = 'lb',
+                    ub_var = 'ub',
+                    ci_colour = grey15K,
+                    ci_size = 1,
                     
                     reference_line = TRUE,
                     line_stroke = 0.25,
@@ -28,16 +36,9 @@ plot_dot = function(df,
                     nrow = NULL,
                     scales = 'fixed',
                     
-                    include_arrows = TRUE,
-                    arrow_arg = arrow(length = unit(0.03, "npc")),
-                    connector_length = 0.85, # fraction of total difference
                     dot_size = 6, 
                     dot_shape = 21,
-                    fill_value = TRUE,
-                    dot_fill_discrete = c('#D3DEED', '#3288BD'), # first year, second year tuple
                     dot_fill_cont = brewer.pal(9, 'YlGnBu'),
-                    connector_stroke = 0.25,
-                    connector_colour = grey75K,
                     
                     label_vals = TRUE,
                     label_size = 3,
@@ -45,10 +46,6 @@ plot_dot = function(df,
                     label_digits = 1,
                     percent_vals = FALSE,
                     value_label_offset = 0,
-                    
-                    label_group = TRUE,
-                    label_group_size = 4,
-                    group_label_offset = 0.25, 
                     
                     horiz = TRUE,
                     
@@ -74,51 +71,74 @@ plot_dot = function(df,
                     background_colour = grey10K,
                     projector = FALSE){
   
+  
   # -- calculate the average, by a particular variable --
-  # df_avgs = calcPtEst(df, value_var, by_var = by_var, use_weights = use_weights)
-  df_avgs = df
+  # df_avgs = calcPtEst(df2, value_var, by_var = by_var, use_weights = use_weights)
   
   # -- calculate the sample mean --
   if (reference_line == TRUE) {
     # avg_val = calcPtEst(df, value_var, use_weights = use_weights)
+    
+    # reference_line = avg_val$avg
   }
   
-  # -- plot the object --
-  p = ggplot(df_avgs, aes_string(x = 'avg', 
-                                 y = paste0('forcats::fct_reorder(', by_var, ', avg)'),
-                                 fill = 'avg')) +
-    # geom_vline(xintercept = reference_line,
-               # size = line_stroke,
-               # colour = line_colour) +
-    # annotate(geom = 'text', x = reference_line * 1.1, y = 1, 
-             # colour = label_colour, size = label_size, family = font_light) +
-    geom_point(size = dot_size, shape = dot_shape, colour = grey90K, stroke = 0.1) +
-    scale_fill_gradientn(colours = dot_fill_cont) +
-    theme_xgrid()
-  
-  # -- add the reference line --
+  y_var = paste0('forcats::fct_reorder(', by_var, ', avg, .desc = ', sort_desc, ')')
+  # add the reference line ----------------------------------------------------------
   if(reference_line != FALSE){
-    p = p + 
+    p = ggplot() + 
       geom_vline(xintercept = reference_line,
                  size = line_stroke,
                  colour = line_colour) +
       annotate(geom = 'text', x = reference_line * 1.1, y = 1, 
                label = 'sample average', hjust = 0, 
                colour = label_colour, size = label_size, family = font_light)
+  } else {
+    p = ggplot()
   }
+  
+  # add in CIs ----------------------------------------------------------
+  if(plot_ci == TRUE) {
+    p = p + 
+      geom_segment(aes_string(x = lb_var, xend = ub_var,
+                              y = y_var, yend = y_var),
+                   data = df_avgs,
+                   colour = ci_colour,
+                   size = ci_size
+      )
+  }
+  
+  # plot dots ----------------------------------------------------------
+  
+  p = p +
+    # geom_vline(xintercept = reference_line,
+    # size = line_stroke,
+    # colour = line_colour) +
+    # annotate(geom = 'text', x = reference_line * 1.1, y = 1, 
+    # colour = label_colour, size = label_size, family = font_light) +
+    geom_point(aes_string(x = value_var, 
+                          y = y_var,
+                          fill = value_var),
+               data = df_avgs,
+               size = dot_size, shape = dot_shape, colour = grey90K, stroke = 0.1) +
+    scale_fill_gradientn(colours = dot_fill_cont) +
+    theme_xgrid()
+  
   
   # -- add in lollipop lines to 0, if TRUE --
   if(lollipop == TRUE) {
     p = p +
-      geom_segment(aes_string(x = 'avg', xend = '0', y = by_var, yend = by_var),
-                   colour = line_colour, size = line_stroke)
+      geom_segment(aes_string(x = value_var, xend = '0', y = y_var, yend = y_var),
+                   colour = line_colour, size = line_stroke, 
+                   data = df_avgs)
   }
   
-  # -- save plot --
+  # save plot ----------------------------------------------------------
   if(!is.na(file_name)) {
     save_plot(file_name, saveBoth = saveBoth, width = width, height = height)
   }
   
-  # -- return --
+  # return ----------------------------------------------------------
+  
   return(p)
 }
+
