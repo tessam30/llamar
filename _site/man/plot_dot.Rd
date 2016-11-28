@@ -4,22 +4,20 @@
 \alias{plot_dot}
 \title{Plot a dot plot, either with or without axis bars}
 \usage{
-plot_dot(df, by_var = "region", value_var = "avg", use_weights = TRUE,
-  sort_desc = TRUE, sort_by = "diff", reference_line = TRUE,
-  line_stroke = 0.25, line_colour = grey75K, lollipop = FALSE,
-  facet_var = NA, ncol = NULL, nrow = NULL, scales = "fixed",
-  include_arrows = TRUE, arrow_arg = arrow(length = unit(0.03, "npc")),
-  connector_length = 0.85, dot_size = 6, dot_shape = 21,
-  fill_value = TRUE, dot_fill_discrete = c("#D3DEED", "#3288BD"),
-  dot_fill_cont = brewer.pal(9, "YlGnBu"), connector_stroke = 0.25,
-  connector_colour = grey75K, label_vals = TRUE, label_size = 3,
-  label_colour = grey75K, label_digits = 1, percent_vals = FALSE,
-  value_label_offset = 0, label_group = TRUE, label_group_size = 4,
-  group_label_offset = 0.25, horiz = TRUE, file_name = NA, width = 10,
-  height = 6, saveBoth = FALSE, font_normal = "Lato",
-  font_semi = "Lato", font_light = "Lato Light", panel_spacing = 1,
-  font_axis_label = 12, font_axis_title = font_axis_label * 1.15,
-  font_facet = font_axis_label * 1.15, font_legend_title = font_axis_label,
+plot_dot(df, by_var = "region", value_var = "avg", x_label = NULL,
+  use_weights = TRUE, sort_asc = FALSE, sort_by = "avg",
+  plot_ci = FALSE, lb_var = "lb", ub_var = "ub", ci_colour = grey15K,
+  ci_size = 1, reference_line = NULL, line_stroke = 0.25,
+  line_colour = grey75K, lollipop = FALSE, facet_var = NULL,
+  ncol = NULL, nrow = NULL, scales = "fixed", dot_size = 6,
+  dot_shape = 21, dot_fill_cont = brewer.pal(9, "YlGnBu"),
+  label_vals = TRUE, label_size = 3, label_colour = grey75K,
+  label_digits = 1, percent_vals = FALSE, value_label_offset = 0,
+  horiz = TRUE, file_name = NULL, width = 10, height = 6,
+  saveBoth = FALSE, font_normal = "Lato", font_semi = "Lato",
+  font_light = "Lato Light", panel_spacing = 1, font_axis_label = 12,
+  font_axis_title = font_axis_label * 1.15, font_facet = font_axis_label *
+  1.15, font_legend_title = font_axis_label,
   font_legend_label = font_axis_label * 0.8, font_subtitle = font_axis_label
   * 1.2, font_title = font_axis_label * 1.3, legend.position = "none",
   legend.direction = "horizontal", grey_background = FALSE,
@@ -30,9 +28,17 @@ Plot a dot plot, either with or without axis bars
 }
 \examples{
 # generate random data
-df = data.frame(value = sample(1:100, 8), region = letters[1:8])
+df = data.frame(avg = sample(1:100, 10), region = letters[1:10], ci = sample(1:100, 10)/10) \%>\% mutate(lb = avg - ci, ub = avg + ci)
 
-plot_dot(df, by_var = 'region', value_var = 'value')
+# sans confidence intervals
+plot_dot(df, by_var = 'region', value_var = 'avg')
+
+# with confidence intervals
+plot_dot(df, by_var = 'region', value_var = 'avg', plot_ci = TRUE)
+
+# as lollipops
+df2 = data.frame(avg = sample(-100:100, 10), region = letters[1:10])
+plot_dot(df2, by_var = 'region', value_var = 'avg', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
 
 }
 

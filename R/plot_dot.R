@@ -39,7 +39,7 @@ plot_dot = function(df,
                     
                     lollipop = FALSE,
                     
-                    facet_var = NA,
+                    facet_var = NULL,
                     ncol = NULL,
                     nrow = NULL,
                     scales = 'fixed',
@@ -53,11 +53,11 @@ plot_dot = function(df,
                     label_colour = grey75K,
                     label_digits = 1,
                     percent_vals = FALSE,
-                    value_label_offset = 0,
+                    value_label_offset = 0.05 * diff(range(abs(df[[value_var]]))),
                     
                     horiz = TRUE,
                     
-                    file_name = NA,
+                    file_name = NULL,
                     width = 10,
                     height = 6,
                     saveBoth = FALSE,
@@ -85,9 +85,9 @@ plot_dot = function(df,
   
   # -- calculate the sample mean --
   # if (reference_line == TRUE) {
-    # avg_val = calcPtEst(df, value_var, use_weights = use_weights)
-    
-    # reference_line = avg_val$avg
+  # avg_val = calcPtEst(df, value_var, use_weights = use_weights)
+  
+  # reference_line = avg_val$avg
   # }
   
   # determine sorting ----------------------------------------------------------
@@ -160,9 +160,55 @@ plot_dot = function(df,
     xlab(x_label) +
     theme_xgrid()
   
+  # apply labels ----------------------------------------------------------
+  
+  # format
+  if (label_vals == TRUE) {
+    if(percent_vals == TRUE) {
+      df = df %>%
+        mutate_(.dots = setNames(paste0('llamar::percent(', value_var, ', 0)'), 'value_label'))
+    } else {
+      df = df %>%
+        mutate_(.dots = setNames(paste0('llamar::round_exact(', value_var, ',', label_digits, ')'), 'value_label'))
+    }
+    
+    if(any(df[[value_var]] < 0)){
+      # negative numbers
+      
+      p = p +
+        geom_text(aes_string(x = value_var, 
+                             y = by_var,
+                             label = 'value_label'),
+                  size = label_size,
+                  family = font_light,
+                  nudge_x = -1 *value_label_offset,
+                  colour = grey60K,
+                  data = df %>% filter_(paste0(value_var, ' < 0'))) +
+        geom_text(aes_string(x = value_var, 
+                             y = by_var,
+                             label = 'value_label'),
+                  size = label_size,
+                  family = font_light,
+                  nudge_x = value_label_offset,
+                  colour = grey60K,
+                  data = df %>% filter_(paste0(value_var, ' >= 0')))
+      
+      
+    } else {
+    p = p +
+      geom_text(aes_string(x = value_var, 
+                           y = by_var,
+                           label = 'value_label'),
+                size = label_size,
+                family = font_light,
+                nudge_x = value_label_offset,
+                colour = grey60K,
+                data = df) 
+    }
+  }
   
   # save plot ----------------------------------------------------------
-  if(!is.na(file_name)) {
+  if(!is.null(file_name)) {
     save_plot(file_name, saveBoth = saveBoth, width = width, height = height)
   }
   
