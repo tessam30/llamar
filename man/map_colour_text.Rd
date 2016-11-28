@@ -13,22 +13,23 @@ map_colour_text(df, bckgrnd_column, colour_palette,
 
 \item{bckgrnd_column}{string containing the name of the column to map to fill values}
 
-\item{colour_palette}{colour palette specification (list of hex values). Can use `RColorBrewer::brewer.pal` to generate}
+\item{colour_palette}{colour palette specification (list of hex values). Can use \code{RColorBrewer::brewer.pal} to generate}
 
 \item{limits}{(optional) limits for the fill color palette mapping}
 
-\item{sat_threshold}{(optional) breakpoint between the light and dark text color. 50% saturation, by default}
+\item{sat_threshold}{(optional) breakpoint between the light and dark text color. 50 percent saturation, by default}
 
 \item{dark_colour}{(optional) dark color to overlay on low fill values}
 
 \item{light_colour}{(optional) light color to overlay on high fill values}
 }
 \description{
-Takes a data frame with a value to map to a fill colour and determines whether
-light or dark text should be used as the label on top of the fill. For use with
-`ggplot2::scale_colour_identity()` downstream.
+Takes a data frame with a value to map to a fill colour and determines whether 
+light or dark text should be used as the label on top of the fill. For use with 
+\code{ggplot2::scale_colour_identity()} downstream.
 }
 \examples{
+{
 # Define a Color Brewer palette
 library(RColorBrewer)
 # Generate random data
@@ -45,8 +46,10 @@ geom_text() +
 scale_fill_gradientn(colours = brewer.pal(9, pal), limits = limits) +
 scale_colour_identity() +
 theme_blank()
+}
 
-#' @seealso \\code{\\link{scale_colour_text}}
-
+}
+\seealso{
+\code{\link{scale_colour_text}}
 }
 

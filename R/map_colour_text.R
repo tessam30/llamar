@@ -1,20 +1,20 @@
 #' Modifies a data frame to determine color to overlay on a colored background
 #' 
-#' Takes a data frame with a value to map to a fill colour and determines whether
-#' light or dark text should be used as the label on top of the fill. For use with
-#' `ggplot2::scale_colour_identity()` downstream.
+#' Takes a data frame with a value to map to a fill colour and determines whether 
+#' light or dark text should be used as the label on top of the fill. For use with 
+#' \code{ggplot2::scale_colour_identity()} downstream.
 #' 
 #' @import dplyr
 #' 
 #' @param df data frame containing the data
 #' @param bckgrnd_column string containing the name of the column to map to fill values
-#' @param colour_palette colour palette specification (list of hex values). Can use `RColorBrewer::brewer.pal` to generate
+#' @param colour_palette colour palette specification (list of hex values). Can use \code{RColorBrewer::brewer.pal} to generate
 #' @param limits (optional) limits for the fill color palette mapping
-#' @param sat_threshold (optional) breakpoint between the light and dark text color. 50% saturation, by default
+#' @param sat_threshold (optional) breakpoint between the light and dark text color. 50 percent saturation, by default
 #' @param dark_colour (optional) dark color to overlay on low fill values
 #' @param light_colour (optional) light color to overlay on high fill values
 #' 
-#' @examples 
+#' @examples {
 #' # Define a Color Brewer palette
 #' library(RColorBrewer)
 #' # Generate random data
@@ -31,8 +31,9 @@
 #' scale_fill_gradientn(colours = brewer.pal(9, pal), limits = limits) +
 #' scale_colour_identity() +
 #' theme_blank()
+#' }
 #' 
-#' #' @seealso \code{\link{scale_colour_text}}
+#' @seealso \code{\link{scale_colour_text}}
 #' 
 #' @export
 

@@ -37,8 +37,6 @@
 #' plot_dot(df3, by_var = 'region', value_var = 'avg', facet_var = 'group', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
 #'
 #'
-
-
 #' 
 #' @export
 
