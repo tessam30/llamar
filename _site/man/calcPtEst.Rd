@@ -4,7 +4,7 @@
 \alias{calcPtEst}
 \title{Calculate point estimates and errors}
 \usage{
-calcPtEst(df, var, use_weights = TRUE, by_var = NA, design = NA,
+calcPtEst(df, var, use_weights = FALSE, by_var = NA, design = NA,
   psu_var = NA, strata_var = NA, weight_var = NA, na.rm = TRUE,
   ci_factor = 2)
 }
