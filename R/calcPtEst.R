@@ -1,23 +1,19 @@
 #' Calculate point estimates and errors
 #' 
-#' Calculates point estimates and errors using the package `survey` based 
-#' on sampling weights from a survey design
-#'
+#' @description Calculates point estimates and errors using the package `survey` based on sampling weights from a survey design
+#' 
+#' @import dplyr survey
 #' 
 #' @param df main data frame containing the raw data
 #' @param var string containing the variable name you want to average
 #' @param use_weights TRUE/FALSE for whether to apply a sampling frame or calculate a simple average.
 #' @param by_var (optional) string containing the variable name over which you want to calculate the estimates
 #' @param design (optional) svydesign object containing the sample frame
-#' @param psu_var (optional) if design isn't specified, string containing the primary sampling unit variable from the survey design (argument `id` in library('survey'))
-#' @param strata_var (optional) if design isn't specified, string containing the strata variable from the survey design (argument `strata` in library('survey')
-#' @param weight_var (optional)if design isn't specified, string containing the weights variable from the survey design (argument `weights` in library('survey')
+#' @param psu_var (optional) if design isn't specified, string containing the primary sampling unit variable from the survey design (argument \code{id} in library('survey'))
+#' @param strata_var (optional) if design isn't specified, string containing the strata variable from the survey design (argument \code{strata} in library('survey')
+#' @param weight_var (optional)if design isn't specified, string containing the weights variable from the survey design (argument \code{weights} in library('survey')
 #' @param na.rm remove NAs from the mean or not
-#' @param ci_factor value to calculate confidence interval; in standard deviations. 1.96 standard deviations --> ~ 95% of the area under a normal gaussian distribution
-#'
-#' @author Laura Hughes, laura.d.hughes@gmail.com
-#'
-#' @import dplyr survey
+#' @param ci_factor value to calculate confidence interval; in standard deviations. 1.96 standard deviations --> ~ 95 percent of the area under a normal gaussian distribution
 #' 
 #' @examples 
 #' # Generate simple random data to average
@@ -51,11 +47,23 @@ calcPtEst = function(df, # main data frame containing raw data,
   
   
   # Calculate sample size and unweighted avg.
-  if(na.rm == TRUE) {
+  if(na.rm == TRUE & is.na(by_var)) {
+    # Exclude missing values
+    n = df %>% 
+      filter_(paste0('!is.na(', var,')')) %>% 
+      summarise_(.dots = list(N = 'n()', 
+                              unweighted_avg = paste0('mean(', var, ')'),
+                              unweighted_sd = paste0('sd(', var, ')')))
+  } else if(na.rm == TRUE) {
     # Exclude missing values
     n = df %>% 
       filter_(paste0('!is.na(', var,')')) %>% 
       group_by_(by_var) %>% 
+      summarise_(.dots = list(N = 'n()', 
+                              unweighted_avg = paste0('mean(', var, ')'),
+                              unweighted_sd = paste0('sd(', var, ')')))
+  } else if(is.na(by_var)){
+    n = df %>% 
       summarise_(.dots = list(N = 'n()', 
                               unweighted_avg = paste0('mean(', var, ')'),
                               unweighted_sd = paste0('sd(', var, ')')))
@@ -104,6 +112,7 @@ calcPtEst = function(df, # main data frame containing raw data,
       # rename columns
       pt_est = as.data.frame(pt_est) %>% 
         rename_('se' = var) %>% 
+        mutate(avg = mean) %>% 
         rename_(.dots = setNames('mean', var)) %>% 
         mutate(N = nrow(df %>%  filter_(paste0('!is.na(', var,')'))))
       

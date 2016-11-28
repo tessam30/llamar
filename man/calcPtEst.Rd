@@ -19,19 +19,18 @@ calcPtEst(df, var, use_weights = FALSE, by_var = NA, design = NA,
 
 \item{design}{(optional) svydesign object containing the sample frame}
 
-\item{psu_var}{(optional) if design isn't specified, string containing the primary sampling unit variable from the survey design (argument `id` in library('survey'))}
+\item{psu_var}{(optional) if design isn't specified, string containing the primary sampling unit variable from the survey design (argument \code{id} in library('survey'))}
 
-\item{strata_var}{(optional) if design isn't specified, string containing the strata variable from the survey design (argument `strata` in library('survey')}
+\item{strata_var}{(optional) if design isn't specified, string containing the strata variable from the survey design (argument \code{strata} in library('survey')}
 
-\item{weight_var}{(optional)if design isn't specified, string containing the weights variable from the survey design (argument `weights` in library('survey')}
+\item{weight_var}{(optional)if design isn't specified, string containing the weights variable from the survey design (argument \code{weights} in library('survey')}
 
 \item{na.rm}{remove NAs from the mean or not}
 
-\item{ci_factor}{value to calculate confidence interval; in standard deviations. 1.96 standard deviations --> ~ 95% of the area under a normal gaussian distribution}
+\item{ci_factor}{value to calculate confidence interval; in standard deviations. 1.96 standard deviations --> ~ 95 percent of the area under a normal gaussian distribution}
 }
 \description{
-Calculates point estimates and errors using the package `survey` based 
-on sampling weights from a survey design
+Calculates point estimates and errors using the package `survey` based on sampling weights from a survey design
 }
 \examples{
 # Generate simple random data to average
@@ -47,8 +46,5 @@ calcPtEst(apiclus1, var = 'api99', by_var = 'stype', use_weights = FALSE)
 # specifying the sampling frame as a design object
 calcPtEst(apiclus1, var = 'api99', by_var = 'stype', design = dclus1)
 
-}
-\author{
-Laura Hughes, laura.d.hughes@gmail.com
 }
 
