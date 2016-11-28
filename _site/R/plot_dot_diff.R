@@ -196,7 +196,8 @@ plot_dot_diff = function(df,
                 font_axis_label = font_axis_label, font_axis_title = font_axis_title, 
                 font_facet = font_facet, font_legend_title = font_legend_title, 
                 font_legend_label = font_legend_label, font_subtitle = font_subtitle, 
-                font_title = font_title, grey_background = grey_background, background_colour = background_colour
+                font_title = font_title, grey_background = grey_background, 
+                background_colour = background_colour, projector = projector
                   ) +
     scale_shape_manual(values = dot_shape) +
     theme(axis.title.x = element_blank(),
