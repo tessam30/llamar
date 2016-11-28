@@ -2,7 +2,8 @@
   #' 
   #' @description Plots coefficients from a model, along with standard errors.  Coefficients that are statistically significant at agiven level are highlighted in darker text. Inspired by https://github.com/jaredlander/coefplot/blob/master/R/coefplot.r but works w/ ggplot2 version > 2.2
   #' 
-  #' @import ggplot2 broom dplyr forcats RColorBrewer multiwayvcov lmtest extrafont data.table
+  #' @import ggplot2 broom dplyr forcats RColorBrewer multiwayvcov lmtest extrafont
+  #' @importFrom data.table %like%
   #' 
   #' @param model Fitted model object from a lm or glm
   #' @param negative_good Should negative coefficients be displayed in red (default) or blue (negative_good = TRUE)?

@@ -2,7 +2,8 @@
 #' 
 #' Wrapper to ggsave to auto-save the annoying fiddly arguments I always forget. Works only w/ ggplot2 objects.
 #' 
-#' @import ggplot2 extrafont data.table
+#' @import ggplot2 extrafont
+#' @importFrom data.table %like%
 #' 
 #' @param filename string containing file name
 #' @param plot which plot to save; by default, the last one created

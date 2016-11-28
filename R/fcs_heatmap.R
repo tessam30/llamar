@@ -5,7 +5,8 @@
 #' individual households in the region; (3) a 1 x n heatmap of the average FCS score by region;
 #' and (4) individual mini-maps highlighting the region for context.
 #' 
-#' @import ggplot2 extrafont survey gridExtra RColorBrewer
+#' @import ggplot2 extrafont survey RColorBrewer
+#' @importFrom gridExtra arrangeGrob
 #' 
 #' @export
 

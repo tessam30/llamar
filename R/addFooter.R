@@ -1,4 +1,7 @@
-#' @import lubridate png grid
+#' @importFrom png readPNG
+#' @importFrom grid rasterGrob
+#' @importFrom lubridate month day today
+#' @importFrom stringr str_wrap
 #' 
 #' 
 #' @export
@@ -63,7 +66,7 @@ add_footer = function(source,
   # gc_grob = rasterGrob(gc, interpolate = TRUE, just = 'right')
   
   country = png::readPNG(paste0(img_dir, country_logo))
-  country_grob = rasterGrob(country, interpolate = TRUE, 
+  country_grob = grid::rasterGrob(country, interpolate = TRUE, 
                             hjust = 0, 
                             # width = width * pct_country, 
                             height = height_buffer,
@@ -73,8 +76,8 @@ add_footer = function(source,
   
   # format date -------------------------------------------------------------
   updated_label = paste0('Updated ',
-                         day(updated), ' ', 
-                         month(updated, label = TRUE, abbr = abbrev_date), 
+                         lubridate::day(updated), ' ', 
+                         lubridate::month(updated, label = TRUE, abbr = abbrev_date), 
                          ' ', year(updated))
   
   # format source -------------------------------------------------------------
