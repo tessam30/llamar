@@ -39,4 +39,7 @@ ggplot(df, aes(x = x, y = y, fill = y)) + geom_point(size = 10, shape = 21) + ge
 ggplot(df, aes(x = x, y = y, fill = y)) + geom_point(size = 10, shape = 21) + geom_text(aes(label = y, colour = y)) + scale_colour_text(df$y, darkOnLowVals = FALSE, mapping_range = c(40,100)) + scale_fill_gradientn(colours = rev(RColorBrewer::brewer.pal(9, 'YlGnBu')))
 
 }
+\seealso{
+\code{\link{map_colour_text}}
+}
 

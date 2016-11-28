@@ -13,7 +13,7 @@
 #' @param diverging binary values to scale the palette by the absolute value of the values. For use with an underlying diverging color palette
 #' @param mapping_range (optional) manually specify the breakpoint for the linear interpolation of color
 #'   
-
+#' @seealso \code{\link{map_colour_text}}
 
 #' @examples 
 #' ## create random data
