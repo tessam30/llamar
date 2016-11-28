@@ -20,10 +20,10 @@
 #' plot_dot(df2, by_var = 'region', value_var = 'avg', percent_vals = TRUE, lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
 #'
 #' # with reference line
-#' plot_dot(df2, by_var = 'region', value_var = 'avg', ref_line = 0, ref_label = 'no change', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'), percent_vals = TRUE)
+#' plot_dot(df2, by_var = 'region', value_var = 'avg', ref_line = 0, ref_text = 'no change', label_ref = FALSE, lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'), percent_vals = TRUE)
 #'
 #' # horizontal
-#' plot_dot(df2, by_var = 'region', value_var = 'avg', horiz = FALSE, ref_line = 0, ref_label = 'no change', lollipop = TRUE, plot_ci = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
+#' plot_dot(df2, by_var = 'region', value_var = 'avg', horiz = FALSE, ref_line = 0, ref_text = 'no change', lollipop = TRUE, plot_ci = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
 #'
 #' # in-built facet_wrap. Note: may screw up ordering, since will sort based on ALL the data.
 #' df3 = data.frame(avg = sample(-100:100, 20), region = rep(letters[1:10], 2), group = c(rep('group1', 10), rep('group2', 10)))
