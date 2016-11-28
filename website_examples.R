@@ -16,7 +16,7 @@ df2 = data.frame(avg = sample(-100:100, 10)/100, region = letters[1:10], ci = sa
 # plot_dot ----------------------------------------------------------------
 plot_avg_dot(dhs, value_var = 'stunted2', by_var = 'lz', 
               percent_vals = TRUE, weight_var = 'cweight',
-             dot_size = 9, 
+             dot_size = 9, include_n = FALSE,
              dot_fill_cont = rev(brewer.pal(11, 'Spectral')[1:6]), sat_threshold = 0.65) +
   theme_stroke()
 
@@ -28,11 +28,32 @@ plot_dot(df2, by_var = 'region', value_var = 'avg', ref_line = 0,
   theme_stroke()
 save_plot('~/GitHub/llamar/img/plot_dot2.png', width = 5, height = 5)
 
-calcPtEst(dhs, var = 'stunted', by_var = 'lz', use_weights = T, weight_var = 'cweight', psu_var = 'psu', strata_var = 'strata')
 
-z=plot_dot(x, value_var = 'avg', by_var = 'lz', plot_ci=T,
-# ref_line = TRUE, percent_vals = TRUE, 
-             dot_size = 9, 
-             dot_fill_cont = rev(brewer.pal(11, 'Spectral')[1:6]))
+# plot_avg_dot ------------------------------------------------------------
 
-plot_n(x, 'lz', incl_y_labels = TRUE)
+plot_avg_dot(dhs, value_var = 'stunted2', by_var = 'lz', 
+             percent_vals = TRUE, weight_var = 'cweight',
+             dot_size = 9, include_n = TRUE,
+             dot_fill_cont = rev(brewer.pal(11, 'Spectral')[1:6]), sat_threshold = 0.65) +
+  theme_stroke()
+
+save_plot('~/GitHub/llamar/img/plot_avg_dot.png', width = 8, height = 8)
+
+plot_avg_dot(dhs, value_var = 'improvedWater', by_var = 'lz', 
+             percent_vals = TRUE, weight_var = 'cweight',
+             dot_size = 9, include_n = TRUE,
+             dot_fill_cont = (brewer.pal(9, "Blues")), sat_threshold = 0.65) +
+  theme_stroke()
+
+w = read_dta('~/Documents/USAID/Rwanda/rawdata/RW_2014-15_DHS/rwir70dt/RWIR70FL.DTA')
+
+w = w %>% mutate(contrac = ifelse(v313 == 3, 1, 
+                                  ifelse(is.na(v313), NA, 0)))
+
+w = factorize(w, w, 'sdistrict', 'dist')
+
+plot_avg_dot(w, value_var = 'contrac', by_var = 'dist', 
+             percent_vals = TRUE, 
+             dot_size = 9, include_n = TRUE,
+             dot_fill_cont = (brewer.pal(9, "Blues")), sat_threshold = 0.65) +
+  theme_stroke()
