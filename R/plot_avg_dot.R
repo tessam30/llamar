@@ -1,5 +1,7 @@
 #' Plot a dot plot after averaging the values
 #' 
+#' @importFrom gridExtra arrangeGrob grid.arrange
+#' 
 #' @examples 
 #' # generate random data
 #' library(dplyr)
@@ -39,6 +41,11 @@ plot_avg_dot = function(df,
                         by_var = 'region',
                         value_var = 'avg',
                         x_label = NULL,
+                        
+                        include_n = TRUE,
+                        n_shape = 'square',
+                        low_colour = grey10K,
+                        high_colour = grey70K,
                         
                         use_weights = FALSE,
                         strata_var = 'strata',
@@ -116,7 +123,7 @@ plot_avg_dot = function(df,
                      psu_var = psu_var, strata_var = strata_var, weight_var = weight_var,
                      ci_factor = ci_factor)
   
-
+  
   # -- calculate the sample mean --
   if (ref_line == TRUE) {
     avg_val = calcPtEst(df, value_var, use_weights = use_weights, na.rm = na.rm,
@@ -136,71 +143,87 @@ plot_avg_dot = function(df,
     nudge_ref_label = value_label_offset
   }
   
-  plot_dot(avg_df,
-           by_var = by_var,
-           value_var = 'avg',
-           x_label = x_label,
-
-           sort_asc = sort_asc,
-           sort_by = sort_by, # a column within df
-
-           plot_ci = plot_ci,
-           lb_var = 'lb',
-           ub_var = 'ub',
-           ci_colour = ci_colour,
-           ci_size = ci_size,
-
-           ref_line = ref_line,
-           ref_text = ref_text,
-           label_ref = label_ref,
-           nudge_ref_label = nudge_ref_label,
-           ref_label_y = ref_label_y, # reference label y-position
-           ref_arrow = ref_arrow,
-           ref_stroke = ref_stroke,
-           ref_colour = ref_colour,
-
-           lollipop = lollipop,
-           lollipop_stroke = lollipop_stroke,
-           lollipop_colour = lollipop_colour,
-
-           facet_var = facet_var,
-           ncol = ncol,
-           nrow = nrow,
-           scales = scales,
-
-           dot_size = dot_size,
-           dot_shape = dot_shape,
-           dot_fill_cont = dot_fill_cont,
-
-           label_vals = label_vals,
-           label_size = label_size,
-           label_colour = label_colour,
-           label_digits = label_digits,
-           percent_vals = percent_vals,
-           value_label_offset = value_label_offset,
-           sat_threshold = sat_threshold,
-
-           horiz = horiz,
-
-           file_name = file_name,
-           width = width,
-           height = height,
-           saveBoth = saveBoth,
-
-           font_normal = 'Lato',
-           font_semi = 'Lato',
-           font_light = 'Lato Light',
-           panel_spacing = 1, # panel spacing, in lines
-           font_axis_label = 12,
-           font_axis_title = font_axis_label * 1.15,
-           font_facet = font_axis_label * 1.15,
-           font_legend_title = font_axis_label,
-           font_legend_label = font_axis_label * 0.8,
-           font_subtitle = font_axis_label * 1.2,
-           font_title = font_axis_label * 1.3,
-           legend.position = 'none',
-           legend.direction = 'horizontal',
-           grey_background = grey_background,
-           background_colour = background_colour,
-           projector = projector)
+  dot = plot_dot(avg_df,
+                 by_var = by_var,
+                 value_var = 'avg',
+                 x_label = x_label,
+                 
+                 sort_asc = sort_asc,
+                 sort_by = sort_by, # a column within df
+                 
+                 plot_ci = plot_ci,
+                 lb_var = 'lb',
+                 ub_var = 'ub',
+                 ci_colour = ci_colour,
+                 ci_size = ci_size,
+                 
+                 ref_line = ref_line,
+                 ref_text = ref_text,
+                 label_ref = label_ref,
+                 nudge_ref_label = nudge_ref_label,
+                 ref_label_y = ref_label_y, # reference label y-position
+                 ref_arrow = ref_arrow,
+                 ref_stroke = ref_stroke,
+                 ref_colour = ref_colour,
+                 
+                 lollipop = lollipop,
+                 lollipop_stroke = lollipop_stroke,
+                 lollipop_colour = lollipop_colour,
+                 
+                 facet_var = facet_var,
+                 ncol = ncol,
+                 nrow = nrow,
+                 scales = scales,
+                 
+                 dot_size = dot_size,
+                 dot_shape = dot_shape,
+                 dot_fill_cont = dot_fill_cont,
+                 
+                 label_vals = label_vals,
+                 label_size = label_size,
+                 label_colour = label_colour,
+                 label_digits = label_digits,
+                 percent_vals = percent_vals,
+                 value_label_offset = value_label_offset,
+                 sat_threshold = sat_threshold,
+                 
+                 horiz = horiz,
+                 
+                 file_name = file_name,
+                 width = width,
+                 height = height,
+                 saveBoth = saveBoth,
+                 
+                 font_normal = 'Lato',
+                 font_semi = 'Lato',
+                 font_light = 'Lato Light',
+                 panel_spacing = 1, # panel spacing, in lines
+                 font_axis_label = 12,
+                 font_axis_title = font_axis_label * 1.15,
+                 font_facet = font_axis_label * 1.15,
+                 font_legend_title = font_axis_label,
+                 font_legend_label = font_axis_label * 0.8,
+                 font_subtitle = font_axis_label * 1.2,
+                 font_title = font_axis_label * 1.3,
+                 legend.position = 'none',
+                 legend.direction = 'horizontal',
+                 grey_background = grey_background,
+                 background_colour = background_colour,
+                 projector = projector)
+  
+  if(include_n == TRUE) {
+    n = plot_n(df = avg_df, by_var = by_var, n_var = 'N', sort_by = sort_by, 
+               sort_asc = sort_asc, x_label = x_label, low_colour = low_colour,
+               high_colour = high_colour,
+               incl_y_labels = FALSE, 
+               dot_shape = n_shape, dot_size = dot_size * 1.5)
+    
+    dot = gridExtra::arrangeGrob(n, dot, nrow = 1, 
+                                 widths = c(0.1, 0.9),
+                                 padding = unit(0, "line"))
+    
+    dot = gridExtra::grid.arrange(dot)
+  }
+  
+  return(dot)
 }
