@@ -20,13 +20,13 @@ plot_avg_dot(dhs, value_var = 'stunted2', by_var = 'lz',
              dot_fill_cont = rev(brewer.pal(11, 'Spectral')[1:6]), sat_threshold = 0.65) +
   theme_stroke()
 
-save_plot('~/GitHub/llamar/img/plot_avg_dot1.png', width = 8, height = 8)
+save_plot('~/GitHub/llamar/img/plot_dot1.png', width = 8, height = 8)
 
 plot_dot(df2, by_var = 'region', value_var = 'avg', ref_line = 0, 
-         ref_text = 'no change', label_ref = FALSE, lollipop = TRUE, 
+         ref_text = 'no change', label_ref = FALSE, lollipop = TRUE, value_label_offset = .125,
          dot_fill_cont = brewer.pal(10, 'RdYlBu'), percent_vals = TRUE) +
   theme_stroke()
-save_plot('~/GitHub/llamar/img/plot_avg_dot2.png', width = 5, height = 5)
+save_plot('~/GitHub/llamar/img/plot_dot2.png', width = 5, height = 5)
 
 calcPtEst(dhs, var = 'stunted', by_var = 'lz', use_weights = T, weight_var = 'cweight', psu_var = 'psu', strata_var = 'strata')
 
