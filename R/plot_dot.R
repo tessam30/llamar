@@ -1,31 +1,36 @@
 #' Plot a dot plot, either with or without axis bars
 #' 
+#' @import ggplot2 forcats RColorBrewer
+#' 
 #' @examples 
 #' # generate random data
+#' library(dplyr)
 #' df = data.frame(avg = sample(1:100, 10), region = letters[1:10], ci = sample(1:100, 10)/10) %>% mutate(lb = avg - ci, ub = avg + ci)
 #'
 #' # sans confidence intervals
 #' plot_dot(df, by_var = 'region', value_var = 'avg')
 #' 
-#' # with confidence intervals
-#' plot_dot(df, by_var = 'region', value_var = 'avg', plot_ci = TRUE)
+#' # with confidence intervals, no labels
+#' plot_dot(df, by_var = 'region', value_var = 'avg', plot_ci = TRUE, label_vals = FALSE)
 #' 
 #' # as lollipops
-#' df2 = data.frame(avg = sample(-100:100, 10)/100, region = letters[1:10])
+#' df2 = data.frame(avg = sample(-100:100, 10)/100, region = letters[1:10], ci = sample(1:100, 20)/1000) %>% mutate(lb = avg - ci, ub = avg + ci)
+#' library(RColorBrewer)
 #' plot_dot(df2, by_var = 'region', value_var = 'avg', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
 #' 
-#' # with reference line
-#' plot_dot(df2, by_var = 'region', value_var = 'avg', ref_line = 0, ref_label = 'no change', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
-#'
 #' # percent labels
 #' plot_dot(df2, by_var = 'region', value_var = 'avg', percent_vals = TRUE, lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
-
-#' # in-built facet_wrap. Note: may screw up ordering, since will sort based on ALL the data.
-#' df3 = data.frame(avg = sample(-100:100, 20), region = rep(letters[1:10], 2), group = c(rep('group1', 10), rep('group2', 10)), ci = sample(1:100, 20)/10) %>% mutate(lb = avg - ci, ub = avg + ci)
-#' plot_dot(df3, by_var = 'region', value_var = 'avg', facet_var = 'group', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
+#'
+#' # with reference line
+#' plot_dot(df2, by_var = 'region', value_var = 'avg', ref_line = 0, ref_label = 'no change', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'), percent_vals = TRUE)
 #'
 #' # horizontal
-#' plot_dot(df3, by_var = 'region', facet_var = 'group', value_var = 'avg', horiz = FALSE, lollipop = TRUE, plot_ci = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
+#' plot_dot(df2, by_var = 'region', value_var = 'avg', horiz = FALSE, ref_line = 0, ref_label = 'no change', lollipop = TRUE, plot_ci = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
+#'
+#' # in-built facet_wrap. Note: may screw up ordering, since will sort based on ALL the data.
+#' df3 = data.frame(avg = sample(-100:100, 20), region = rep(letters[1:10], 2), group = c(rep('group1', 10), rep('group2', 10)))
+#' plot_dot(df3, by_var = 'region', value_var = 'avg', facet_var = 'group', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
+#'
 #'
 
 
@@ -52,10 +57,12 @@ plot_dot = function(df,
                     nudge_ref_label = 0.05 * diff(range(abs(df[[value_var]]))),
                     ref_label_y = 1, # reference label y-position
                     ref_arrow = arrow(length = unit(0.007, "npc")),
-                    line_stroke = 0.25,
-                    line_colour = grey75K,
+                    ref_stroke = 0.5,
+                    ref_colour = grey75K,
                     
                     lollipop = FALSE,
+                    lollipop_stroke = 0.25,
+                    lollipop_colour = grey75K,
                     
                     facet_var = NULL,
                     ncol = NULL,
@@ -98,16 +105,6 @@ plot_dot = function(df,
                     projector = FALSE){
   
   
-  # -- calculate the average, by a particular variable --
-  # df = calcPtEst(df2, value_var, by_var = by_var, use_weights = use_weights)
-  
-  # -- calculate the sample mean --
-  # if (ref_line == TRUE) {
-  # avg_val = calcPtEst(df, value_var, use_weights = use_weights)
-  
-  # ref_line = avg_val$avg
-  # }
-  
   # check inputs ----------------------------------------------------------
   if(plot_ci == TRUE) {
     if(!lb_var %in% colnames(df)) {
@@ -120,7 +117,7 @@ plot_dot = function(df,
   }
   
   # determine sorting ----------------------------------------------------------
-  if(!is.na(sort_by) | !is.null(sort_by)) {
+  if(!is.null(sort_by)) {
     if(sort_by %in% colnames(df)){
       if(is.numeric(df[[sort_by]])) {
         
@@ -145,8 +142,8 @@ plot_dot = function(df,
   if(!is.null(ref_line)){
     p = ggplot() + 
       geom_vline(xintercept = ref_line,
-                 size = line_stroke,
-                 colour = line_colour)
+                 size = ref_stroke,
+                 colour = ref_colour)
   } else {
     p = ggplot()
   }
@@ -167,7 +164,7 @@ plot_dot = function(df,
   if(lollipop == TRUE) {
     p = p +
       geom_segment(aes_string(x = value_var, xend = '0', y = y_var, yend = y_var),
-                   colour = line_colour, size = line_stroke, 
+                   colour = lollipop_colour, size = lollipop_stroke, 
                    data = df)
   }
   
@@ -250,11 +247,9 @@ plot_dot = function(df,
                colour = label_colour, size = label_size, family = font_light) +
       geom_curve(aes(x = ref_line + nudge_ref_label * 0.8, xend = ref_line, 
                      y = ref_label_y, yend = ref_label_y + 0.1), 
-                 colour = line_colour, 
-                 size = line_stroke / 2, 
+                 colour = ref_colour, 
+                 size = ref_stroke / 2, 
                  arrow = ref_arrow)
-  } else {
-    p = ggplot()
   }
   
   # facet wrap ----------------------------------------------------------
@@ -274,7 +269,8 @@ plot_dot = function(df,
   # horizontal ----------------------------------------------------------
   if(horiz != TRUE) {
     p = p +
-      coord_flip()
+      coord_flip() +
+      ylab(x_label)
   }
   
   # save plot ----------------------------------------------------------
