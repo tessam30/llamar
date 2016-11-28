@@ -41,6 +41,8 @@ plot_avg_dot = function(df,
                         by_var = 'region',
                         value_var = 'avg',
                         x_label = NULL,
+                        x_limits = NULL,
+                        x_breaks = NULL,
                         
                         include_n = TRUE,
                         n_shape = 'square',
@@ -148,6 +150,8 @@ plot_avg_dot = function(df,
                  by_var = by_var,
                  value_var = 'avg',
                  x_label = x_label,
+                 x_limits = x_limits,
+                 x_breaks = x_breaks,
                  
                  sort_asc = sort_asc,
                  sort_by = sort_by, # a column within df

@@ -44,6 +44,8 @@ plot_dot = function(df,
                     by_var = 'region',
                     value_var = 'avg',
                     x_label = NULL,
+                    x_limits = NULL,
+                    x_breaks = NULL,
                     
                     sort_asc = FALSE,
                     sort_by = 'avg', # a column within df
@@ -143,7 +145,6 @@ plot_dot = function(df,
     y_var = by_var
   }
   
-  # add the reference line ----------------------------------------------------------
   if(is.logical(ref_line) & ref_line == FALSE){
     p = ggplot()
   } else {
@@ -293,7 +294,10 @@ plot_dot = function(df,
   # percent values ----------------------------------------------------------
   if(percent_vals == TRUE) {
     p = p + 
-      scale_x_continuous(labels = percent)
+      scale_x_continuous(labels = percent, limits = x_limits, breaks = x_breaks)
+  } else{
+    p = p + 
+      scale_x_continuous(limits = x_limits, breaks = x_breaks)
   }
   
   # horizontal ----------------------------------------------------------
