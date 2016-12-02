@@ -85,6 +85,8 @@ plot_change = function(df,
   # Is there a data label that needs to be applied?
   if(!is.null(attr(df[[region_var]], 'labels'))) {
     df2 = llamar::factorize(df, df, region_var, region_var)
+  } else{
+    df2 = df
   }
   
   # -- calculate average --
