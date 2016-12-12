@@ -32,6 +32,7 @@ loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {
     # -- Plotting / viz functions --
     plotting = c("ggplot2", "ggvis", "htmltools", "htmlwidgets", "metricsgraphics",  
         "plotly", "d3heatmap", "DiagrammeR", "GGally", "ggdendro", "highcharter",
+        "ggforce",
         "ggrepel", "hexbin", "lattice", "latticeExtra", "packcircles", "rbokeh", "waffle")
     
     interactivity = c("DT",
