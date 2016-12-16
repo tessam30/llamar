@@ -13,12 +13,15 @@
 #' @param years: list of survey years to include as a string separated by commas, e.g. '2010,2012,2014'
 #' @param apiKey: API Key to include, to be able to obtain 5000 records instead of 1000.
 #' @param numResults: number of records to include
-#' @export
+#' 
+#' @import dplyr RJSONIO
+#' 
 #' @examples
 #' rw_stunting = loadDHS(breakdown = 'national', indicators = 'CN_NUTS_C_HA2', countries = 'RW')
 #' @author Laura Hughes
 #' 
 #' 
+#' @export
 #' 
 
 loadDHS = function(breakdown = "national", 
@@ -26,9 +29,6 @@ loadDHS = function(breakdown = "national",
                    countries, 
                    years = paste0(seq(1984, 
     2016), collapse = ","), apiKey = NA, numResults = 1000) {
-    
-    library("dplyr")
-    library("RJSONIO")
     
     
     json_file = RJSONIO::fromJSON(paste0("http://api.dhsprogram.com/rest/dhs/data?breakdown=", 
