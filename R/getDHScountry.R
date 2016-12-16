@@ -3,21 +3,36 @@
 #' Can take either a single country or multiple; does 
 #' @import dplyr data.table
 #' @export
-getDHScountry = function(country_list){
+getDHScountry = function(country_list, return_table = FALSE){
   
   # function to pull the country name
-  
   return_country = function(sel_country){
+    
     filtered = DHScountries %>% filter(country %like% sel_country)
     
     return(filtered$code)
   }
   
+  # Apply to the list
+  if(return_table == TRUE) {
+    warning('Using exact matching of country names')
+    filtered = DHScountries %>% 
+      filter(country %in% country_list)
+    
+    return(filtered)
+  } else{
+    # Collapse to a comma-separated list
     codes = lapply(country_list, function(x) return_country(x))
     
-    return(combine(codes))
+    # Convert to a single list
+    codes = combine(codes)
+    
+    # Convert to a comma-separated list
+    codes = paste0(codes, collapse=',')
+    
+    return(codes)
+  }
 }
-
 
 #' @import dplyr rvest
 importDHScountries = function(save_file = FALSE,

@@ -4,7 +4,7 @@
 \alias{getDHScountry}
 \title{Create a lookup table for DHS country codes, and find the country code based on the list}
 \usage{
-getDHScountry(country_list)
+getDHScountry(country_list, return_table = FALSE)
 }
 \description{
 Can take either a single country or multiple; does
