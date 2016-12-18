@@ -6,7 +6,7 @@ summary: "Prettifies numbers, especially for plotting"
 updated: 2016-12-18
 ---
 
-* **round_mean**: calculates mean and rounds to a number of digits. Returns a double.
-* **round_std**: calculates standard deviation and rounds to a number of digits. Returns a double.
-* **round_exact**: rounds value to a number of digits, preserving trailing zeros. Returns a string.
-* **percent**: converts a ratio to a percentage with a number of digits and a percent sign, e.g. 0.125 --> "12.5%"
+* `round_mean` calculates mean and rounds to a number of digits. Returns a double.
+* `round_std` calculates standard deviation and rounds to a number of digits. Returns a double.
+* `round_exact` rounds value to a number of digits, preserving trailing zeros. Returns a string.
+* `percent` converts a ratio to a percentage with a number of digits and a percent sign, e.g. 0.125 --> "12.5%"
