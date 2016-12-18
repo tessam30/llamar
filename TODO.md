@@ -25,7 +25,7 @@
 - [ ] "copy4facet.R"
 - [ ] "factorize.R"
 - [ ] "fcs_heatmap.R"       
-- [ ] "formatNum.R"          
+- [x] "formatNum.R"          
 - [ ] "loadDHS.R"            
 - [ ] "loadPkgs.R"          
 - [ ] "multiplot.R"                  

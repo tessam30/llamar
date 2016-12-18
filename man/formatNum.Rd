@@ -3,14 +3,14 @@
 \name{formatNum}
 \alias{formatNum}
 \alias{percent}
-\alias{roundMean}
-\alias{roundStd}
 \alias{round_exact}
+\alias{round_mean}
+\alias{round_std}
 \title{Simple reusable functions to format numbers}
 \usage{
-roundMean(x, ndigits = 2)
+round_mean(x, ndigits = 2)
 
-roundStd(x, ndigits = 2)
+round_std(x, ndigits = 2)
 
 percent(x, ndigits = 1)
 
@@ -26,17 +26,18 @@ Simple reusable functions to format numbers
 }
 \section{Functions}{
 \itemize{
-\item \code{roundMean}: Function to calculate the mean and round to two digits.
+\item \code{round_mean}: Function to calculate the mean and round to two digits.
 
-\item \code{roundStd}: Function to calculate the standard deviation and round to two digits.
+\item \code{round_std}: Function to calculate the standard deviation and round to two digits.
 
 \item \code{percent}: Function to convert a decimal to a percent, round to a specific number of digits, and convert to a string with a percent sign.
 
-\item \code{round_exact}: Function to round a number w/ an exact number of digits
+\item \code{round_exact}: Function to round a number w/ an exact number of digits. Returns a string.
 }}
 \examples{
-roundMean(mtcars$mpg)
-roundStd(mtcars$mpg)
+round_mean(mtcars$mpg)
+round_exact(2, ndigits = 3)
+round_std(mtcars$mpg)
 percent(0.157389)
 }
 
