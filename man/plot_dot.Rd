@@ -15,6 +15,7 @@ plot_dot(df, by_var = "region", value_var = "avg", incl_x_axis = TRUE,
   lollipop_stroke = 0.25, lollipop_colour = grey75K, facet_var = NULL,
   ncol = NULL, nrow = NULL, scales = "fixed", dot_size = 6,
   dot_shape = 21, dot_fill_cont = brewer.pal(9, "YlGnBu"),
+  dot_fill_limits = c(min(df[[value_var]]), max(df[[value_var]])),
   label_vals = TRUE, label_size = 3, label_colour = grey75K,
   label_digits = 1, percent_vals = FALSE, value_label_offset = 0.05 *
   diff(range(abs(df[[value_var]]))), sat_threshold = 0.5, horiz = TRUE,

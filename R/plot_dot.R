@@ -80,6 +80,7 @@ plot_dot = function(df,
                     dot_size = 6, 
                     dot_shape = 21,
                     dot_fill_cont = brewer.pal(9, 'YlGnBu'),
+                    dot_fill_limits = c(min(df[[value_var]]), max(df[[value_var]])),
                     
                     label_vals = TRUE,
                     label_size = 3,
@@ -192,7 +193,7 @@ plot_dot = function(df,
                           fill = value_var),
                data = df,
                size = dot_size, shape = dot_shape, colour = grey90K, stroke = 0.1) +
-    scale_fill_gradientn(colours = dot_fill_cont) +
+    scale_fill_gradientn(colours = dot_fill_cont, limits = dot_fill_limits) +
     xlab(x_label) +
     theme_xgrid(font_normal = font_normal, font_semi = font_semi,
                 font_light = font_light, legend.position = legend.position,
