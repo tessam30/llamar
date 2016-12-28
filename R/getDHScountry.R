@@ -1,6 +1,6 @@
-#' Create a lookup table for DHS country codes, and find the country code based on the list
+#' Create a lookup table for DHS country and indicator codes, and find the country/indicator code based on the list
 #' 
-#' Can take either a single country or multiple; does 
+#' Can take either a single country or multiple ones; also can return entire table or just the code
 #' @import dplyr data.table
 #' @export
 getDHScountry = function(country_list, return_table = FALSE){
@@ -68,4 +68,37 @@ importDHScountries = function(save_file = FALSE,
   }
   
 }
+#' @import dplyr XML
+importDHSindicators = function(save_file = FALSE,
+                              file_name = '~/GitHub/llamar/data/DHSindicators.rda'){
+  
+  indic = XML::readHTMLTable('http://api.dhsprogram.com/rest/dhs/indicators?f=html')
 
+  indic = indic[[1]]
+  
+  # Fix stuff.
+  
+  # Convert everything to characters.
+  indic = lapply(indic, function(x) as.character(x))
+  
+  DHSindic = data.frame(indic)
+  
+  col_names = t(DHSindic[3,])
+  colnames(DHSindic) = col_names
+  
+  DHSindic = DHSindic %>% slice(-3:-1)
+  
+  if(save_file == TRUE){
+    save(DHSindic, file = file_name)
+  }
+}
+
+#' @import dplyr data.table
+#' @export
+getDHSindicator = function(indicator, return_table = FALSE){
+  filtered_indic = DHSindic %>% filter(Label %like% indicator)
+  
+  indic_num = menu(choices = c('all', as.character(filtered_indic$Label)), 
+          title = 'Multiple indicators were found. Enter which one(s) you want.')
+}
+  

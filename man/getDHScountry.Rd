@@ -2,11 +2,11 @@
 % Please edit documentation in R/getDHScountry.R
 \name{getDHScountry}
 \alias{getDHScountry}
-\title{Create a lookup table for DHS country codes, and find the country code based on the list}
+\title{Create a lookup table for DHS country and indicator codes, and find the country/indicator code based on the list}
 \usage{
 getDHScountry(country_list, return_table = FALSE)
 }
 \description{
-Can take either a single country or multiple; does
+Can take either a single country or multiple ones; also can return entire table or just the code
 }
 
