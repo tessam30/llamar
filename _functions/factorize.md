@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "attributes"
+title:  "factorize"
 categories: [helper, wrangling]
 summary: "assigns value labels to data frame"
 updated: 2016-12-28
