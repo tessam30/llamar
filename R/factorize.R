@@ -16,8 +16,6 @@
 #' @export
 #' 
 
-
-
 factorize = function(df, ref_df, var, new_var) {
   # ref_df has labels associated with it.
   # Note: can pipe with magrittr pipe, a la: df %>% factorize(ref_df, var, new_var)

@@ -17,7 +17,7 @@ NULL
 
 #' @describeIn  attr Function to pull any attributes from a data frame.  Useful to cleanup imported Stata files.
 #' @export
-pullAttributes <- function(data) {
+pullAttributes = function(data) {
   
   metadata = lapply(data, function(x) attr(x, 'label'))
   metadata = data.frame(metadata)
@@ -33,7 +33,7 @@ pullAttributes <- function(data) {
 
 #' @describeIn  attr Function to remove any attributes from a data frame.  Useful to cleanup imported Stata files.
 #' @export
-removeAttributes <- function(data) {
+removeAttributes = function(data) {
     data <- lapply(data, function(x) {
         attr(x, "labels") <- NULL
         x
