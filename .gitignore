@@ -6,3 +6,5 @@ _site/
 _site/R/attributes.R
 
 _site/R/factorize.R
+
+_site/*.R
