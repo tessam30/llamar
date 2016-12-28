@@ -1,8 +1,72 @@
 #' Plot a dot plot, either with or without lollipop sticks
 #' 
-#' Creates a dot plot for a single grouping variable.
+#' Creates a dot plot for a single grouping variable. Can make a simple dot plot or a lollipop plot
 #' 
 #' @import ggplot2 forcats RColorBrewer
+#' 
+#' @param df data frame containing all the data.
+#' @param by_var string containing the variable to put along the y-axis.
+#' @param value_var string containing the variable to plot on the x-axis (and to use for the color values)
+#' @param incl_x_axis TRUE/FALSE of whether to include x-axis lables
+#' @param x_label (optional) string containing the label for the x-axis
+#' @param x_limits tuple specifying x-axis limits
+#' @param x_breaks list containing break point values for the x-axis.
+#' @param sort_by string containing column name within df to sort the values by
+#' @param sort_asc TRUE/FALSE of whether to sort the values in ascending or descending order
+#' @param plot_ci TRUE/FALSE of whether to plot segments underneath the dots containing the confidence interval limits
+#' @param lb_var string name within df containing the lower limit of confidence interval
+#' @param ub_var string name within df containing the upper limit of confidence interval
+#' @param ci_colour color for confidence intervals
+#' @param ci_alpha alpha (opacity) for confidence intervals
+#' @param ci_size thickness of confidence interval segment (in points)
+#' @param ref_line TRUE/FALSE or number. If false, no reference line will be included.  If true, sample average will be calculated. Be careful: if there are a different number of observations in each observation, your average will be off. If a number, will include a reference line at that location.
+#' @param ref_text what to label the reference line with
+#' @param label_ref_val TRUE/FALSE. Whether to label the reference line with its value.
+#' @param nudge_ref_label value to offset the reference line label from the line
+#' @param ref_label_y  reference label y-position
+#' @param ref_arrow size of arrow to connect the reference label to the line. Specified by arrow(...)
+#' @param ref_stroke stroke size of the reference line
+#' @param ref_colour colour of reference line
+#' @param lollipop TRUE/FALSE of whether to plot as a lollipop plot (dots connected to 'lollipop_ref' by a line)
+#' @param lollipop_ref string of a numeric value to connect the dots to in lollipop plot; '0' by default
+#' @param lollipop_stroke lollipop segment stroke size
+#' @param lollipop_colour lollipop colour
+#' @param facet_var string with variable name in df to facet by.  NULL (no facetting) by default
+#' @param ncol number of columns in facetting
+#' @param nrow number of rows in facetting
+#' @param scales scales wtihin facetting. One of 'fixed', 'free', 'free_y', 'free_x'
+#' @param dot_size size of dots (in mm) 
+#' @param dot_shape shape of dots (normal ggplot2 values for shapes)
+#' @param dot_fill_cont colour palette for fill of dots. Can also be a single color.
+#' @param dot_fill_limits limits for color fill palette
+#' @param label_vals TRUE/FALSE of whether to directly label the dots with their value. if include CIs, value labels are directly on top of dots.
+#' @param label_size size of the value labels (in mm)
+#' @param label_colour colour of value labels
+#' @param label_digits number of digits to include in value labels
+#' @param percent_vals TRUE/FALSE of whether to turn value labels into percents.
+#' @param value_label_offset numeric x-offset for value labels from their dot.
+#' @param sat_threshold if include CIs, numeric break point for when numbers switch from being white text to dark grey. Based on the saturation values of the underlying color.
+#' @param horiz = TRUE/FALSE of whether to plot horizontally or vertically.
+#' @param file_name if not NULL, string containing the file name or path to save the plot to (as either .pdf or .png)
+#' @param width = width (in inches) of exported plot
+#' @param height = height (in inches) of exported plot
+#' @param saveBoth TRUE/FALSE if should save both .png and .pdf. If TRUE, don't include file extension in 'file_name'
+#' @param font_normal string containing font name for boldest text.
+#' @param font_semi string containing font name for medium bold text.
+#' @param font_light string containing font name for lightest text.
+#' @param panel_spacing panel spacing, in lines, between facet panels
+#' @param font_axis_label size (in points) of axis labels
+#' @param font_axis_title size (in points) of axis title
+#' @param font_facet size (in points) of axis facet labels
+#' @param font_legend_title size (in points) of legend title 
+#' @param font_legend_label size (in points) of legend text
+#' @param font_subtitle size (in points) of plot subtitle
+#' @param font_title size (in points) of plot title
+#' @param legend.position where to put legend. Unplotted, by default
+#' @param legend.direction 'horizontal' or 'vertical' placement of legend
+#' @param grey_background TRUE/FALSE of whether to color the area outside the plot
+#' @param background_colour (optional) colour of the background
+#' @param projector if TRUE, make text and axis lines bolder for use with a projector
 #' 
 #' @examples 
 #' # generate random data
@@ -18,10 +82,19 @@
 #' # with confidence intervals, no labels
 #' plot_dot(df, by_var = 'region', value_var = 'avg', plot_ci = TRUE, label_vals = FALSE)
 #' 
+#' # with confidence intervals and labels
+#' plot_dot(df, by_var = 'region', value_var = 'avg', plot_ci = TRUE)
+
+#' # adjusting breakpoint for text value labels on top of dots.
+#' plot_dot(df, by_var = 'region', value_var = 'avg', plot_ci = TRUE, sat_threshold = 0.2)
+#' 
 #' # as lollipops
 #' df2 = data.frame(avg = sample(-100:100, 10)/100, region = letters[1:10], ci = sample(1:100, 20)/1000) %>% mutate(lb = avg - ci, ub = avg + ci)
 #' library(RColorBrewer)
 #' plot_dot(df2, by_var = 'region', value_var = 'avg', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
+#' 
+#' # change the lollipop reference point to 0.25
+#' plot_dot(df2, by_var = 'region', value_var = 'avg', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'), lollipop_ref = '0.25')
 #' 
 #' # percent labels
 #' plot_dot(df2, by_var = 'region', value_var = 'avg', percent_vals = TRUE, lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
@@ -69,6 +142,7 @@ plot_dot = function(df,
                     ref_colour = grey75K,
                     
                     lollipop = FALSE,
+                    lollipop_ref = '0',
                     lollipop_stroke = 0.25,
                     lollipop_colour = grey75K,
                     
@@ -126,6 +200,8 @@ plot_dot = function(df,
     }
   }
   
+  
+  
   # if(incl_x_axis == TRUE & is.null(x_limits)) {
   #   x_limits = range(df[[value_var]])
   # }
@@ -159,6 +235,10 @@ plot_dot = function(df,
   if(is.logical(ref_line) & ref_line == FALSE){
     p = ggplot()
   } else {
+    if(ref_line == TRUE) {
+      warning('Averaging all the values within df. If each value contains a different sample size, specify a numeric "ref_line')
+      ref_line = mean(df[[value_var]])
+    }
     p = ggplot() + 
       geom_vline(xintercept = ref_line,
                  size = ref_stroke,
@@ -181,7 +261,7 @@ plot_dot = function(df,
   # -- add in lollipop lines to 0, if TRUE --
   if(lollipop == TRUE) {
     p = p +
-      geom_segment(aes_string(x = value_var, xend = '0', y = y_var, yend = y_var),
+      geom_segment(aes_string(x = value_var, xend = lollipop_ref, y = y_var, yend = y_var),
                    colour = lollipop_colour, size = lollipop_stroke, 
                    data = df)
   }
@@ -278,7 +358,8 @@ plot_dot = function(df,
                        y = ref_label_y, yend = ref_label_y + 0.1),
                    colour = ref_colour,
                    size = ref_stroke / 2,
-                   arrow = ref_arrow)
+                   arrow = ref_arrow, 
+                   data = data.frame()) # empty data frame, since manually coded
     }
     
     if(label_ref_val == TRUE & percent_vals == TRUE) {

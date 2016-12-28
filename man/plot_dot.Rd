@@ -12,9 +12,9 @@ plot_dot(df, by_var = "region", value_var = "avg", incl_x_axis = TRUE,
   nudge_ref_label = 0.05 * diff(range(abs(df[[value_var]]))),
   ref_label_y = 1, ref_arrow = arrow(length = unit(0.007, "npc")),
   ref_stroke = 0.5, ref_colour = grey75K, lollipop = FALSE,
-  lollipop_stroke = 0.25, lollipop_colour = grey75K, facet_var = NULL,
-  ncol = NULL, nrow = NULL, scales = "fixed", dot_size = 6,
-  dot_shape = 21, dot_fill_cont = brewer.pal(9, "YlGnBu"),
+  lollipop_ref = "0", lollipop_stroke = 0.25, lollipop_colour = grey75K,
+  facet_var = NULL, ncol = NULL, nrow = NULL, scales = "fixed",
+  dot_size = 6, dot_shape = 21, dot_fill_cont = brewer.pal(9, "YlGnBu"),
   dot_fill_limits = c(min(df[[value_var]]), max(df[[value_var]])),
   label_vals = TRUE, label_size = 3, label_colour = grey75K,
   label_digits = 1, percent_vals = FALSE, value_label_offset = 0.05 *
@@ -29,8 +29,135 @@ plot_dot(df, by_var = "region", value_var = "avg", incl_x_axis = TRUE,
   legend.direction = "horizontal", grey_background = FALSE,
   background_colour = grey10K, projector = FALSE)
 }
+\arguments{
+\item{df}{data frame containing all the data.}
+
+\item{by_var}{string containing the variable to put along the y-axis.}
+
+\item{value_var}{string containing the variable to plot on the x-axis (and to use for the color values)}
+
+\item{incl_x_axis}{TRUE/FALSE of whether to include x-axis lables}
+
+\item{x_label}{(optional) string containing the label for the x-axis}
+
+\item{x_limits}{tuple specifying x-axis limits}
+
+\item{x_breaks}{list containing break point values for the x-axis.}
+
+\item{sort_asc}{TRUE/FALSE of whether to sort the values in ascending or descending order}
+
+\item{sort_by}{string containing column name within df to sort the values by}
+
+\item{plot_ci}{TRUE/FALSE of whether to plot segments underneath the dots containing the confidence interval limits}
+
+\item{lb_var}{string name within df containing the lower limit of confidence interval}
+
+\item{ub_var}{string name within df containing the upper limit of confidence interval}
+
+\item{ci_colour}{color for confidence intervals}
+
+\item{ci_alpha}{alpha (opacity) for confidence intervals}
+
+\item{ci_size}{thickness of confidence interval segment (in points)}
+
+\item{ref_line}{TRUE/FALSE or number. If false, no reference line will be included.  If true, sample average will be calculated. Be careful: if there are a different number of observations in each observation, your average will be off. If a number, will include a reference line at that location.}
+
+\item{ref_text}{what to label the reference line with}
+
+\item{label_ref_val}{TRUE/FALSE. Whether to label the reference line with its value.}
+
+\item{nudge_ref_label}{value to offset the reference line label from the line}
+
+\item{ref_label_y}{reference label y-position}
+
+\item{ref_arrow}{size of arrow to connect the reference label to the line. Specified by arrow(...)}
+
+\item{ref_stroke}{stroke size of the reference line}
+
+\item{ref_colour}{colour of reference line}
+
+\item{lollipop}{TRUE/FALSE of whether to plot as a lollipop plot (dots connected to 'lollipop_ref' by a line)}
+
+\item{lollipop_ref}{string of a numeric value to connect the dots to in lollipop plot; '0' by default}
+
+\item{lollipop_stroke}{lollipop segment stroke size}
+
+\item{lollipop_colour}{lollipop colour}
+
+\item{facet_var}{string with variable name in df to facet by.  NULL (no facetting) by default}
+
+\item{ncol}{number of columns in facetting}
+
+\item{nrow}{number of rows in facetting}
+
+\item{scales}{scales wtihin facetting. One of 'fixed', 'free', 'free_y', 'free_x'}
+
+\item{dot_size}{size of dots (in mm)}
+
+\item{dot_shape}{shape of dots (normal ggplot2 values for shapes)}
+
+\item{dot_fill_cont}{colour palette for fill of dots. Can also be a single color.}
+
+\item{dot_fill_limits}{limits for color fill palette}
+
+\item{label_vals}{TRUE/FALSE of whether to directly label the dots with their value. if include CIs, value labels are directly on top of dots.}
+
+\item{label_size}{size of the value labels (in mm)}
+
+\item{label_colour}{colour of value labels}
+
+\item{label_digits}{number of digits to include in value labels}
+
+\item{percent_vals}{TRUE/FALSE of whether to turn value labels into percents.}
+
+\item{value_label_offset}{numeric x-offset for value labels from their dot.}
+
+\item{sat_threshold}{if include CIs, numeric break point for when numbers switch from being white text to dark grey. Based on the saturation values of the underlying color.}
+
+\item{horiz}{= TRUE/FALSE of whether to plot horizontally or vertically.}
+
+\item{file_name}{if not NULL, string containing the file name or path to save the plot to (as either .pdf or .png)}
+
+\item{width}{= width (in inches) of exported plot}
+
+\item{height}{= height (in inches) of exported plot}
+
+\item{saveBoth}{TRUE/FALSE if should save both .png and .pdf. If TRUE, don't include file extension in 'file_name'}
+
+\item{font_normal}{string containing font name for boldest text.}
+
+\item{font_semi}{string containing font name for medium bold text.}
+
+\item{font_light}{string containing font name for lightest text.}
+
+\item{panel_spacing}{panel spacing, in lines, between facet panels}
+
+\item{font_axis_label}{size (in points) of axis labels}
+
+\item{font_axis_title}{size (in points) of axis title}
+
+\item{font_facet}{size (in points) of axis facet labels}
+
+\item{font_legend_title}{size (in points) of legend title}
+
+\item{font_legend_label}{size (in points) of legend text}
+
+\item{font_subtitle}{size (in points) of plot subtitle}
+
+\item{font_title}{size (in points) of plot title}
+
+\item{legend.position}{where to put legend. Unplotted, by default}
+
+\item{legend.direction}{'horizontal' or 'vertical' placement of legend}
+
+\item{grey_background}{TRUE/FALSE of whether to color the area outside the plot}
+
+\item{background_colour}{(optional) colour of the background}
+
+\item{projector}{if TRUE, make text and axis lines bolder for use with a projector}
+}
 \description{
-Creates a dot plot for a single grouping variable.
+Creates a dot plot for a single grouping variable. Can make a simple dot plot or a lollipop plot
 }
 \examples{
 # generate random data
@@ -46,10 +173,18 @@ plot_dot(df, by_var = 'region', value_var = 'avg', sort_by = 'region')
 # with confidence intervals, no labels
 plot_dot(df, by_var = 'region', value_var = 'avg', plot_ci = TRUE, label_vals = FALSE)
 
+# with confidence intervals and labels
+plot_dot(df, by_var = 'region', value_var = 'avg', plot_ci = TRUE)
+# adjusting breakpoint for text value labels on top of dots.
+plot_dot(df, by_var = 'region', value_var = 'avg', plot_ci = TRUE, sat_threshold = 0.2)
+
 # as lollipops
 df2 = data.frame(avg = sample(-100:100, 10)/100, region = letters[1:10], ci = sample(1:100, 20)/1000) \%>\% mutate(lb = avg - ci, ub = avg + ci)
 library(RColorBrewer)
 plot_dot(df2, by_var = 'region', value_var = 'avg', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
+
+# change the lollipop reference point to 0.25
+plot_dot(df2, by_var = 'region', value_var = 'avg', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'), lollipop_ref = '0.25')
 
 # percent labels
 plot_dot(df2, by_var = 'region', value_var = 'avg', percent_vals = TRUE, lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
