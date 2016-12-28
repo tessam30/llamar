@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 
-_site/
+\_site/
 
 TODO.md
 
@@ -23,3 +23,5 @@ _site/TODO.md
 _site/themes/theme_ylab/index.html
 
 _site/themes/theme_basic/index.html
+
+_site/index.html
