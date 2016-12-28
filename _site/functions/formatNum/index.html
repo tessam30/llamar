@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- title -->
-  <title>plot_dot (lollipop)</title>
+  <title>formatNum</title>
   <meta name="description" content="reproducible R code for customized visualizations">
 
   <!-- CSS styling -->
@@ -19,7 +19,7 @@
   <!-- |Raleway:100,200,300,400,500,600,700,800,900|Source+Sans+Pro:200,300,400,600,700 -->
   <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
 
-  <link rel="canonical" href="http://lauradhughes.com/visualization/plot_lollipop/">
+  <link rel="canonical" href="http://lauradhughes.com/functions/formatNum/">
   <link rel="alternate" type="application/rss+xml" title="llamar" href="http://lauradhughes.com/feed.xml" />
 </head>
 
@@ -64,17 +64,17 @@
         <div class="post">
 
   <header class="post-header">
-    <h2 class="post-title">plot_dot (lollipop)</h2>
+    <h2 class="post-title">formatNum</h2>
 
     <!-- co-authors -->
     
 
     
-    <div class="post-date">updated 2016-11-28</div>
+    <div class="post-date">updated 2016-12-18</div>
     
 
     
-    <div class="post-descrip">create a dot plot or lollipop plot</div>
+    <div class="post-descrip">Prettifies numbers, especially for plotting</div>
     
 
   </header>
@@ -85,89 +85,15 @@
 
 <!-- images -->
     
-    <div class="post-descrip">Example output</div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="post-img">
-      
-      <a href="/img/plot_dot2.png"
-      onclick="trackOutboundLink('/img/plot_dot2.png'">
-      
-      <img src="/img/plot_dot2.png" alt="image" />
-    </a></div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
 <!-- content -->
     <div class="post-content">
-      
+      <ul>
+  <li><code>round_mean</code> calculates mean and rounds to a number of digits. Returns a double.</li>
+  <li><code>round_std</code> calculates standard deviation and rounds to a number of digits. Returns a double.</li>
+  <li><code>round_exact</code> rounds value to a number of digits, preserving trailing zeros. Returns a string.</li>
+  <li><code>percent</code> converts a ratio to a percentage with a number of digits and a percent sign, e.g. 0.125 –&gt; “12.5%”</li>
+</ul>
 
     </div>
 

@@ -2,4 +2,8 @@
 .Rhistory
 .RData
 
-_site/
+_site/visualization/
+
+_site/visualization/plot_lollipop/index.html
+
+_site/visualization/plot_dot/index.html
