@@ -4,12 +4,20 @@
 \alias{convert01}
 \title{Recoding and cleaning of survey data}
 \usage{
-convert01(varName)
+convert01(df, varName, newVar)
 }
 \arguments{
 \item{varName}{variable to convert 1's and 2's to 1's and 0's}
+
+\item{newVar}{variable name of new vari}
 }
 \description{
 Function to convert survey data where 2 is no and 1 is yes.
+}
+\examples{
+df = data.frame(x = c(2, 1, 9, NA), y = sample(100, 4))
+
+df \%>\% convert01(varName = 'x', newVar = 'x2')
+
 }
 
