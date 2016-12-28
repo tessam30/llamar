@@ -36,7 +36,7 @@ layout: default
     Full documentation is available within the package; type <code>?llamar::plot_coef</code> at the console.</span>
 
 
-    <!-- All plots -->
+    <!-- Visualization -->
     <div class = "post-group">
       <h2 class="page-heading">Visualization Functions</h2>
 
@@ -81,64 +81,69 @@ layout: default
             </div>
 
 
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-                          <br>
-                          <br>
-                          <br>
-                          <br>
-                          <br>
-                          <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                                      <br>
-                                                      <br>
-                                                      <br>
-                                                      <br>
-                                                      <br>
-                                                      <br>
-                                                      <br>
-                                                      <br>
-                                                      <br>
-                                                      <br>
-                                                      <br>
-                                                                    <br>
-                                                                    <br>
-                                                                    <br>
-                                                                    <br>
-                                                                    <br>
-                                                                    <br>
-                                                                    
-            <!-- All functions -->
+            <!-- Mapping -->
             <div class = "post-group">
+              <h2 class="page-heading">Mapping Functions</h2>
 
-              <h2 class="page-heading">Analysis / Helper Functions</h2>
+              <ul class="post-list">
+                {% for post in site.maps %}
+                <li class="gallery">
 
-              <ul class="post-list-vert">
+                  <!-- image -->
+                  <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
+                    <img class="post-icon" src="{{ post.icon  | prepend: site.baseurl }}"></img> </a>
+                    <!-- title/link -->
+                    <span h2>
+                      <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                      : {{ post.summary }} </h2>
 
-                {% for post in site.functions %}
-                <li class="list">
+                    </li>
+                    
+                    {% endfor %}
+                  </ul>
+                </div>
 
-                  <!-- title/link -->
-                  <span h2>
-                    <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-                    : {{ post.summary }} </h2>
-                  </li>
+                <!-- Mapping helper functions -->
+                <div class = "post-group">
 
-                  {% endfor %}
-                </ul>
-              </div>
+                  <h2 class="page-heading">Mapping Helper Functions</h2>
 
-            </div>
+                  <ul class="post-list-vert">
 
-            <!-- RSS feed
-            <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>-->
+                    {% for post in site.map-func %}
+                    <li class="list">
+
+                      <!-- title/link -->
+                      <span h2>
+                        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                        : {{ post.summary }} </h2>
+                      </li>
+
+                      {% endfor %}
+                    </ul>
+                  </div>
+
+                  <!-- All functions -->
+                  <div class = "post-group">
+
+                    <h2 class="page-heading">Analysis / Helper Functions</h2>
+
+                    <ul class="post-list-vert">
+
+                      {% for post in site.functions %}
+                      <li class="list">
+
+                        <!-- title/link -->
+                        <span h2>
+                          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                          : {{ post.summary }} </h2>
+                        </li>
+
+                        {% endfor %}
+                      </ul>
+                    </div>
+
+                  </div>
+
+                  <!-- RSS feed
+                  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>-->
