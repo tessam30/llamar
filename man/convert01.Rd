@@ -13,9 +13,9 @@ convert01(df, varName, newVar, trueVal = "1", falseVal = "2")
 
 \item{newVar}{variable name of new variable}
 
-\item{trueVal}{value to be coded as 1}
+\item{trueVal}{value(s) to be coded as 1}
 
-\item{falseVal}{value to be coded as 0}
+\item{falseVal}{value(s) to be coded as 0}
 }
 \description{
 Function to convert survey data where 2 is no and 1 is yes.
@@ -26,7 +26,8 @@ df = data.frame(x = c(2, 1, 9, NA), y = sample(100, 4))
 df \%>\% convert01(varName = 'x', newVar = 'x2')
 
 # Change what's TRUE and FALSE
-df \%>\% convert01(varName = 'x', newVar = 'x2', trueVal = 9, falseVal = c(0, 1))
+df \%>\% convert01(varName = 'x', newVar = 'x2', trueVal = 9, falseVal = '0:2')
+df \%>\% convert01(varName = 'x', newVar = 'x2', trueVal = 'c(2,9)', falseVal = '1')
 
 }
 
