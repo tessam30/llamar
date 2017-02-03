@@ -53,8 +53,12 @@ map_colour_text = function(df,
   # Adjust to between 0 and 1
   df = df %>% 
     mutate_(.dots = setNames(paste0('(', bckgrnd_column, '-', limits[1],')/(',limits[2], '-', limits[1], ')'), 'bckgrnd')) %>% 
-    mutate(bckgrnd = ifelse(bckgrnd < 0, 0,
-                            ifelse(bckgrnd > 1, 1, bckgrnd)))
+    mutate(bckgrnd = ifelse(is.na(bckgrnd), 0, 
+                            ifelse(bckgrnd < 0, 0,
+                                   ifelse(bckgrnd > 1, 1, bckgrnd))))
+  
+  # Check if any values are NA; replace w/ 0
+  
   
   mapped_colours = ramp(df$bckgrnd)
   
