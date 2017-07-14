@@ -120,6 +120,51 @@ theme_blank <- function(legend.position = 'none',
 }
 
 
+#' @describeIn  themes similar to blank theme, but with facet titles.
+#' @export
+theme_facet <- function(legend.position = 'none',
+                        legend.direction = 'horizontal',
+                        font_normal = 'Lato',
+                        font_semi = 'Lato',
+                        font_light = 'Lato Light',
+                        font_facet = 'Lato Light',
+                        facet_size = 14,
+                        font_legend_title = 12, 
+                        font_legend_label = font_legend_title * 0.8,
+                        projector = FALSE,
+                        background_colour = NA
+) {
+  
+  # -- Set the aesthetics (common to all the themes) --
+  aesthetics = set_aesthetics(font_normal = font_normal, font_semi = font_semi, font_light = font_light,
+                              projector = projector)
+  
+  # -- Unpack aesthetics --
+  list2env(aesthetics, environment())
+  
+  # -- theme --
+  theme(title = element_blank(), 
+        
+        axis.title = element_blank(), 
+        axis.text = element_blank(), 
+        axis.ticks = element_blank(), 
+        axis.ticks.length = unit(0, units = "points"), 
+        
+        strip.text = element_text(family = font_facet, size = facet_size, colour = subtitle_colour, hjust = 0.025), 
+        strip.background = element_blank(),
+        
+        panel.border = element_blank(), 
+        panel.grid = element_blank(), 
+        panel.background = element_blank(), 
+        plot.background = element_rect(fill = background_colour, colour = NA, size = NA, linetype = 1), 
+        
+        
+        legend.position = legend.position,
+        legend.title = element_text(size = font_legend_title, colour = text_colour, family = font_semi, angle = 0),
+        legend.text = element_text(size = font_legend_label, colour = text_colour, family = font_semi, angle = 0),
+        legend.direction = legend.direction)
+}
+
 
 
 #' @describeIn  themes Theme with thin grey border around edge
