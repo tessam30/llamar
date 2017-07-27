@@ -30,4 +30,3 @@ df \%>\% convert01(varName = 'x', newVar = 'x2', trueVal = 9, falseVal = '0:2')
 df \%>\% convert01(varName = 'x', newVar = 'x2', trueVal = 'c(2,9)', falseVal = '1')
 
 }
-

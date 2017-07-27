@@ -7,7 +7,6 @@
 #' @param newVar variable name of new variable
 #' @param trueVal value(s) to be coded as 1
 #' @param falseVal value(s) to be coded as 0
-#' @export
 #' 
 #' @examples
 #' df = data.frame(x = c(2, 1, 9, NA), y = sample(100, 4))

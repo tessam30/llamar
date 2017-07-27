@@ -24,4 +24,3 @@ From Winston Chang: \link{http://www.cookbook-r.com/Graphs/Multiple_graphs_on_on
 \examples{
 ggplot(mtcars, aes(x = mpg, y = wt, colour = cyl)) + geom_point() + theme_xAxis()
 }
-

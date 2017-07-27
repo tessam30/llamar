@@ -21,4 +21,3 @@ plot_n(df, by_var, n_var = "N", sort_by = "avg", sort_asc = FALSE,
 \description{
 Plots the sample size across a given variable.
 }
-

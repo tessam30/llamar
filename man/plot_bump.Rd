@@ -32,6 +32,4 @@ plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', tuf
 plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', facet_var = 'region', sort_desc = FALSE, sort_by = 'first')
 plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', facet_var = 'region', sort_desc = FALSE, sort_by = 'last')
 plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', facet_var = 'region', sort_desc = FALSE, sort_by = 'diff')
-
 }
-

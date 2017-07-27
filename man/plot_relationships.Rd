@@ -21,4 +21,3 @@ model1 <- lm(price ~ carat + cut*color, data=diamonds)
 plot_relationships(model1)
 
 }
-

@@ -14,15 +14,11 @@
 #' @param apiKey: API Key to include, to be able to obtain 5000 records instead of 1000.
 #' @param numResults: number of records to include
 #' 
-#' @import dplyr RJSONIO
+# @import dplyr RJSONIO
 #' 
 #' @examples
 #' rw_stunting = loadDHS(breakdown = 'national', indicators = 'CN_NUTS_C_HA2', countries = 'RW')
 #' @author Laura Hughes
-#' 
-#' 
-#' @export
-#' 
 
 loadDHS = function(breakdown = "national", 
                    indicators, 

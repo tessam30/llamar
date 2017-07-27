@@ -31,4 +31,3 @@ region_name = c('Africa', 'Asia', 'Australia', 'Europe', 'Americas'),
 logic = c(rep('==', 4), '>=')) # If >= 5, assign to Americas.
 llamar::apply_code(df, dict2, 'region_code', 'name')
 }
-

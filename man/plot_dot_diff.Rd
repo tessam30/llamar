@@ -40,6 +40,4 @@ plot_dot_diff(df, group_var = 'year', region_var = 'region', value_var = 'value'
 df2 = data.frame(group = c(rep('group1', 6), rep('group2', 6)), value = sample(1:100, 12), region = rep(letters[1:6], 2), facet = rep(c('group1', 'group2'), 6))
 
 plot_dot_diff(df2, group_var = 'group', region_var = 'region', value_var = 'value')
- 
 }
-

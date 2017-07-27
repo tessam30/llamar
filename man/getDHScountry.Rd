@@ -9,4 +9,3 @@ getDHScountry(country_list, return_table = FALSE)
 \description{
 Can take either a single country or multiple ones; also can return entire table or just the code
 }
-

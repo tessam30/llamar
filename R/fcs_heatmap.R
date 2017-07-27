@@ -5,10 +5,9 @@
 #' individual households in the region; (3) a 1 x n heatmap of the average FCS score by region;
 #' and (4) individual mini-maps highlighting the region for context.
 #' 
-#' @import ggplot2 extrafont survey RColorBrewer
-#' @importFrom gridExtra arrangeGrob
+# @import ggplot2 extrafont survey RColorBrewer
+# @importFrom gridExtra arrangeGrob
 #' 
-#' @export
 
 #' @param df data frame containing the raw, household-level food consumption data. Assumes the individual food group consumption data will be located in separate columns (e.g. legumes, vegetables, etc.)
 #' @param region_var string containing the name of the region variable within df

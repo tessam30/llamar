@@ -27,4 +27,3 @@ scaled_mtcars = stdize4regr(mtcars, center = FALSE)
 adj_mtcars = stdize4regr(mtcars, center = FALSE, scale = FALSE)
 
 }
-

@@ -7,8 +7,6 @@
 # check good packrat
 # images --> website
 
-#' @export
-
 plot_change = function(df,
                        value_var, # value to average
                        group_var = 'year',

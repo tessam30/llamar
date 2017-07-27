@@ -2,7 +2,7 @@
 #' 
 #' @description Calculates point estimates and errors using the package `survey` based on sampling weights from a survey design
 #' 
-#' @import dplyr survey
+# @import dplyr survey
 #' 
 #' @param df main data frame containing the raw data
 #' @param var string containing the variable name you want to average
@@ -29,7 +29,6 @@
 #' # specifying the sampling frame as a design object
 #' calcPtEst(apiclus1, var = 'api99', by_var = 'stype', design = dclus1)
 #' 
-#' @export
 
 
 # -- Wrapper to survey::svyby --

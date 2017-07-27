@@ -2,7 +2,6 @@
 #'
 #' Converts values of a data frame to encoded values using a dictionary.
 #'
-#' @export
 #' @param df data frame to change
 #' @param dict Assumes that the dictionary will be a 2-column data frame with key in first column and value in the second. Third column is an optional column explaining the relationship.  Should be some sort of logical operator, e.g. '==', '<', '<=', ...
 #' @param oldVar name of the variable to change

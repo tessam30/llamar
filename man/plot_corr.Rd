@@ -19,4 +19,3 @@ Plots coefficients from a model, along with standard errors.  Coefficients that 
 \examples{
 plot_corr(mtcars)
 }
-

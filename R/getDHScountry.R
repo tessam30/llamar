@@ -1,8 +1,8 @@
 #' Create a lookup table for DHS country and indicator codes, and find the country/indicator code based on the list
 #' 
 #' Can take either a single country or multiple ones; also can return entire table or just the code
-#' @import dplyr data.table
-#' @export
+# @import dplyr data.table
+
 getDHScountry = function(country_list, return_table = FALSE){
   
   # function to pull the country name
@@ -34,7 +34,7 @@ getDHScountry = function(country_list, return_table = FALSE){
   }
 }
 
-#' @import dplyr rvest
+# @import dplyr rvest
 importDHScountries = function(save_file = FALSE,
                               file_name = '~/GitHub/llamar/data/DHScountries.rda') {
   dhs_country = read_html('http://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP_10136')
@@ -68,7 +68,7 @@ importDHScountries = function(save_file = FALSE,
   }
   
 }
-#' @import dplyr XML
+# @import dplyr XML
 importDHSindicators = function(save_file = FALSE,
                               file_name = '~/GitHub/llamar/data/DHSindicators.rda'){
   
@@ -93,8 +93,8 @@ importDHSindicators = function(save_file = FALSE,
   }
 }
 
-#' @import dplyr data.table
-#' @export
+# @import dplyr data.table
+# @export
 getDHSindicator = function(indicator, return_table = FALSE){
   filtered_indic = DHSindic %>% filter(Label %like% indicator)
   

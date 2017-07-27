@@ -23,9 +23,9 @@ Checks if a given font is installed in the system.
 
 \item \code{replace_font}: Replace font if it isn't found in the system
 }}
+
 \examples{
 check_font('Arial')
 check_font('ARIAL')
 replace_font('ARIAL') # Returns 'sans'
 }
-

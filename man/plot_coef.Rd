@@ -58,6 +58,4 @@ model2 <- lm(price ~ carat + color, data=diamonds)
 plot_coef(model2)
 # Errors clustered by cut
 plot_coef(model2, cluster_col = diamonds$cut)
-
 }
-

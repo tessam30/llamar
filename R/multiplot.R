@@ -9,7 +9,6 @@
 #' From Winston Chang: \link{http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/}
 #' @param cols Number of columns in layout
 #' @param layout A matrix specifying the layout. If present, 'cols' is ignored.
-#' @export
 #' @examples
 #' ggplot(mtcars, aes(x = mpg, y = wt, colour = cyl)) + geom_point() + theme_xAxis()
 

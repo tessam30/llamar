@@ -2,10 +2,10 @@
 % Please edit documentation in R/formatNum.R
 \name{formatNum}
 \alias{formatNum}
-\alias{percent}
-\alias{round_exact}
 \alias{round_mean}
 \alias{round_std}
+\alias{percent}
+\alias{round_exact}
 \title{Simple reusable functions to format numbers}
 \usage{
 round_mean(x, ndigits = 2)
@@ -34,10 +34,10 @@ Simple reusable functions to format numbers
 
 \item \code{round_exact}: Function to round a number w/ an exact number of digits. Returns a string.
 }}
+
 \examples{
 round_mean(mtcars$mpg)
 round_exact(2, ndigits = 3)
 round_std(mtcars$mpg)
 percent(0.157389)
 }
-

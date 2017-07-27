@@ -9,4 +9,3 @@ copy4facet(df2copy, by_var)
 \description{
 copy for facetting
 }
-

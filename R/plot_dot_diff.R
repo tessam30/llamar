@@ -17,8 +17,6 @@
 #' 
 #' plot_dot_diff(df2, group_var = 'group', region_var = 'region', value_var = 'value')
 
-#'  
-#' @export
 plot_dot_diff = function(df,
                         group_var = 'year',
                         region_var = 'region',

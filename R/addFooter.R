@@ -1,10 +1,9 @@
-#' @importFrom png readPNG
-#' @importFrom grid rasterGrob
-#' @importFrom lubridate month day today
-#' @importFrom stringr str_wrap
+# @importFrom png readPNG
+# @importFrom grid rasterGrob
+# @importFrom lubridate month day today
+# @importFrom stringr str_wrap
 #' 
 #' 
-#' @export
 
 
 add_footer = function(source,

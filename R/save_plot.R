@@ -2,8 +2,8 @@
 #' 
 #' Wrapper to ggsave to auto-save the annoying fiddly arguments I always forget. Works only w/ ggplot2 objects.
 #' 
-#' @import ggplot2 extrafont
-#' @importFrom data.table %like%
+# @import ggplot2 extrafont
+# @importFrom data.table %like%
 #' 
 #' @param filename string containing file name
 #' @param plot which plot to save; by default, the last one created
@@ -22,7 +22,6 @@
 #' save_plot('last_plot.pdf', width = 5, height = 5)
 #' save_plot('plot_p.pdf', plot = p, width = 5, height = 5)
 #' 
-#' @export
 
 
 save_plot <- function(filename,

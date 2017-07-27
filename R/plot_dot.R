@@ -2,7 +2,7 @@
 #' 
 #' Creates a dot plot for a single grouping variable. Can make a simple dot plot or a lollipop plot
 #' 
-#' @import ggplot2 forcats RColorBrewer
+# @import ggplot2 forcats RColorBrewer
 #' 
 #' @param df data frame containing all the data.
 #' @param by_var string containing the variable to put along the y-axis.
@@ -110,8 +110,6 @@
 #' plot_dot(df3, by_var = 'region', value_var = 'avg', facet_var = 'group', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
 #'
 #'
-#' 
-#' @export
 
 plot_dot = function(df,
                     by_var = 'region',

@@ -1,4 +1,3 @@
-#' @export
 compare_models = function(all_models,
                           cluster_col = NA,
                           level = 0.95,
@@ -92,7 +91,7 @@ get_coefs = function(models, model_num,
 }
 
 
-#' @export
+# @export
 plot_comparison = function(df,
                            level = 0.95,
                            negative_ontop = TRUE,

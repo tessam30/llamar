@@ -26,7 +26,6 @@
 #' ## When using reverse scale for color (dark not on low values), mapping_range should go from the midpoint to the endpoint
 #' ggplot(df, aes(x = x, y = y, fill = y)) + geom_point(size = 10, shape = 21) + geom_text(aes(label = y, colour = y)) + scale_colour_text(df$y, darkOnLowVals = FALSE, mapping_range = c(40,100)) + scale_fill_gradientn(colours = rev(RColorBrewer::brewer.pal(9, 'YlGnBu')))
 #' 
-#' @export
 
 scale_colour_text = function(data_col,
                              light_colour = '#f1f2f2',
@@ -74,7 +73,7 @@ scale_colour_text = function(data_col,
   }
 }
 
-#' @export
+# @export
 scale_color_text = function(data_col,
                             light_color = '#f1f2f2',
                             dark_color = '#414042',

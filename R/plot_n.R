@@ -1,6 +1,5 @@
 #' Plots the sample size across a given variable.
 #'  
-#' @export
 #' 
 #' 
 plot_n = function(df,

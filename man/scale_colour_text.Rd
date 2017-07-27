@@ -42,4 +42,3 @@ ggplot(df, aes(x = x, y = y, fill = y)) + geom_point(size = 10, shape = 21) + ge
 \seealso{
 \code{\link{map_colour_text}}
 }
-

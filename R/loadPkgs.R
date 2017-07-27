@@ -1,7 +1,6 @@
 #' Load commonly used functions
 #' 
 #' This function calls nothing, but preloads commonly used R packages for analysis.
-#' @export
 
 
 loadPkgs <- function(pkgGrp = "all", quiet = FALSE) {

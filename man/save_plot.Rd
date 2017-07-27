@@ -35,4 +35,3 @@ save_plot('last_plot.pdf', width = 5, height = 5)
 save_plot('plot_p.pdf', plot = p, width = 5, height = 5)
 
 }
-

@@ -37,4 +37,3 @@ rw_stunting = loadDHS(breakdown = 'national', indicators = 'CN_NUTS_C_HA2', coun
 \author{
 Laura Hughes
 }
-

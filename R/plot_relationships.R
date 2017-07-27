@@ -3,7 +3,7 @@
 #' Loops through independent variables within a model and 
 #' plots their relationship with the dependent variable
 #' 
-#' @import ggplot2 dplyr forcats RColorBrewer
+# @import ggplot2 dplyr forcats RColorBrewer
 #' 
 #' @param model Fitted model
 
@@ -12,7 +12,6 @@
 #' model1 <- lm(price ~ carat + cut*color, data=diamonds)
 #' plot_relationships(model1)
 #' 
-#' @export
 
 plot_relationships = function(model, 
                               orig_df,

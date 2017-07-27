@@ -2,7 +2,7 @@
 #' 
 #' Plot a bump chart / slope graph to show changes over time
 #' 
-#' @import ggplot2 dplyr forcats RColorBrewer
+# @import ggplot2 dplyr forcats RColorBrewer
 #' 
 #' @param df Data frame
 
@@ -13,10 +13,6 @@
 #' plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', facet_var = 'region', sort_desc = FALSE, sort_by = 'first')
 #' plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', facet_var = 'region', sort_desc = FALSE, sort_by = 'last')
 #' plot_bump(df, time_var = 'year', value_var = 'value', region_var = 'region', facet_var = 'region', sort_desc = FALSE, sort_by = 'diff')
-#' 
-#' @export
-#' 
-#' 
 
 plot_bump = function(df,
                      time_var = 'year',
@@ -258,7 +254,7 @@ plot_bump = function(df,
 }
 
 
-#' @export
+# @export
 plot_slope = function(df,
                       time_var = 'year',
                       value_var = 'value',

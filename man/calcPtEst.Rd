@@ -47,4 +47,3 @@ calcPtEst(apiclus1, var = 'api99', by_var = 'stype', use_weights = FALSE)
 calcPtEst(apiclus1, var = 'api99', by_var = 'stype', design = dclus1)
 
 }
-

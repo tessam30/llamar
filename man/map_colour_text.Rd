@@ -52,4 +52,3 @@ theme_blank()
 \seealso{
 \code{\link{scale_colour_text}}
 }
-

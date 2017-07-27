@@ -4,7 +4,7 @@
 #' light or dark text should be used as the label on top of the fill. For use with 
 #' \code{ggplot2::scale_colour_identity()} downstream.
 #' 
-#' @import dplyr
+# @import dplyr
 #' 
 #' @param df data frame containing the data
 #' @param bckgrnd_column string containing the name of the column to map to fill values
@@ -34,8 +34,6 @@
 #' }
 #' 
 #' @seealso \code{\link{scale_colour_text}}
-#' 
-#' @export
 
 map_colour_text = function(df,
                            bckgrnd_column,

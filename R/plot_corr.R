@@ -2,13 +2,12 @@
 #' 
 #' @description Plots coefficients from a model, along with standard errors.  Coefficients that are statistically significant at agiven level are highlighted in darker text. Inspired by https://github.com/jaredlander/coefplot/blob/master/R/coefplot.r but works w/ ggplot2 version > 2.2
 #' 
-#' @import ggplot2 tidyr RColorBrewer dplyr extrafont forcats
+# @import ggplot2 tidyr RColorBrewer dplyr extrafont forcats
 #' 
 #' @param df data frame containing only numeric values
 #' 
 #' @examples 
 #' plot_corr(mtcars)
-#' @export
 
 plot_corr = function(df,
                      use_arg = 'pairwise.complete.obs',

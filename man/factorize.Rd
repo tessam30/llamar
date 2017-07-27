@@ -23,4 +23,3 @@ with levels and labels. By default, the levels will be sorted by their frequency
 \author{
 Laura Hughes, laura.d.hughes@gmail.com
 }
-

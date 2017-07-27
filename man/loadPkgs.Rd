@@ -9,4 +9,3 @@ loadPkgs(pkgGrp = "all", quiet = FALSE)
 \description{
 This function calls nothing, but preloads commonly used R packages for analysis.
 }
-

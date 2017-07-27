@@ -200,6 +200,4 @@ df3 = data.frame(avg = sample(-100:100, 20), region = rep(letters[1:10], 2), gro
 plot_dot(df3, by_var = 'region', value_var = 'avg', facet_var = 'group', lollipop = TRUE, dot_fill_cont = brewer.pal(10, 'RdYlBu'))
 
 
-
 }
-
