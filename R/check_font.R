@@ -14,6 +14,7 @@
 #' replace_font('ARIAL') # Returns 'sans'
 
 #' @describeIn check_font Returns TRUE/FALSE if font is installed.
+#' @export
 check_font = function(font_name){
   installed_fonts = extrafont::fonts()
   
@@ -26,6 +27,7 @@ check_font = function(font_name){
 
 #' @describeIn check_font Replace font if it isn't found in the system
 #' @param default_font string containg a font to use as a substituted if not found
+#' @export
 replace_font = function(font_name, default_font = 'sans') {
   if(check_font(font_name) == FALSE) {
     # font isn't installed
