@@ -7,8 +7,6 @@ Description: Creates a series of plotting themes for ggplot2 and plotting
     functions used in Livelihoods Analysis & Mapping projects.
 Depends:
     R (>= 3.2.2)
-Imports:
-
 License: MIT
 LazyData: true
 RoxygenNote: 6.0.1
