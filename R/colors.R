@@ -99,6 +99,18 @@ define_colors = function(save_colors = FALSE){
   
   tableau20 = c("#4e79a7", "#a0cbe8","#f28e2b","#ffbe7d", "#59A14F","#8cd17d","#b6992d","#f1ce63", "#499894","#86bcb6","#E15759","#ff9d9a", "#79706e","#BAB0AB","#d37295","#fabfd2", "#b07aa1","#d4a6c8","#9d7660","#d7b5a6")
   
+  # USAID brand colors
+  USAID_blue = '#002F6C'
+  USAID_red = '#BA0C2F'
+  USAID_medblue = '#0067B9'
+  USAID_ltblue = '#A7C6ED'
+  USAID_dkred = '#651D32'
+  
+  ftfBlue = "#4799B5"
+  ftfGreen = "#94A545"
+  ftfOrange = "#D37D28"
+  
+  
   if(save_colors == TRUE){
     
     colors = c('Reds', 'Oranges', 
@@ -142,7 +154,16 @@ define_colors = function(save_colors = FALSE){
                'category10',
                'category20',
                'category20b',
-               'category20c', 'tableau10', 'tableau20')
+               'category20c', 
+               'tableau10', 'tableau20',
+               'USAID_blue',
+               'USAID_red',
+               'USAID_medblue',
+               'USAID_ltblue',
+               'USAID_dkred',
+               'ftfBlue',
+               'ftfGreen',
+               'ftfOrange')
     
     lapply(colors, function(x) save(list = x, file = paste0('data/', x, '.rda')))
   }
