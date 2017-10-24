@@ -9,3 +9,4 @@ _site/R/factorize.R
 
 _site/*.R
 .DS_Store
+data/RdBu.rda
