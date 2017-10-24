@@ -5,14 +5,57 @@
 #' 
 #' @export
 #' @examples 
+#' # Sequential, warm tones
+#' plot_color_palette('Reds')
+#' plot_color_palette('OrRd')
+#' plot_color_palette('Oranges')
+#' plot_color_palette('YlOrRd')
+#' plot_color_palette('YlOrBr')
+#' plot_color_palette('RdPu')
+#' plot_color_palette('PuRd')
+#' plot_color_palette('magma')
+#' plot_color_palette('inferno')
+#' plot_color_palette('magma')
+#' plot_color_palette('plasma')
+#' # Sequential, cool tones
+#' plot_color_palette('Greens')
+#' plot_color_palette('YlGn')
+#' plot_color_palette('YlGnBu')
+#' plot_color_palette('viridis')
+#' plot_color_palette('BuGn')
+#' plot_color_palette('GnBu')
+#' plot_color_palette('PuBuGn')
+#' plot_color_palette('Blues')
+#' plot_color_palette('Purples')
+#' plot_color_palette('BuPu')
+#' plot_color_palette('Greys')
+#' 
+#' # Diverging
+#' plot_color_palette('RdYlGn')
+#' plot_color_palette('RdYlBu')
+#' plot_color_palette('RdBu')
+#' plot_color_palette('RdGy')
+#' plot_color_palette('Spectral')
+#' plot_color_palette('PiYG')
+#' plot_color_palette('PRGn')
+#' plot_color_palette('PuOr')
+#' plot_color_palette('BrBG')
+
+#' # Categorical
 #' plot_color_palette('category10')
 #' plot_color_palette('category20')
 #' plot_color_palette('category20b')
-#' plot_color_palette('Spectral')
-#' plot_color_palette('YlGnBu')
-#' plot_color_palette('magma')
+#' plot_color_palette('category20c')
 #' plot_color_palette('tableau10')
 #' plot_color_palette('tableau20')
+#' plot_color_palette('Paired')
+#' plot_color_palette('Pastel1')
+#' plot_color_palette('Pastel2')
+#' plot_color_palette('Accent')
+#' plot_color_palette('Dark2')
+#' plot_color_palette('Set1')
+#' plot_color_palette('Set2')
+#' plot_color_palette('Set3')
 
 plot_color_palette = function(color_name) {
   
@@ -24,7 +67,7 @@ plot_color_palette = function(color_name) {
   colors = get_colors(color_name)
   
   if(is.null(colors)) {
-    error("Unknown color palette supplied")
+    stop("Unknown color palette supplied")
   } else{
     num_colors = length(colors)
   }
@@ -32,6 +75,7 @@ plot_color_palette = function(color_name) {
   ggplot(data.frame(x = letters[1:num_colors]), aes(x = x, y = 1, fill = x)) + 
     geom_tile() + 
     scale_fill_manual(values = colors, guide = FALSE) + 
+    coord_fixed(ratio  = 0.3) +
     theme_void() + 
     ggtitle(color_name)
 }
@@ -64,7 +108,7 @@ define_colors = function(save_colors = FALSE){
   BrBG    = c("#543005", "#8C510A", "#BF812D", "#DFC27D", "#F6E8C3", "#F5F5F5", "#C7EAE5", "#80CDC1", "#35978F", "#01665E", "#003C30")
   RdYlGn  = c("#A50026", "#D73027", "#F46D43", "#FDAE61", "#FEE08B", "#FFFFBF", "#D9EF8B", "#A6D96A", "#66BD63", "#1A9850", "#006837")
   RdYlBu  = c("#A50026", "#D73027", "#F46D43", "#FDAE61", "#FEE090", "#FFFFBF", "#E0F3F8", "#ABD9E9", "#74ADD1", "#4575B4", "#313695")
-  RdBu    = c("#A50026", "#D73027", "#F46D43", "#FDAE61", "#FEE08B", "#FFFFBF", "#D9EF8B", "#A6D96A", "#66BD63", "#1A9850", "#006837")
+  RdBu    = c("#67001F", "#B2182B", "#D6604D", "#F4A582", "#FDDBC7", "#F7F7F7", "#D1E5F0", "#92C5DE", "#4393C3", "#2166AC", "#053061")
   RdGy    = c("#67001F", "#B2182B", "#D6604D", "#F4A582", "#FDDBC7", "#FFFFFF", "#E0E0E0", "#BABABA", "#878787", "#4D4D4D", "#1A1A1A")
   Spectral = c("#9E0142", "#D53E4F", "#F46D43", "#FDAE61", "#FEE08B", "#FFFFBF", "#E6F598", "#ABDDA4", "#66C2A5", "#3288BD", "#5E4FA2")
   
