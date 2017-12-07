@@ -162,7 +162,7 @@ lipstick2 = c("#fbe6c5", "#f5ba98", "#ee8a82", "#dc7176", "#c8586c", "#9c3f5d", 
 lipstick3 = c("#f6d2a9", "#f5b78e", "#f19c7c", "#ea8171", "#dd686c", "#ca5268", "#b13f64")
 reds1_carto = c("#ecda9a", "#efc47e", "#f3ad6a", "#f7945d", "#f97b57", "#f66356", "#ee4d5a")
 reds2_carto =c("#fde0c5", "#facba6", "#f8b58b", "#f59e72", "#f2855d", "#ef6a4c", "#eb4a40")
-red33_carto = c("#fef6b5", "#ffdd9a", "#ffc285", "#ffa679", "#fa8a76", "#f16d7a", "#e15383")
+reds3_carto = c("#fef6b5", "#ffdd9a", "#ffc285", "#ffa679", "#fa8a76", "#f16d7a", "#e15383")
 
 seagreen = c("#e4f1e1", "#b4d9cc", "#89c0b6", "#63a6a0", "#448c8a", "#287274", "#0d585f")
 seagreen1 = c("#c4e6c3", "#96d2a4", "#6dbc90", "#4da284", "#36877a", "#266b6e", "#1d4f60")
@@ -268,7 +268,7 @@ qual6 = c("#E58606", "#5D69B1", "#52BCA3", "#99C945", "#CC61B0", "#24796C", "#DA
                'qual4', 
                'qual5', 
                'qual6', 
-               'red33_carto', 
+               'reds3_carto', 
                'reds1_carto', 
                'reds2_carto', 
                'seagreen', 
