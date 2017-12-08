@@ -283,6 +283,6 @@ qual6 = c("#E58606", "#5D69B1", "#52BCA3", "#99C945", "#CC61B0", "#24796C", "#DA
                'trq_pnk2', 
                'trq_prp')
     
-    lapply(colors, function(x) save(list = x, file = paste0( x, '.rda')))
+    lapply(colors, function(x) save(list = x, file = paste0('data/', x, '.rda')))
   }
 }
